@@ -48,10 +48,12 @@ type CleanupResponse = {
 
 export function AgentRunPullRequestPanel({
   runId,
+  prUrl,
   initialPullRequest,
   initialError,
 }: {
   runId: string;
+  prUrl?: string | null;
   initialPullRequest: PullRequestLifecycle | null;
   initialError?: string | null;
 }) {
@@ -63,6 +65,7 @@ export function AgentRunPullRequestPanel({
   const canCleanUp =
     pullRequest &&
     (pullRequest.state === "open" || pullRequest.branch.canDelete);
+  const linkedPrUrl = pullRequest?.url ?? prUrl;
 
   async function refreshPullRequest() {
     setPendingAction("refresh");
@@ -142,14 +145,14 @@ export function AgentRunPullRequestPanel({
               className={pendingAction === "refresh" ? "animate-spin" : ""}
             />
           </Button>
-          {pullRequest ? (
+          {linkedPrUrl ? (
             <Button
               type="button"
               size="icon"
               variant="outline"
               nativeButton={false}
               render={
-                <a href={pullRequest.url} target="_blank" rel="noreferrer" />
+                <a href={linkedPrUrl} target="_blank" rel="noreferrer" />
               }
               aria-label="Open pull request"
             >
@@ -167,7 +170,16 @@ export function AgentRunPullRequestPanel({
           </Alert>
         ) : null}
 
-        {!pullRequest ? (
+        {!pullRequest && linkedPrUrl ? (
+          <Alert>
+            <GitPullRequestIcon data-icon="inline-start" />
+            <AlertTitle>Pull request linked</AlertTitle>
+            <AlertDescription>
+              The run has a pull request URL, but lifecycle details are not
+              loaded yet. Refresh to retry GitHub metadata.
+            </AlertDescription>
+          </Alert>
+        ) : !pullRequest ? (
           <Empty className="min-h-44">
             <EmptyHeader>
               <EmptyMedia variant="icon">
