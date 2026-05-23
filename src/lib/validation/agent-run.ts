@@ -56,7 +56,7 @@ export function summarizeTaskPrompt(prompt: string) {
 export function createCursorAgentName(summary: string) {
   const normalized = summary.replace(/\s+/g, " ").trim();
 
-  return truncateWithEllipsis(normalized || "Cloud coding task", cursorAgentNameMaxLength);
+  return truncateWithEllipsis(normalized || "Chloei Code task", cursorAgentNameMaxLength);
 }
 
 function truncateWithEllipsis(value: string, maxLength: number) {

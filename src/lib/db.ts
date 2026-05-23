@@ -10,7 +10,7 @@ const globalForPrisma = globalThis as unknown as {
 const adapter = new PrismaPg({
   connectionString:
     process.env.DATABASE_URL ??
-    "postgresql://postgres:postgres@localhost:5432/chloei_cloud_agent?schema=public",
+    "postgresql://chloei:chloei@localhost:55432/chloei_code?schema=public",
 });
 
 export const prisma =

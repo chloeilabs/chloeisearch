@@ -53,6 +53,6 @@ describe("createCursorAgentName", () => {
   });
 
   it("uses a safe fallback for blank summaries", () => {
-    expect(createCursorAgentName("   ")).toBe("Cloud coding task");
+    expect(createCursorAgentName("   ")).toBe("Chloei Code task");
   });
 });

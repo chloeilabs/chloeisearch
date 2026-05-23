@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { getEnv } from "@/lib/env";
 import { getGitHubAccessToken, fetchGitHubJson } from "@/lib/github/client";
 import { listCursorModels } from "@/lib/cursor/models";
+import { getRunHealthStats } from "@/lib/agent-runs/repository";
 
 export type HealthStatus = "ok" | "degraded" | "error" | "skipped";
 
@@ -67,6 +68,24 @@ export async function getBasicHealth(): Promise<HealthReport> {
           ? "Production sign-in allowlist is configured."
           : "No sign-in allowlist is configured.",
     },
+    {
+      name: "cron_config",
+      status: env.CRON_SECRET ? "ok" : process.env.VERCEL ? "error" : "degraded",
+      message: env.CRON_SECRET
+        ? "CRON_SECRET is configured for background refresh."
+        : "CRON_SECRET is missing; scheduled run refreshes will be rejected.",
+    },
+    {
+      name: "run_limits",
+      status:
+        env.AGENT_RUN_ACTIVE_LIMIT > 0 && env.AGENT_RUN_DAILY_LIMIT > 0
+          ? "ok"
+          : "degraded",
+      message:
+        env.AGENT_RUN_ACTIVE_LIMIT > 0 && env.AGENT_RUN_DAILY_LIMIT > 0
+          ? `Run limits are configured (${env.AGENT_RUN_ACTIVE_LIMIT} active, ${env.AGENT_RUN_DAILY_LIMIT} per 24 hours).`
+          : "One or more run limits are disabled.",
+    },
   ];
 
   return {
@@ -77,6 +96,7 @@ export async function getBasicHealth(): Promise<HealthReport> {
 }
 
 export async function getDeepHealth(userId: string): Promise<HealthReport> {
+  const env = getEnv();
   const checks = await Promise.all([
     measureCheck("database", async () => {
       await prisma.$queryRaw`SELECT 1`;
@@ -107,6 +127,17 @@ export async function getDeepHealth(userId: string): Promise<HealthReport> {
       const url = process.env.VERCEL_URL ?? "unknown";
 
       return `Vercel runtime detected (${env}, ${url}).`;
+    }),
+    measureCheck("run_finalizer", async () => {
+      const stats = await getRunHealthStats(userId, env.STALE_ACTIVE_RUN_MINUTES);
+
+      if (stats.staleActiveRuns > 0) {
+        throw new Error(
+          `${stats.staleActiveRuns} active run(s) have not refreshed in ${env.STALE_ACTIVE_RUN_MINUTES} minutes.`
+        );
+      }
+
+      return `${stats.activeRuns} active run(s); cron checks up to ${env.CRON_REFRESH_BATCH_SIZE} per invocation.`;
     }),
   ]);
 

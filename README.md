@@ -53,6 +53,10 @@ Optional:
 - `ALLOWED_GITHUB_USERS`: comma-separated GitHub usernames allowed to sign in. If empty and `ALLOWED_EMAILS` is also empty, any GitHub OAuth user can sign in.
 - `ALLOWED_EMAILS`: comma-separated email addresses allowed to sign in. If either user or email allowlist is configured, a sign-in must match one of them.
 - `AGENT_RUN_RATE_LIMIT`: create/cancel/retry requests per user per minute. Defaults to `10`.
+- `AGENT_RUN_ACTIVE_LIMIT`: maximum active `creating`/`running` Cursor runs per user. Defaults to `3`; set `0` to disable.
+- `AGENT_RUN_DAILY_LIMIT`: maximum runs created per user in a rolling 24-hour window. Defaults to `25`; set `0` to disable.
+- `CRON_REFRESH_BATCH_SIZE`: maximum active runs refreshed by each scheduled cron invocation. Defaults to `10`.
+- `STALE_ACTIVE_RUN_MINUTES`: minutes before an active run is reported as stale on `/status`. Defaults to `15`.
 - `CRON_SECRET`: bearer token for the Vercel cron endpoint that refreshes active Cursor runs.
 
 Never expose Cursor credentials through `NEXT_PUBLIC_*` variables.
@@ -175,7 +179,18 @@ The SSE route persists Cursor stream events and finalizes with `run.wait()` when
 GET /api/cron/refresh-runs
 ```
 
-every five minutes. The endpoint requires `Authorization: Bearer $CRON_SECRET` and refreshes a bounded batch of active runs so final status is not solely dependent on a connected browser tab. A durable queue/worker is still recommended if run volume grows.
+every five minutes. The endpoint requires `Authorization: Bearer $CRON_SECRET`, refreshes a bounded batch of active runs, and records a safe app event if a background refresh fails. Final status is not solely dependent on a connected browser tab. A durable queue/worker is still recommended if run volume grows.
+
+## Run Safety Controls
+
+Run creation is guarded before any Cursor SDK call by:
+
+- `AGENT_RUN_RATE_LIMIT`: in-memory per-process request rate limit.
+- `AGENT_RUN_ACTIVE_LIMIT`: persistent per-user active run cap.
+- `AGENT_RUN_DAILY_LIMIT`: persistent per-user rolling 24-hour run cap.
+
+The new-run page displays current capacity, and `/api/agent-runs/limits`
+returns the same server-calculated policy for operator tooling.
 
 ## Production Status
 
@@ -203,7 +218,7 @@ metrics to the Vercel project dashboard.
 - Repository URLs are validated, normalized, and restricted by host/org env vars.
 - Per-user ownership checks guard every run, event, action, and artifact endpoint.
 - Production sign-in can be restricted with `ALLOWED_GITHUB_USERS` and/or `ALLOWED_EMAILS`.
-- Create/cancel/retry routes use an in-memory per-process rate limiter for MVP. Use a shared limiter for multi-instance production.
+- Create/cancel/retry routes use an in-memory per-process rate limiter for burst control, plus persistent per-user active and 24-hour run caps for costly Cursor run creation. Use a shared limiter for stricter multi-instance burst control.
 - Raw event JSON is escaped by React and shown only in explicit debug disclosures.
 - The app never accepts arbitrary shell commands as a separate input.
 

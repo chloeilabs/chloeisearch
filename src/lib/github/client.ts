@@ -38,7 +38,7 @@ export async function fetchGitHubJson<T>(
       Accept: "application/vnd.github+json",
       Authorization: `Bearer ${token}`,
       ...(options.body === undefined ? {} : { "Content-Type": "application/json" }),
-      "User-Agent": "chloei-cloud-agent-control-plane",
+      "User-Agent": "chloei-code-control-plane",
       "X-GitHub-Api-Version": githubApiVersion,
     },
     body:

@@ -1,21 +1,21 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: chloei-cloud-agent-postgres
+    container_name: chloei-code-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: chloei
       POSTGRES_PASSWORD: chloei
-      POSTGRES_DB: chloei_cloud_agent
+      POSTGRES_DB: chloei_code
     ports:
       - "55432:5432"
     volumes:
-      - chloei-cloud-agent-postgres:/var/lib/postgresql/data
+      - chloei-code-postgres:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chloei -d chloei_cloud_agent"]
+      test: ["CMD-SHELL", "pg_isready -U chloei -d chloei_code"]
       interval: 5s
       timeout: 3s
       retries: 20
 
 volumes:
-  chloei-cloud-agent-postgres:
+  chloei-code-postgres:

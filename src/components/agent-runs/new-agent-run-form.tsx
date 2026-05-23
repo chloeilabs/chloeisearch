@@ -31,6 +31,7 @@ import {
   mergeRepositoryCatalogs,
   type RepositoryCatalogItem,
 } from "@/lib/repositories/catalog";
+import type { RunCreationLimits } from "@/lib/agent-runs/limit-policy";
 
 type CursorModel = {
   id: string;
@@ -65,7 +66,11 @@ type ApiErrorPayload = {
   error?: string;
 };
 
-export function NewAgentRunForm() {
+export function NewAgentRunForm({
+  runLimits,
+}: {
+  runLimits: RunCreationLimits;
+}) {
   const router = useRouter();
   const [repoUrl, setRepoUrl] = useState("");
   const [startingRef, setStartingRef] = useState("main");
@@ -320,6 +325,8 @@ export function NewAgentRunForm() {
           </FieldSet>
         </div>
 
+        <RunSafetyPanel runLimits={runLimits} />
+
         {catalogError ? (
           <Alert>
             <AlertCircleIcon data-icon="inline-start" />
@@ -336,8 +343,20 @@ export function NewAgentRunForm() {
           </Alert>
         ) : null}
 
+        {!runLimits.canCreateRun ? (
+          <Alert variant="destructive">
+            <AlertCircleIcon data-icon="inline-start" />
+            <AlertTitle>Run creation paused</AlertTitle>
+            <AlertDescription>{runLimits.reasons.join(" ")}</AlertDescription>
+          </Alert>
+        ) : null}
+
         <div className="flex gap-2">
-          <Button type="submit" disabled={isSubmitting} className="flex-1">
+          <Button
+            type="submit"
+            disabled={isSubmitting || !runLimits.canCreateRun}
+            className="flex-1"
+          >
             {isSubmitting ? (
               <Loader2Icon data-icon="inline-start" className="animate-spin" />
             ) : (
@@ -359,6 +378,61 @@ export function NewAgentRunForm() {
       </aside>
     </form>
   );
+}
+
+function RunSafetyPanel({ runLimits }: { runLimits: RunCreationLimits }) {
+  const items = [
+    {
+      label: "Active runs",
+      value: formatLimit(
+        runLimits.activeRuns,
+        runLimits.activeLimit,
+        runLimits.remainingActiveRuns
+      ),
+    },
+    {
+      label: "Runs in 24h",
+      value: formatLimit(
+        runLimits.runsLast24Hours,
+        runLimits.dailyLimit,
+        runLimits.remainingRunsLast24Hours
+      ),
+    },
+    {
+      label: "Per-minute actions",
+      value: `${runLimits.perMinuteLimit.toLocaleString()} / user`,
+    },
+  ];
+
+  return (
+    <div className="rounded-lg border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <h2 className="text-sm font-semibold">Run safety</h2>
+        <span className="text-xs text-muted-foreground">
+          {runLimits.canCreateRun ? "Available" : "Limit reached"}
+        </span>
+      </div>
+      <dl className="grid gap-3">
+        {items.map((item) => (
+          <div
+            key={item.label}
+            className="flex items-center justify-between gap-3 text-sm"
+          >
+            <dt className="text-muted-foreground">{item.label}</dt>
+            <dd className="font-medium tabular-nums">{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+function formatLimit(count: number, limit: number | null, remaining: number | null) {
+  if (limit === null) {
+    return `${count.toLocaleString()} / off`;
+  }
+
+  return `${count.toLocaleString()} / ${limit.toLocaleString()} (${remaining?.toLocaleString() ?? 0} left)`;
 }
 
 export function RepoInput({

@@ -27,6 +27,10 @@ const envSchema = z.object({
     emails.map((email) => email.toLowerCase())
   ),
   AGENT_RUN_RATE_LIMIT: z.coerce.number().int().positive().default(10),
+  AGENT_RUN_ACTIVE_LIMIT: z.coerce.number().int().nonnegative().default(3),
+  AGENT_RUN_DAILY_LIMIT: z.coerce.number().int().nonnegative().default(25),
+  CRON_REFRESH_BATCH_SIZE: z.coerce.number().int().positive().max(50).default(10),
+  STALE_ACTIVE_RUN_MINUTES: z.coerce.number().int().positive().default(15),
   ALLOW_DEV_AUTH_BYPASS: z.string().optional(),
   CRON_SECRET: z.string().min(1).optional(),
 });
