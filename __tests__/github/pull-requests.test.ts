@@ -118,6 +118,14 @@ describe("buildPullRequestBlockers", () => {
         requiredStatusChecks: ["checks"],
         requiredApprovingReviewCount: 0,
       },
+      validation: {
+        status: "not_applicable",
+        summary: "No exact prompt validation rules were detected.",
+        warnings: [],
+        expected: { exactFiles: [], onlyExpectedFiles: false },
+        observed: { files: [] },
+        fingerprint: "validation:not-applicable",
+      },
       mergeState: "blocked",
     });
 
@@ -125,5 +133,64 @@ describe("buildPullRequestBlockers", () => {
       "One or more checks are still running.",
       "Review conversations may need resolution before merge.",
     ]);
+  });
+
+  it("reports prompt validation warnings", () => {
+    const blockers = buildPullRequestBlockers({
+      state: "open",
+      isDraft: false,
+      checks: {
+        total: 1,
+        passed: 1,
+        pending: 0,
+        failed: 0,
+        neutral: 0,
+        items: [],
+      },
+      reviews: {
+        total: 0,
+        approvals: 0,
+        changesRequested: 0,
+        comments: 0,
+        items: [],
+      },
+      reviewComments: { total: 0, items: [] },
+      branchProtection: {
+        available: true,
+        requiredConversationResolution: false,
+        requiredStatusChecks: ["checks"],
+        requiredApprovingReviewCount: 0,
+      },
+      validation: {
+        status: "warning",
+        summary: "1 validation warning found.",
+        warnings: [
+          {
+            code: "exact_content_mismatch",
+            path: "docs/test.md",
+            message: "docs/test.md does not exactly match the prompt.",
+          },
+        ],
+        expected: {
+          exactFiles: [{ path: "docs/test.md", exactContent: "Expected." }],
+          onlyExpectedFiles: true,
+        },
+        observed: {
+          files: [
+            {
+              path: "docs/test.md",
+              status: "added",
+              additions: 1,
+              deletions: 0,
+              changes: 1,
+            },
+          ],
+        },
+        fingerprint: "validation-warning",
+      },
+      mergeState: "clean",
+    });
+
+    expect(blockers).toEqual(["PR validation found issues that need review."]);
   });
 });

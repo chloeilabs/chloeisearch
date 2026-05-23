@@ -9,6 +9,7 @@ import {
   ExternalLinkIcon,
   GitBranchIcon,
   GitPullRequestIcon,
+  ListChecksIcon,
   RefreshCwIcon,
   ShieldCheckIcon,
   Trash2Icon,
@@ -219,6 +220,7 @@ export function AgentRunPullRequestPanel({
         ) : (
           <>
             <PullRequestSummary pullRequest={pullRequest} />
+            <PullRequestValidation pullRequest={pullRequest} />
             <PullRequestBlockers pullRequest={pullRequest} />
             <PullRequestChecks pullRequest={pullRequest} />
             <PullRequestReviews pullRequest={pullRequest} />
@@ -262,6 +264,7 @@ function PullRequestSummary({
             {pullRequest.mergeState ?? "merge state n/a"}
           </Badge>
         ) : null}
+        <ValidationBadge status={pullRequest.validation.status} />
       </div>
       <div>
         <a
@@ -314,6 +317,66 @@ function PullRequestSummary({
         ) : null}
       </div>
     </div>
+  );
+}
+
+function PullRequestValidation({
+  pullRequest,
+}: {
+  pullRequest: PullRequestLifecycle;
+}) {
+  const validation = pullRequest.validation;
+
+  if (validation.status === "not_applicable") {
+    return null;
+  }
+
+  if (validation.status === "passed") {
+    return (
+      <Alert>
+        <ListChecksIcon data-icon="inline-start" />
+        <AlertTitle>Validation passed</AlertTitle>
+        <AlertDescription>{validation.summary}</AlertDescription>
+      </Alert>
+    );
+  }
+
+  return (
+    <Alert variant={validation.status === "warning" ? "destructive" : "default"}>
+      <AlertTriangleIcon data-icon="inline-start" />
+      <AlertTitle>
+        {validation.status === "warning"
+          ? "Validation needs review"
+          : "Validation unavailable"}
+      </AlertTitle>
+      <AlertDescription>
+        <div className="flex flex-col gap-2">
+          <p>{validation.summary}</p>
+          {validation.warnings.length > 0 ? (
+            <ul className="list-disc pl-4">
+              {validation.warnings.map((warning, index) => (
+                <li key={`${warning.code}-${warning.path ?? index}`}>
+                  <span>{warning.message}</span>
+                  {warning.expectedPreview || warning.actualPreview ? (
+                    <span className="mt-1 block font-mono text-xs">
+                      {warning.expectedPreview
+                        ? `Expected: ${warning.expectedPreview}`
+                        : null}
+                      {warning.expectedPreview && warning.actualPreview
+                        ? " · "
+                        : null}
+                      {warning.actualPreview
+                        ? `Actual: ${warning.actualPreview}`
+                        : null}
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </AlertDescription>
+    </Alert>
   );
 }
 
@@ -433,6 +496,28 @@ function PullRequestReviews({
       )}
     </section>
   );
+}
+
+function ValidationBadge({
+  status,
+}: {
+  status: PullRequestLifecycle["validation"]["status"];
+}) {
+  switch (status) {
+    case "passed":
+      return (
+        <Badge variant="secondary">
+          <ListChecksIcon data-icon="inline-start" />
+          Validated
+        </Badge>
+      );
+    case "warning":
+      return <Badge variant="destructive">Needs review</Badge>;
+    case "unavailable":
+      return <Badge variant="outline">Validation unavailable</Badge>;
+    default:
+      return null;
+  }
 }
 
 function Metric({ label, value }: { label: string; value: ReactNode }) {
