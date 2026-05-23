@@ -21,6 +21,7 @@ import {
   createRunEvent,
   createRunRecord,
   getRunForUser,
+  listRunsForBackgroundRefresh,
   replaceRunArtifacts,
   updateRunCursorIdentity,
   updateRunFailure,
@@ -251,4 +252,34 @@ export async function syncRunArtifacts(agentRunId: string, agentId: string) {
   } catch {
     return [];
   }
+}
+
+export async function refreshActiveRunsForCron(limit = 10) {
+  const runs = await listRunsForBackgroundRefresh(limit);
+  const results = [];
+
+  for (const run of runs) {
+    try {
+      const refreshedRun = await refreshAgentRun(run.userId, run.id);
+
+      results.push({
+        id: run.id,
+        status: refreshedRun?.normalizedStatus ?? run.normalizedStatus,
+        ok: true,
+      });
+    } catch (error) {
+      results.push({
+        id: run.id,
+        status: run.normalizedStatus,
+        ok: false,
+        error:
+          error instanceof Error ? error.message : "Unexpected refresh failure.",
+      });
+    }
+  }
+
+  return {
+    checked: runs.length,
+    results,
+  };
 }

@@ -28,6 +28,45 @@ export async function listRunsForUser(
   });
 }
 
+export async function listRunsForBackgroundRefresh(limit = 10) {
+  return prisma.agentRun.findMany({
+    where: {
+      normalizedStatus: { in: ["creating", "running"] },
+      cursorAgentId: { not: null },
+      cursorRunId: { not: null },
+    },
+    orderBy: { updatedAt: "asc" },
+    take: limit,
+  });
+}
+
+export async function getRunHealthStats(userId: string) {
+  const [totalRuns, activeRuns, failedRuns, staleActiveRuns] =
+    await Promise.all([
+      prisma.agentRun.count({ where: { userId } }),
+      prisma.agentRun.count({
+        where: { userId, normalizedStatus: { in: ["creating", "running"] } },
+      }),
+      prisma.agentRun.count({
+        where: { userId, normalizedStatus: "error" },
+      }),
+      prisma.agentRun.count({
+        where: {
+          userId,
+          normalizedStatus: { in: ["creating", "running"] },
+          updatedAt: { lt: new Date(Date.now() - 15 * 60 * 1000) },
+        },
+      }),
+    ]);
+
+  return {
+    totalRuns,
+    activeRuns,
+    failedRuns,
+    staleActiveRuns,
+  };
+}
+
 export async function getRunForUser(userId: string, id: string) {
   return prisma.agentRun.findFirst({
     where: { id, userId },

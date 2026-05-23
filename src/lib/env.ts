@@ -22,8 +22,13 @@ const envSchema = z.object({
     hosts.length > 0 ? hosts : ["github.com"]
   ),
   ALLOWED_GITHUB_ORGS: optionalCsv,
+  ALLOWED_GITHUB_USERS: optionalCsv,
+  ALLOWED_EMAILS: optionalCsv.transform((emails) =>
+    emails.map((email) => email.toLowerCase())
+  ),
   AGENT_RUN_RATE_LIMIT: z.coerce.number().int().positive().default(10),
   ALLOW_DEV_AUTH_BYPASS: z.string().optional(),
+  CRON_SECRET: z.string().min(1).optional(),
 });
 
 export function getEnv() {

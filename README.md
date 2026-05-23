@@ -49,9 +49,26 @@ Optional:
 - `DEFAULT_CURSOR_MODEL`: optional model ID. It is validated against `Cursor.models.list()` before run creation.
 - `ALLOWED_GIT_HOSTS`: comma-separated allowed Git hosts. Defaults to `github.com`.
 - `ALLOWED_GITHUB_ORGS`: comma-separated GitHub owners/orgs allowed for submitted repository URLs.
+- `ALLOWED_GITHUB_USERS`: comma-separated GitHub usernames allowed to sign in. If empty and `ALLOWED_EMAILS` is also empty, any GitHub OAuth user can sign in.
+- `ALLOWED_EMAILS`: comma-separated email addresses allowed to sign in. If either user or email allowlist is configured, a sign-in must match one of them.
 - `AGENT_RUN_RATE_LIMIT`: create/cancel/retry requests per user per minute. Defaults to `10`.
+- `CRON_SECRET`: bearer token for the Vercel cron endpoint that refreshes active Cursor runs.
 
 Never expose Cursor credentials through `NEXT_PUBLIC_*` variables.
+
+For production, configure a dedicated GitHub OAuth app with:
+
+```text
+Homepage URL: https://your-production-domain
+Authorization callback URL: https://your-production-domain/api/auth/callback/github
+```
+
+For local development, use a separate GitHub OAuth app with:
+
+```text
+Homepage URL: http://localhost:3000
+Authorization callback URL: http://localhost:3000/api/auth/callback/github
+```
 
 ## Cursor Integration
 
@@ -122,13 +139,36 @@ Run detail pages load persisted events first, then attach to:
 GET /api/agent-runs/:id/stream
 ```
 
-The SSE route persists Cursor stream events and finalizes with `run.wait()` when the stream closes. The UI also polls persisted events as a fallback. If your deployment cannot keep requests open reliably, add a worker/queue to perform refresh/finalization out of band.
+The SSE route persists Cursor stream events and finalizes with `run.wait()` when the stream closes. The UI also polls persisted events as a fallback. On Vercel, `vercel.json` schedules:
+
+```text
+GET /api/cron/refresh-runs
+```
+
+every five minutes. The endpoint requires `Authorization: Bearer $CRON_SECRET` and refreshes a bounded batch of active runs so final status is not solely dependent on a connected browser tab. A durable queue/worker is still recommended if run volume grows.
+
+## Production Status
+
+Signed-in users can open:
+
+```text
+/status
+```
+
+to verify database, Cursor API, GitHub API, Vercel runtime, and active-run health. A basic unauthenticated health endpoint is also available at:
+
+```text
+GET /api/health
+```
+
+The basic endpoint reports only safe configuration status and does not expose secret values.
 
 ## Security Notes
 
 - All Cursor SDK calls happen in route handlers or server-only modules.
 - Repository URLs are validated, normalized, and restricted by host/org env vars.
 - Per-user ownership checks guard every run, event, action, and artifact endpoint.
+- Production sign-in can be restricted with `ALLOWED_GITHUB_USERS` and/or `ALLOWED_EMAILS`.
 - Create/cancel/retry routes use an in-memory per-process rate limiter for MVP. Use a shared limiter for multi-instance production.
 - Raw event JSON is escaped by React and shown only in explicit debug disclosures.
 - The app never accepts arbitrary shell commands as a separate input.

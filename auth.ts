@@ -2,7 +2,9 @@ import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
+import { isGitHubSignInAllowed } from "@/lib/auth/access";
 import { prisma } from "@/lib/db";
+import { getEnv } from "@/lib/env";
 
 const hasGitHubProvider = Boolean(
   process.env.AUTH_GITHUB_ID && process.env.AUTH_GITHUB_SECRET
@@ -30,6 +32,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       ]
     : [],
   callbacks: {
+    signIn({ account, profile, user }) {
+      if (account?.provider !== "github") {
+        return true;
+      }
+
+      const env = getEnv();
+
+      return isGitHubSignInAllowed({
+        profile,
+        user,
+        allowedGithubUsers: env.ALLOWED_GITHUB_USERS,
+        allowedEmails: env.ALLOWED_EMAILS,
+      });
+    },
     jwt({ token, user }) {
       if (user?.id) {
         token.id = user.id;

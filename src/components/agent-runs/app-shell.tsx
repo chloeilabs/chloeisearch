@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BotIcon, PlusIcon } from "lucide-react";
+import { ActivityIcon, BotIcon, PlusIcon } from "lucide-react";
 
 import type { CurrentUser } from "@/lib/auth";
 import { SignOutButton } from "@/components/auth/auth-buttons";
@@ -30,6 +30,13 @@ export function AppShell({
             </span>
           </Link>
           <div className="flex items-center gap-2">
+            <Link
+              href="/status"
+              className={buttonVariants({ size: "sm", variant: "outline" })}
+            >
+              <ActivityIcon data-icon="inline-start" />
+              Status
+            </Link>
             <Link
               href="/runs/new"
               className={buttonVariants({ size: "sm" })}
