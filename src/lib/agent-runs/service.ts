@@ -33,6 +33,7 @@ import {
   createCursorAgentName,
   summarizeTaskPrompt,
 } from "@/lib/validation/agent-run";
+import { logError, logInfo, logWarn } from "@/lib/observability/logger";
 
 export async function startAgentRun(
   userId: string,
@@ -40,6 +41,14 @@ export async function startAgentRun(
   retryOfRunId?: string
 ) {
   await assertCanCreateAgentRun(userId);
+  logInfo("agent_run.create.requested", {
+    userId,
+    repoUrl: input.repoUrl,
+    startingRef: input.startingRef,
+    modelId: input.modelId ?? "default",
+    autoCreatePR: input.autoCreatePR,
+    retryOfRunId: retryOfRunId ?? null,
+  });
 
   const defaultModel = getEnv().DEFAULT_CURSOR_MODEL || undefined;
   const modelId = input.modelId ?? defaultModel;
@@ -71,6 +80,12 @@ export async function startAgentRun(
       retryOfRunId,
     },
   });
+  logInfo("agent_run.record_created", {
+    userId,
+    runId: record.id,
+    repoUrl: record.repoUrl,
+    modelId: modelId ?? "default",
+  });
 
   try {
     const cursorRun = await createCloudAgentRun({
@@ -95,6 +110,14 @@ export async function startAgentRun(
         rawCursorStatus: cursorRun.rawCursorStatus,
       },
     });
+    logInfo("agent_run.cursor_started", {
+      userId,
+      runId: record.id,
+      cursorAgentId: cursorRun.cursorAgentId,
+      cursorRunId: cursorRun.cursorRunId,
+      rawCursorStatus: cursorRun.rawCursorStatus,
+      normalizedStatus,
+    });
 
     return updateRunCursorIdentity(record.id, {
       cursorAgentId: cursorRun.cursorAgentId,
@@ -111,6 +134,11 @@ export async function startAgentRun(
       eventType: "app.run_create_failed",
       messageText: message,
       rawPayload: { message },
+    });
+    logError("agent_run.create_failed", error, {
+      userId,
+      runId: record.id,
+      repoUrl: record.repoUrl,
     });
 
     await updateRunFailure(record.id, message);
@@ -131,6 +159,13 @@ export async function refreshAgentRun(userId: string, id: string) {
 
   const cursorRun = await getCloudAgentRun(run.cursorAgentId, run.cursorRunId);
   const normalizedStatus = normalizeCursorStatus(cursorRun.status);
+  logInfo("agent_run.refresh.checked", {
+    userId,
+    runId: run.id,
+    cursorRunId: run.cursorRunId,
+    rawCursorStatus: cursorRun.status,
+    normalizedStatus,
+  });
 
   if (isTerminalStatus(normalizedStatus)) {
     const result = await waitForCloudAgentRun(run.cursorAgentId, run.cursorRunId);
@@ -143,6 +178,15 @@ export async function refreshAgentRun(userId: string, id: string) {
       resultRawPayload: extracted.resultRawPayload,
       prUrl: extracted.prUrl,
       branchName: extracted.branchName,
+    });
+    logInfo("agent_run.refresh.finalized", {
+      userId,
+      runId: run.id,
+      cursorRunId: run.cursorRunId,
+      rawCursorStatus: result.status,
+      normalizedStatus: normalizeCursorStatus(result.status),
+      hasPrUrl: Boolean(extracted.prUrl),
+      hasBranchName: Boolean(extracted.branchName),
     });
 
     await syncRunArtifacts(run.id, run.cursorAgentId);
@@ -174,6 +218,12 @@ export async function cancelAgentRun(userId: string, id: string) {
   }
 
   await cancelCloudAgentRun(run.cursorAgentId, run.cursorRunId);
+  logWarn("agent_run.cancel.requested", {
+    userId,
+    runId: run.id,
+    cursorAgentId: run.cursorAgentId,
+    cursorRunId: run.cursorRunId,
+  });
 
   await createRunEvent({
     agentRunId: run.id,
@@ -194,6 +244,13 @@ export async function retryAgentRun(userId: string, id: string) {
   if (!run) {
     throw new ApiError(404, "Run not found.");
   }
+
+  logInfo("agent_run.retry.requested", {
+    userId,
+    runId: run.id,
+    repoUrl: run.repoUrl,
+    modelId: run.modelId ?? "default",
+  });
 
   return startAgentRun(
     userId,
@@ -227,6 +284,14 @@ export async function persistCursorEvent(agentRunId: string, event: unknown) {
     });
   }
 
+  if (eventType === "status") {
+    logInfo("agent_run.cursor_event.status", {
+      agentRunId,
+      rawCursorStatus:
+        typeof eventRecord.status === "string" ? eventRecord.status : "unknown",
+    });
+  }
+
   return persisted;
 }
 
@@ -244,6 +309,15 @@ export async function finalizeRunFromCursor(agentRunId: string, agentId: string,
   });
 
   await syncRunArtifacts(agentRunId, agentId);
+  logInfo("agent_run.stream.finalized", {
+    agentRunId,
+    cursorAgentId: agentId,
+    cursorRunId: runId,
+    rawCursorStatus: result.status,
+    normalizedStatus: normalizeCursorStatus(result.status),
+    hasPrUrl: Boolean(extracted.prUrl),
+    hasBranchName: Boolean(extracted.branchName),
+  });
 
   return result;
 }
@@ -262,15 +336,42 @@ export async function refreshActiveRunsForCron(
 ) {
   const runs = await listRunsForBackgroundRefresh(limit);
   const results = [];
+  const checkedAt = new Date().toISOString();
+
+  logInfo("cron.refresh_runs.started", {
+    limit,
+    candidateRuns: runs.length,
+  });
 
   for (const run of runs) {
     try {
+      const previousStatus = run.normalizedStatus;
       const refreshedRun = await refreshAgentRun(run.userId, run.id);
+      const refreshedStatus =
+        refreshedRun?.normalizedStatus ?? run.normalizedStatus;
+
+      await createRunEvent({
+        agentRunId: run.id,
+        eventType: "app.background_refresh_succeeded",
+        messageText: `Background refresh completed with status ${refreshedStatus}.`,
+        rawPayload: {
+          checkedAt,
+          previousStatus,
+          normalizedStatus: refreshedStatus,
+          cursorRunId: run.cursorRunId,
+        },
+      });
 
       results.push({
         id: run.id,
-        status: refreshedRun?.normalizedStatus ?? run.normalizedStatus,
+        status: refreshedStatus,
         ok: true,
+      });
+      logInfo("cron.refresh_runs.run_succeeded", {
+        runId: run.id,
+        userId: run.userId,
+        previousStatus,
+        normalizedStatus: refreshedStatus,
       });
     } catch (error) {
       const message =
@@ -289,6 +390,10 @@ export async function refreshActiveRunsForCron(
       } catch {
         // Keep the cron response useful even if failure-event persistence fails.
       }
+      logError("cron.refresh_runs.run_failed", error, {
+        runId: run.id,
+        userId: run.userId,
+      });
 
       results.push({
         id: run.id,
@@ -298,6 +403,12 @@ export async function refreshActiveRunsForCron(
       });
     }
   }
+
+  logInfo("cron.refresh_runs.finished", {
+    checked: runs.length,
+    succeeded: results.filter((result) => result.ok).length,
+    failed: results.filter((result) => !result.ok).length,
+  });
 
   return {
     checked: runs.length,

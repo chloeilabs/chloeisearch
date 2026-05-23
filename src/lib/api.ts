@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { logError, logWarn } from "@/lib/observability/logger";
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -23,6 +25,15 @@ export function noStoreJson<T>(data: T, init?: ResponseInit) {
 
 export function handleApiError(error: unknown) {
   if (error instanceof ApiError) {
+    if (error.status >= 500) {
+      logError("api.error", error, { status: error.status });
+    } else if (error.status >= 400 && error.status !== 401) {
+      logWarn("api.rejected", {
+        status: error.status,
+        errorMessage: error.message,
+      });
+    }
+
     return noStoreJson(
       { error: error.message, details: error.details },
       { status: error.status }
@@ -30,6 +41,10 @@ export function handleApiError(error: unknown) {
   }
 
   if (error instanceof ZodError) {
+    logWarn("api.validation_failed", {
+      issueCount: error.issues.length,
+    });
+
     return noStoreJson(
       { error: "Invalid request input.", details: error.flatten() },
       { status: 400 }
@@ -42,6 +57,8 @@ export function handleApiError(error: unknown) {
 
   const message =
     error instanceof Error ? error.message : "Unexpected server error.";
+
+  logError("api.unhandled_error", error, { status: 500 });
 
   return noStoreJson({ error: message }, { status: 500 });
 }

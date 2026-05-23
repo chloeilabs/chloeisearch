@@ -9,6 +9,7 @@ import {
   cleanupGitHubPullRequest,
   getGitHubPullRequestLifecycle,
 } from "@/lib/github/pull-requests";
+import { logError, logInfo } from "@/lib/observability/logger";
 
 export async function getRunPullRequestLifecycle(userId: string, runId: string) {
   const run = await getRunForUser(userId, runId);
@@ -21,7 +22,27 @@ export async function getRunPullRequestLifecycle(userId: string, runId: string) 
     return null;
   }
 
-  return getGitHubPullRequestLifecycle(userId, run);
+  try {
+    const pullRequest = await getGitHubPullRequestLifecycle(userId, run);
+
+    logInfo("github.pr_lifecycle.loaded", {
+      userId,
+      runId: run.id,
+      prUrl: run.prUrl,
+      pullRequestState: pullRequest.state,
+      pendingChecks: pullRequest.checks.pending,
+      failedChecks: pullRequest.checks.failed,
+    });
+
+    return pullRequest;
+  } catch (error) {
+    logError("github.pr_lifecycle.failed", error, {
+      userId,
+      runId: run.id,
+      prUrl: run.prUrl,
+    });
+    throw error;
+  }
 }
 
 export async function cleanupRunPullRequest(userId: string, runId: string) {
@@ -35,7 +56,20 @@ export async function cleanupRunPullRequest(userId: string, runId: string) {
     throw new ApiError(409, "This run does not have a pull request URL.");
   }
 
-  const result = await cleanupGitHubPullRequest(userId, run);
+  let result;
+
+  try {
+    result = await cleanupGitHubPullRequest(userId, run);
+  } catch (error) {
+    logError("github.pr_cleanup.failed", error, {
+      userId,
+      runId: run.id,
+      prUrl: run.prUrl,
+      branchName: run.branchName ?? null,
+    });
+    throw error;
+  }
+
   const actions = [
     result.closedPullRequest ? "closed pull request" : null,
     result.deletedBranch ? "deleted branch" : null,
@@ -56,6 +90,14 @@ export async function cleanupRunPullRequest(userId: string, runId: string) {
       pullRequestState: result.pullRequest.state,
       branchExists: result.pullRequest.branch.exists,
     },
+  });
+  logInfo("github.pr_cleanup.completed", {
+    userId,
+    runId: run.id,
+    prUrl: run.prUrl,
+    branchName: run.branchName ?? null,
+    closedPullRequest: result.closedPullRequest,
+    deletedBranch: result.deletedBranch,
   });
 
   return result;
