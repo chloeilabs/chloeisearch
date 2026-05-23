@@ -46,7 +46,7 @@ export type PullRequestValidation = {
 };
 
 const exactFilePattern =
-  /(?:create|add|write|update)\s+[`"']?([A-Za-z0-9._/-]+\.[A-Za-z0-9][A-Za-z0-9._-]*)[`"']?\s+(?:containing|with)\s+exactly:\s*([\s\S]+?)(?=\s+(?:Do not change any other files|Only change(?: this| these| the specified)? files?|Open (?:a )?pull request|Create (?:a )?pull request)\b|$)/gi;
+  /(?:create|add|write|update)\s+[`"']?([A-Za-z0-9._/-]+)[`"']?\s+(?:containing|with)\s+exactly:\s*([\s\S]+?)(?=\s+(?:Do not change any other files|Only change(?: this| these| the specified)? files?|Open (?:a )?pull request|Create (?:a )?pull request)\b|$)/gi;
 
 export function extractPromptValidationExpectation(
   prompt: string
@@ -189,7 +189,7 @@ function getValidationSummary(
 function createValidationFingerprint(
   validation: Omit<PullRequestValidation, "fingerprint">
 ) {
-  return JSON.stringify({
+  const payload = JSON.stringify({
     status: validation.status,
     expected: validation.expected,
     warnings: validation.warnings.map((warning) => ({
@@ -206,6 +206,8 @@ function createValidationFingerprint(
       status: file.status,
     })),
   });
+
+  return `v1:${hashText(payload)}`;
 }
 
 function dedupeExpectedFiles(files: PullRequestValidationExpectedFile[]) {
@@ -249,4 +251,15 @@ function previewText(content: string) {
   const compact = normalizeComparableContent(content).replace(/\s+/g, " ").trim();
 
   return compact.length > 140 ? `${compact.slice(0, 137)}...` : compact;
+}
+
+function hashText(input: string) {
+  let hash = 0x811c9dc5;
+
+  for (let index = 0; index < input.length; index += 1) {
+    hash ^= input.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+
+  return (hash >>> 0).toString(16).padStart(8, "0");
 }

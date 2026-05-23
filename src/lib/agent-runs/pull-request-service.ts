@@ -26,7 +26,16 @@ export async function getRunPullRequestLifecycle(userId: string, runId: string) 
 
   try {
     const pullRequest = await getGitHubPullRequestLifecycle(userId, run);
-    await persistPullRequestValidationEvent(run.id, pullRequest.validation);
+
+    try {
+      await persistPullRequestValidationEvent(run.id, pullRequest.validation);
+    } catch (error) {
+      logError("github.pr_validation.persist_failed", error, {
+        userId,
+        runId: run.id,
+        prUrl: run.prUrl,
+      });
+    }
 
     logInfo("github.pr_lifecycle.loaded", {
       userId,
@@ -136,7 +145,7 @@ async function persistPullRequestValidationEvent(
             .map((warning) => warning.message)
             .join(" ")}`
         : validation.summary,
-    rawPayload: validation,
+    rawPayload: sanitizePullRequestValidationForEvent(validation),
   });
 }
 
@@ -148,4 +157,26 @@ function getValidationFingerprint(rawPayload: unknown) {
   const fingerprint = (rawPayload as { fingerprint?: unknown }).fingerprint;
 
   return typeof fingerprint === "string" ? fingerprint : null;
+}
+
+function sanitizePullRequestValidationForEvent(
+  validation: PullRequestValidation
+) {
+  return {
+    status: validation.status,
+    summary: validation.summary,
+    fingerprint: validation.fingerprint,
+    warnings: validation.warnings.map((warning) => ({
+      code: warning.code,
+      message: warning.message,
+      path: warning.path,
+    })),
+    expected: {
+      onlyExpectedFiles: validation.expected.onlyExpectedFiles,
+      exactFiles: validation.expected.exactFiles.map((file) => ({
+        path: file.path,
+      })),
+    },
+    observed: validation.observed,
+  };
 }

@@ -124,4 +124,69 @@ describe("validatePullRequestAgainstPrompt", () => {
 
     expect(validation.status).toBe("not_applicable");
   });
+
+  it("passes extensionless exact-file rules", () => {
+    const validation = validatePullRequestAgainstPrompt({
+      prompt:
+        "Create Dockerfile containing exactly: FROM node:24-alpine Do not change any other files.",
+      changedFiles: [
+        {
+          path: "Dockerfile",
+          status: "added",
+          additions: 1,
+          deletions: 0,
+          changes: 1,
+        },
+      ],
+      fileContents: {
+        Dockerfile: "FROM node:24-alpine\n",
+      },
+    });
+
+    expect(validation.status).toBe("passed");
+    expect(validation.warnings).toEqual([]);
+  });
+
+  it("passes dotfile exact-file rules", () => {
+    const validation = validatePullRequestAgainstPrompt({
+      prompt:
+        "Create .env containing exactly: FEATURE_FLAG=true Do not change any other files.",
+      changedFiles: [
+        {
+          path: ".env",
+          status: "added",
+          additions: 1,
+          deletions: 0,
+          changes: 1,
+        },
+      ],
+      fileContents: {
+        ".env": "FEATURE_FLAG=true\n",
+      },
+    });
+
+    expect(validation.status).toBe("passed");
+    expect(validation.warnings).toEqual([]);
+  });
+
+  it("does not expose exact content through the validation fingerprint", () => {
+    const validation = validatePullRequestAgainstPrompt({
+      prompt: "Create docs/test.md containing exactly: sensitive-value",
+      changedFiles: [
+        {
+          path: "docs/test.md",
+          status: "added",
+          additions: 1,
+          deletions: 0,
+          changes: 1,
+        },
+      ],
+      fileContents: {
+        "docs/test.md": "different-value\n",
+      },
+    });
+
+    expect(validation.fingerprint).not.toContain("sensitive-value");
+    expect(validation.fingerprint).not.toContain("different-value");
+  });
 });
