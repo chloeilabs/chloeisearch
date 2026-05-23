@@ -71,6 +71,16 @@ Homepage URL: http://localhost:3000
 Authorization callback URL: http://localhost:3000/api/auth/callback/github
 ```
 
+This project is currently configured with separate GitHub OAuth apps for:
+
+- Local development: `http://localhost:3000`
+- Preview branch deployments: `https://chloeicode-git-preview-chloei.vercel.app`
+- Production: `https://chloeicode.vercel.app`
+
+Vercel preview OAuth is intentionally tied to the `preview` branch URL because
+GitHub OAuth callback URLs must be stable. Ad hoc preview URLs can still deploy,
+but sign-in should be tested on the `preview` branch deployment.
+
 ## Cursor Integration
 
 The server-side wrapper lives under `src/lib/cursor`.
