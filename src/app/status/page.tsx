@@ -9,8 +9,10 @@ import { AppShell } from "@/components/agent-runs/app-shell";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getRunCreationLimits } from "@/lib/agent-runs/limits";
 import { getRunHealthStats } from "@/lib/agent-runs/repository";
 import { getCurrentUser } from "@/lib/auth";
+import { getEnv } from "@/lib/env";
 import { getDeepHealth, type HealthCheck } from "@/lib/health/checks";
 
 export const dynamic = "force-dynamic";
@@ -22,9 +24,11 @@ export default async function StatusPage() {
     return <SignInPanel />;
   }
 
-  const [health, runStats] = await Promise.all([
+  const env = getEnv();
+  const [health, runStats, runLimits] = await Promise.all([
     getDeepHealth(user.id),
-    getRunHealthStats(user.id),
+    getRunHealthStats(user.id, env.STALE_ACTIVE_RUN_MINUTES),
+    getRunCreationLimits(user.id),
   ]);
 
   return (
@@ -38,11 +42,25 @@ export default async function StatusPage() {
           </p>
         </div>
 
-        <section className="grid gap-3 md:grid-cols-4">
+        <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
           <Metric label="Total runs" value={runStats.totalRuns} />
           <Metric label="Active runs" value={runStats.activeRuns} />
           <Metric label="Failed runs" value={runStats.failedRuns} />
           <Metric label="Stale active" value={runStats.staleActiveRuns} />
+          <Metric
+            label="Active capacity"
+            value={formatLimitMetric(
+              runLimits.activeRuns,
+              runLimits.activeLimit
+            )}
+          />
+          <Metric
+            label="24h runs"
+            value={formatLimitMetric(
+              runLimits.runsLast24Hours,
+              runLimits.dailyLimit
+            )}
+          />
         </section>
 
         <Card>
@@ -64,7 +82,7 @@ export default async function StatusPage() {
   );
 }
 
-function Metric({ label, value }: { label: string; value: number }) {
+function Metric({ label, value }: { label: string; value: number | string }) {
   return (
     <Card>
       <CardContent className="p-4">
@@ -103,7 +121,12 @@ function HealthRow({ check }: { check: HealthCheck }) {
 }
 
 function HealthBadge({ status }: { status: HealthCheck["status"] }) {
-  const variant = status === "ok" ? "default" : "destructive";
+  const variant =
+    status === "ok" ? "default" : status === "degraded" ? "secondary" : "destructive";
 
   return <Badge variant={variant}>{status}</Badge>;
+}
+
+function formatLimitMetric(count: number, limit: number | null) {
+  return limit === null ? `${count} / off` : `${count} / ${limit}`;
 }

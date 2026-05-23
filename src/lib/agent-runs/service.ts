@@ -17,6 +17,7 @@ import {
   normalizeCursorStatus,
 } from "@/lib/cursor/status";
 import { getEnv } from "@/lib/env";
+import { assertCanCreateAgentRun } from "@/lib/agent-runs/limits";
 import {
   createRunEvent,
   createRunRecord,
@@ -38,6 +39,8 @@ export async function startAgentRun(
   input: CreateAgentRunInput,
   retryOfRunId?: string
 ) {
+  await assertCanCreateAgentRun(userId);
+
   const defaultModel = getEnv().DEFAULT_CURSOR_MODEL || undefined;
   const modelId = input.modelId ?? defaultModel;
 
@@ -254,7 +257,9 @@ export async function syncRunArtifacts(agentRunId: string, agentId: string) {
   }
 }
 
-export async function refreshActiveRunsForCron(limit = 10) {
+export async function refreshActiveRunsForCron(
+  limit = getEnv().CRON_REFRESH_BATCH_SIZE
+) {
   const runs = await listRunsForBackgroundRefresh(limit);
   const results = [];
 
@@ -268,12 +273,28 @@ export async function refreshActiveRunsForCron(limit = 10) {
         ok: true,
       });
     } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Unexpected refresh failure.";
+
+      try {
+        await createRunEvent({
+          agentRunId: run.id,
+          eventType: "app.background_refresh_failed",
+          messageText: message,
+          rawPayload: {
+            message,
+            checkedAt: new Date().toISOString(),
+          },
+        });
+      } catch {
+        // Keep the cron response useful even if failure-event persistence fails.
+      }
+
       results.push({
         id: run.id,
         status: run.normalizedStatus,
         ok: false,
-        error:
-          error instanceof Error ? error.message : "Unexpected refresh failure.",
+        error: message,
       });
     }
   }

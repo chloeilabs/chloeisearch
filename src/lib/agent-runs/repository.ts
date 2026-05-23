@@ -40,7 +40,7 @@ export async function listRunsForBackgroundRefresh(limit = 10) {
   });
 }
 
-export async function getRunHealthStats(userId: string) {
+export async function getRunHealthStats(userId: string, staleAfterMinutes = 15) {
   const [totalRuns, activeRuns, failedRuns, staleActiveRuns] =
     await Promise.all([
       prisma.agentRun.count({ where: { userId } }),
@@ -54,7 +54,7 @@ export async function getRunHealthStats(userId: string) {
         where: {
           userId,
           normalizedStatus: { in: ["creating", "running"] },
-          updatedAt: { lt: new Date(Date.now() - 15 * 60 * 1000) },
+          updatedAt: { lt: new Date(Date.now() - staleAfterMinutes * 60 * 1000) },
         },
       }),
     ]);
