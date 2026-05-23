@@ -241,6 +241,9 @@ Protect `main` by requiring the `quality` status check before merging.
 ## Troubleshooting
 
 - No models: verify the API key belongs to a Cursor account/team with cloud agents enabled.
+- Run creation fails with `usage_limit_exceeded`: enable Cursor usage-based
+  pricing and set a spend limit with at least $2 remaining before starting a
+  Background Agent run.
 - Repo unavailable: confirm Cursor’s GitHub integration has access, or enter a valid allowed GitHub URL manually.
 - GitHub repos missing: sign out and sign back in so GitHub grants the current
   repository discovery scopes. Also confirm organization SSO/access policies.
