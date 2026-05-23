@@ -41,11 +41,16 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
     return null;
   }
 
-  return {
+  const persistedUser = await findPersistedSessionUser({
     id: session.user.id,
-    name: session.user.name,
     email: session.user.email,
-    image: session.user.image,
+  });
+
+  return {
+    id: persistedUser?.id ?? session.user.id,
+    name: persistedUser?.name ?? session.user.name,
+    email: persistedUser?.email ?? session.user.email,
+    image: persistedUser?.image ?? session.user.image,
   };
 }
 
@@ -57,4 +62,27 @@ export async function requireCurrentUser(): Promise<CurrentUser> {
   }
 
   return user;
+}
+
+async function findPersistedSessionUser({
+  id,
+  email,
+}: {
+  id: string;
+  email?: string | null;
+}) {
+  const select = { id: true, name: true, email: true, image: true };
+  const userById = await prisma.user.findUnique({
+    where: { id },
+    select,
+  });
+
+  if (userById || !email) {
+    return userById;
+  }
+
+  return prisma.user.findUnique({
+    where: { email },
+    select,
+  });
 }
