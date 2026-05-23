@@ -7,6 +7,12 @@ import {
   getGitHubAccessToken,
 } from "@/lib/github/client";
 import { parseGitHubRepositoryUrl } from "@/lib/github/branches";
+import {
+  extractPromptValidationExpectation,
+  validatePullRequestAgainstPrompt,
+  type PullRequestChangedFile,
+  type PullRequestValidation,
+} from "@/lib/agent-runs/pr-validation";
 
 const maxPrItems = 100;
 
@@ -15,6 +21,7 @@ export type RunPullRequestTarget = {
   prUrl?: string | null;
   branchName?: string | null;
   startingRef: string;
+  taskPrompt?: string;
 };
 
 export type ParsedGitHubPullRequestUrl = {
@@ -56,6 +63,8 @@ export type PullRequestLifecycle = {
   reviewComments: PullRequestReviewCommentsSummary;
   branchProtection: PullRequestBranchProtectionSummary;
   branch: PullRequestBranchSummary;
+  files: PullRequestChangedFile[];
+  validation: PullRequestValidation;
   blockers: string[];
 };
 
@@ -138,6 +147,7 @@ type PullRequestBlockerInput = Pick<
   | "reviewComments"
   | "branchProtection"
   | "mergeState"
+  | "validation"
 >;
 
 type BranchDeletionPullRequest = {
@@ -251,6 +261,20 @@ type GitHubApiRef = {
   ref: string;
 };
 
+type GitHubApiPullRequestFile = {
+  filename: string;
+  status: string;
+  additions: number;
+  deletions: number;
+  changes: number;
+};
+
+type GitHubApiContentFile = {
+  type: string;
+  encoding?: string;
+  content?: string;
+};
+
 export function parseGitHubPullRequestUrl(
   pullRequestUrl: string
 ): ParsedGitHubPullRequestUrl {
@@ -319,6 +343,9 @@ export async function getGitHubPullRequestLifecycle(
   );
   const headSha = pullRequest.head.sha;
   const baseRef = pullRequest.base.ref;
+  const validationExpectation = extractPromptValidationExpectation(
+    run.taskPrompt ?? ""
+  );
 
   const [
     checkRuns,
@@ -327,6 +354,7 @@ export async function getGitHubPullRequestLifecycle(
     reviewComments,
     branchProtection,
     branchRef,
+    pullRequestFiles,
   ] = await Promise.all([
     fetchGitHubJson<GitHubApiCheckRunsResponse>(
       token,
@@ -358,7 +386,25 @@ export async function getGitHubPullRequestLifecycle(
       `${repoPath}/git/ref/${encodeGitRef(`heads/${pullRequest.head.ref}`)}`,
       "Unable to load pull request branch."
     ),
+    fetchGitHubJson<GitHubApiPullRequestFile[]>(
+      token,
+      `${pullPath}/files?per_page=${maxPrItems}`,
+      "Unable to load pull request files."
+    ),
   ]);
+  const files = mapPullRequestFiles(pullRequestFiles);
+  const fileContents = await fetchValidationFileContents({
+    token,
+    repoPath,
+    headSha,
+    files,
+    expectedPaths: validationExpectation.exactFiles.map((file) => file.path),
+  });
+  const validation = validatePullRequestAgainstPrompt({
+    prompt: run.taskPrompt ?? "",
+    changedFiles: files,
+    fileContents,
+  });
 
   return mapPullRequestLifecycle(run, pullRequest, {
     checkRuns: checkRuns.check_runs,
@@ -367,6 +413,8 @@ export async function getGitHubPullRequestLifecycle(
     reviewComments,
     branchProtection,
     branchExists: Boolean(branchRef),
+    files,
+    validation,
   });
 }
 
@@ -425,6 +473,8 @@ export function mapPullRequestLifecycle(
     reviewComments: GitHubApiReviewComment[];
     branchProtection: GitHubApiBranchProtection | null;
     branchExists: boolean;
+    files: PullRequestChangedFile[];
+    validation: PullRequestValidation;
   }
 ): PullRequestLifecycle {
   const checks = summarizeChecks(detail.checkRuns, detail.statuses);
@@ -458,6 +508,8 @@ export function mapPullRequestLifecycle(
     reviewComments,
     branchProtection,
     branch,
+    files: detail.files,
+    validation: detail.validation,
     blockers: [] as string[],
   };
 
@@ -518,6 +570,14 @@ export function buildPullRequestBlockers(
 
   if (lifecycle.checks.pending > 0) {
     blockers.push("One or more checks are still running.");
+  }
+
+  if (lifecycle.validation.status === "warning") {
+    blockers.push("PR validation found issues that need review.");
+  }
+
+  if (lifecycle.validation.status === "unavailable") {
+    blockers.push("PR validation could not inspect all requested files.");
   }
 
   if (lifecycle.reviews.changesRequested > 0) {
@@ -619,6 +679,73 @@ function summarizeBranch(
   };
 }
 
+function mapPullRequestFiles(
+  files: GitHubApiPullRequestFile[]
+): PullRequestChangedFile[] {
+  return files.map((file) => ({
+    path: file.filename,
+    status: file.status,
+    additions: file.additions,
+    deletions: file.deletions,
+    changes: file.changes,
+  }));
+}
+
+async function fetchValidationFileContents(input: {
+  token: string;
+  repoPath: string;
+  headSha: string;
+  files: PullRequestChangedFile[];
+  expectedPaths: string[];
+}) {
+  const changedFilePaths = new Set(input.files.map((file) => file.path));
+  const uniqueExpectedPaths = [...new Set(input.expectedPaths)].filter((path) =>
+    changedFilePaths.has(path)
+  );
+  const entries = await Promise.all(
+    uniqueExpectedPaths.map(async (path) => {
+      const content = await fetchGitHubTextFileAtRef(
+        input.token,
+        input.repoPath,
+        path,
+        input.headSha
+      );
+
+      return [path, content] as const;
+    })
+  );
+
+  return Object.fromEntries(entries) as Record<string, string | null>;
+}
+
+async function fetchGitHubTextFileAtRef(
+  token: string,
+  repoPath: string,
+  path: string,
+  ref: string
+) {
+  const content = await fetchOptionalGitHubJson<GitHubApiContentFile>(
+    token,
+    `${repoPath}/contents/${encodeContentPath(path)}?ref=${encodeURIComponent(
+      ref
+    )}`,
+    "Unable to load pull request file content."
+  );
+
+  if (
+    !content ||
+    content.type !== "file" ||
+    content.encoding !== "base64" ||
+    typeof content.content !== "string"
+  ) {
+    return null;
+  }
+
+  return Buffer.from(content.content.replace(/\s/g, ""), "base64").toString(
+    "utf8"
+  );
+}
+
 export function getBranchDeleteBlockedReason(
   run: RunPullRequestTarget,
   pullRequest: BranchDeletionPullRequest,
@@ -697,4 +824,8 @@ function repoApiPath(target: ParsedGitHubPullRequestUrl) {
 
 function encodeGitRef(ref: string) {
   return ref.split("/").map(encodeURIComponent).join("/");
+}
+
+function encodeContentPath(path: string) {
+  return path.split("/").map(encodeURIComponent).join("/");
 }

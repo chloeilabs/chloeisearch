@@ -258,6 +258,16 @@ export async function createRunEvent(input: {
   });
 }
 
+export async function getLatestRunEventByType(
+  agentRunId: string,
+  eventType: string
+) {
+  return prisma.agentRunEvent.findFirst({
+    where: { agentRunId, eventType },
+    orderBy: { createdAt: "desc" },
+  });
+}
+
 export async function listRunEventsForUser(userId: string, id: string) {
   return prisma.agentRunEvent.findMany({
     where: {

@@ -3,12 +3,14 @@ import "server-only";
 import { ApiError } from "@/lib/api";
 import {
   createRunEvent,
+  getLatestRunEventByType,
   getRunForUser,
 } from "@/lib/agent-runs/repository";
 import {
   cleanupGitHubPullRequest,
   getGitHubPullRequestLifecycle,
 } from "@/lib/github/pull-requests";
+import type { PullRequestValidation } from "@/lib/agent-runs/pr-validation";
 import { logError, logInfo } from "@/lib/observability/logger";
 
 export async function getRunPullRequestLifecycle(userId: string, runId: string) {
@@ -24,6 +26,7 @@ export async function getRunPullRequestLifecycle(userId: string, runId: string) 
 
   try {
     const pullRequest = await getGitHubPullRequestLifecycle(userId, run);
+    await persistPullRequestValidationEvent(run.id, pullRequest.validation);
 
     logInfo("github.pr_lifecycle.loaded", {
       userId,
@@ -32,6 +35,7 @@ export async function getRunPullRequestLifecycle(userId: string, runId: string) 
       pullRequestState: pullRequest.state,
       pendingChecks: pullRequest.checks.pending,
       failedChecks: pullRequest.checks.failed,
+      validationStatus: pullRequest.validation.status,
     });
 
     return pullRequest;
@@ -101,4 +105,47 @@ export async function cleanupRunPullRequest(userId: string, runId: string) {
   });
 
   return result;
+}
+
+async function persistPullRequestValidationEvent(
+  runId: string,
+  validation: PullRequestValidation
+) {
+  if (validation.status === "not_applicable") {
+    return;
+  }
+
+  const latestValidationEvent = await getLatestRunEventByType(
+    runId,
+    "github.pr_validation"
+  );
+  const latestFingerprint = getValidationFingerprint(
+    latestValidationEvent?.rawPayload
+  );
+
+  if (latestFingerprint === validation.fingerprint) {
+    return;
+  }
+
+  await createRunEvent({
+    agentRunId: runId,
+    eventType: "github.pr_validation",
+    messageText:
+      validation.status === "warning"
+        ? `PR validation needs review: ${validation.warnings
+            .map((warning) => warning.message)
+            .join(" ")}`
+        : validation.summary,
+    rawPayload: validation,
+  });
+}
+
+function getValidationFingerprint(rawPayload: unknown) {
+  if (!rawPayload || typeof rawPayload !== "object") {
+    return null;
+  }
+
+  const fingerprint = (rawPayload as { fingerprint?: unknown }).fingerprint;
+
+  return typeof fingerprint === "string" ? fingerprint : null;
 }
