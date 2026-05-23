@@ -11,6 +11,7 @@ The app lets an authenticated user create, monitor, refresh, cancel, retry, and 
 - Postgres with Prisma
 - Auth.js / NextAuth v5 beta with GitHub OAuth and Prisma adapter
 - Tailwind CSS v4 and shadcn/ui
+- Vercel Web Analytics and Speed Insights
 - Vitest for unit tests
 
 ## Setup
@@ -162,6 +163,10 @@ GET /api/health
 ```
 
 The basic endpoint reports only safe configuration status and does not expose secret values.
+
+Vercel Web Analytics and Speed Insights are installed in the root App Router
+layout, so production deployments report page views and real-user performance
+metrics to the Vercel project dashboard.
 
 ## Security Notes
 
