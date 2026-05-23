@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CableIcon, UnplugIcon } from "lucide-react";
 
@@ -30,6 +30,7 @@ export function AgentRunEventLog({
   const router = useRouter();
   const [events, setEvents] = useState<EventLogItem[]>([]);
   const [connected, setConnected] = useState(false);
+  const didRequestFinalRefresh = useRef(false);
   const shouldStream = !isTerminalStatus(status);
 
   useEffect(() => {
@@ -38,11 +39,31 @@ export function AgentRunEventLog({
     }
 
     const source = new EventSource(`/api/agent-runs/${runId}/stream`);
+    const finalizeFromTerminalEvent = async () => {
+      if (didRequestFinalRefresh.current) {
+        return;
+      }
+
+      didRequestFinalRefresh.current = true;
+      setConnected(false);
+      source.close();
+
+      await fetch(`/api/agent-runs/${runId}/refresh`, {
+        method: "POST",
+        cache: "no-store",
+      }).catch(() => undefined);
+
+      router.refresh();
+    };
 
     source.addEventListener("connected", () => setConnected(true));
     source.addEventListener("cursor-event", (event) => {
       const item = JSON.parse(event.data) as EventLogItem;
       setEvents((current) => mergeEvents(current, [item]));
+
+      if (isTerminalCursorStatusEvent(item)) {
+        void finalizeFromTerminalEvent();
+      }
     });
     source.addEventListener("done", () => {
       setConnected(false);
@@ -139,4 +160,16 @@ function mergeEvents(current: EventLogItem[], incoming: EventLogItem[]) {
   }
 
   return [...byId.values()].sort((a, b) => a.sequenceNumber - b.sequenceNumber);
+}
+
+export function isTerminalCursorStatusEvent(event: EventLogItem) {
+  if (event.eventType !== "status" || !isRecord(event.rawPayload)) {
+    return false;
+  }
+
+  return isTerminalStatus(event.rawPayload.status);
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }
