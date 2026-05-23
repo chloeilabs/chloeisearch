@@ -1,6 +1,6 @@
-# Cloud Coding Agents
+# Chloei Code
 
-A production-ready MVP control plane for Cursor cloud coding agent runs against GitHub repositories.
+Chloei Code is a production-ready MVP control plane for Cursor cloud coding agent runs against GitHub repositories.
 
 The app lets an authenticated user create, monitor, refresh, cancel, retry, and review Cursor cloud agent runs. It stores raw Cursor statuses/events defensively, keeps `CURSOR_API_KEY` server-side only, and supports optional Cursor pull request creation.
 

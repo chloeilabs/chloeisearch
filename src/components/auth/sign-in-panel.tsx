@@ -13,7 +13,7 @@ export function SignInPanel() {
     <main className="mx-auto flex min-h-[70vh] w-full max-w-xl items-center px-6">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Cloud Coding Agents</CardTitle>
+          <CardTitle>Chloei Code</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <p className="text-sm text-muted-foreground">
