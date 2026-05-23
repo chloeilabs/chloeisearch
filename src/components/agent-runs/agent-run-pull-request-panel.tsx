@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import {
   AlertTriangleIcon,
@@ -62,12 +62,13 @@ export function AgentRunPullRequestPanel({
   const [pendingAction, setPendingAction] = useState<"refresh" | "cleanup" | null>(
     null
   );
+  const autoRefreshAttempts = useRef(0);
   const canCleanUp =
     pullRequest &&
     (pullRequest.state === "open" || pullRequest.branch.canDelete);
   const linkedPrUrl = pullRequest?.url ?? prUrl;
 
-  async function refreshPullRequest() {
+  const refreshPullRequest = useCallback(async function refreshPullRequest() {
     setPendingAction("refresh");
     setError(null);
 
@@ -89,7 +90,31 @@ export function AgentRunPullRequestPanel({
     } finally {
       setPendingAction(null);
     }
-  }
+  }, [runId]);
+
+  useEffect(() => {
+    const shouldRefreshMissingLifecycle = Boolean(linkedPrUrl && !pullRequest);
+    const shouldRefreshPendingChecks = Boolean(
+      pullRequest &&
+        pullRequest.state === "open" &&
+        pullRequest.checks.pending > 0
+    );
+
+    if (
+      (!shouldRefreshMissingLifecycle && !shouldRefreshPendingChecks) ||
+      autoRefreshAttempts.current >= 2
+    ) {
+      return;
+    }
+
+    const delayMs = autoRefreshAttempts.current === 0 ? 15_000 : 45_000;
+    const timer = window.setTimeout(() => {
+      autoRefreshAttempts.current += 1;
+      void refreshPullRequest();
+    }, delayMs);
+
+    return () => window.clearTimeout(timer);
+  }, [linkedPrUrl, pullRequest, refreshPullRequest]);
 
   async function cleanupPullRequest() {
     if (!pullRequest) {

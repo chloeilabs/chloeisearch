@@ -41,7 +41,7 @@ export async function listRunsForBackgroundRefresh(limit = 10) {
 }
 
 export async function getRunHealthStats(userId: string, staleAfterMinutes = 15) {
-  const [totalRuns, activeRuns, failedRuns, staleActiveRuns] =
+  const [totalRuns, activeRuns, failedRuns, staleActiveRuns, latestRun] =
     await Promise.all([
       prisma.agentRun.count({ where: { userId } }),
       prisma.agentRun.count({
@@ -57,6 +57,18 @@ export async function getRunHealthStats(userId: string, staleAfterMinutes = 15) 
           updatedAt: { lt: new Date(Date.now() - staleAfterMinutes * 60 * 1000) },
         },
       }),
+      prisma.agentRun.findFirst({
+        where: {
+          userId,
+          cursorRunId: { not: null },
+        },
+        orderBy: { updatedAt: "desc" },
+        select: {
+          id: true,
+          normalizedStatus: true,
+          updatedAt: true,
+        },
+      }),
     ]);
 
   return {
@@ -64,6 +76,57 @@ export async function getRunHealthStats(userId: string, staleAfterMinutes = 15) 
     activeRuns,
     failedRuns,
     staleActiveRuns,
+    latestRunRefresh: latestRun,
+  };
+}
+
+export async function getRunOperationsActivity(userId: string) {
+  const [latestCronEvent, latestRunEvent] = await Promise.all([
+    prisma.agentRunEvent.findFirst({
+      where: {
+        eventType: {
+          in: [
+            "app.background_refresh_succeeded",
+            "app.background_refresh_failed",
+          ],
+        },
+        agentRun: { userId },
+      },
+      orderBy: { createdAt: "desc" },
+      select: {
+        eventType: true,
+        messageText: true,
+        createdAt: true,
+        agentRun: {
+          select: {
+            id: true,
+            normalizedStatus: true,
+          },
+        },
+      },
+    }),
+    prisma.agentRunEvent.findFirst({
+      where: {
+        agentRun: { userId },
+      },
+      orderBy: { createdAt: "desc" },
+      select: {
+        eventType: true,
+        messageText: true,
+        createdAt: true,
+        agentRun: {
+          select: {
+            id: true,
+            normalizedStatus: true,
+          },
+        },
+      },
+    }),
+  ]);
+
+  return {
+    latestCronEvent,
+    latestRunEvent,
   };
 }
 

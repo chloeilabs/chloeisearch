@@ -10,9 +10,13 @@ import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRunCreationLimits } from "@/lib/agent-runs/limits";
-import { getRunHealthStats } from "@/lib/agent-runs/repository";
+import {
+  getRunHealthStats,
+  getRunOperationsActivity,
+} from "@/lib/agent-runs/repository";
 import { getCurrentUser } from "@/lib/auth";
 import { getEnv } from "@/lib/env";
+import { formatDateTime } from "@/lib/format";
 import { getDeepHealth, type HealthCheck } from "@/lib/health/checks";
 
 export const dynamic = "force-dynamic";
@@ -25,10 +29,11 @@ export default async function StatusPage() {
   }
 
   const env = getEnv();
-  const [health, runStats, runLimits] = await Promise.all([
+  const [health, runStats, runLimits, operationsActivity] = await Promise.all([
     getDeepHealth(user.id),
     getRunHealthStats(user.id, env.STALE_ACTIVE_RUN_MINUTES),
     getRunCreationLimits(user.id),
+    getRunOperationsActivity(user.id),
   ]);
 
   return (
@@ -63,6 +68,84 @@ export default async function StatusPage() {
           />
         </section>
 
+        <section className="grid gap-5 lg:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Runtime configuration</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <dl className="grid gap-3 sm:grid-cols-2">
+                <ConfigMetric
+                  label="Default model"
+                  value={env.DEFAULT_CURSOR_MODEL || "Cursor account default"}
+                />
+                <ConfigMetric
+                  label="Git hosts"
+                  value={env.ALLOWED_GIT_HOSTS.join(", ")}
+                />
+                <ConfigMetric
+                  label="GitHub orgs"
+                  value={
+                    env.ALLOWED_GITHUB_ORGS.length > 0
+                      ? `${env.ALLOWED_GITHUB_ORGS.length} configured`
+                      : "Any repository you can access"
+                  }
+                />
+                <ConfigMetric
+                  label="Sign-in allowlist"
+                  value={`${env.ALLOWED_GITHUB_USERS.length} GitHub user(s), ${env.ALLOWED_EMAILS.length} email(s)`}
+                />
+                <ConfigMetric
+                  label="Create/cancel/retry rate"
+                  value={`${env.AGENT_RUN_RATE_LIMIT} / user / minute`}
+                />
+                <ConfigMetric
+                  label="Cron batch size"
+                  value={`${env.CRON_REFRESH_BATCH_SIZE} active run(s)`}
+                />
+              </dl>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Refresh activity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <dl className="grid gap-3 sm:grid-cols-2">
+                <ConfigMetric
+                  label="Cron schedule"
+                  value="Every 5 minutes in production"
+                />
+                <ConfigMetric
+                  label="Last cron refresh"
+                  value={
+                    operationsActivity.latestCronEvent
+                      ? formatDateTime(operationsActivity.latestCronEvent.createdAt)
+                      : "No active-run cron event yet"
+                  }
+                />
+                <ConfigMetric
+                  label="Latest run update"
+                  value={
+                    runStats.latestRunRefresh
+                      ? formatDateTime(runStats.latestRunRefresh.updatedAt)
+                      : "No Cursor run updates yet"
+                  }
+                />
+                <ConfigMetric
+                  label="Latest event"
+                  value={
+                    operationsActivity.latestRunEvent
+                      ? operationsActivity.latestRunEvent.eventType
+                      : "No events yet"
+                  }
+                />
+              </dl>
+            </CardContent>
+          </Card>
+        </section>
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between gap-3">
             <CardTitle className="flex items-center gap-2 text-base">
@@ -90,6 +173,15 @@ function Metric({ label, value }: { label: string; value: number | string }) {
         <p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p>
       </CardContent>
     </Card>
+  );
+}
+
+function ConfigMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-xs font-medium text-muted-foreground">{label}</dt>
+      <dd className="mt-1 break-words text-sm">{value}</dd>
+    </div>
   );
 }
 
