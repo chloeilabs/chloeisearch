@@ -142,6 +142,25 @@ The Prisma schema includes:
 
 Run `pnpm db:migrate` after configuring a real `DATABASE_URL`.
 
+### Environment Isolation
+
+The Vercel project is configured to use separate Neon branches for runtime
+database isolation:
+
+- Production (`main`): Neon branch `main`
+- Preview branch deployment (`preview`): Neon branch `preview`
+- Development/local: Neon branch `development`
+
+The app reads `DATABASE_URL` at runtime. Additional Neon/Postgres URL and host
+variables are kept aligned in Vercel for operator tooling, but application code
+should continue to use `DATABASE_URL` only. Non-production branches are intended
+for testing and should not be treated as production data stores.
+
+`pg_stat_statements` is enabled on production for database egress diagnostics.
+Current observed top-row queries are dominated by Neon internal monitoring, not
+application overfetching. Re-run the stats after meaningful production traffic
+before making query tuning changes.
+
 ## Streaming And Polling
 
 Run detail pages load persisted events first, then attach to:
@@ -200,6 +219,12 @@ pnpm db:generate
 pnpm db:migrate
 pnpm db:studio
 ```
+
+## CI
+
+GitHub Actions runs `pnpm lint`, `pnpm typecheck`, `pnpm test`, and
+`pnpm build` on pushes to `main`/`preview` and pull requests into `main`.
+Protect `main` by requiring the `quality` status check before merging.
 
 ## Manual QA
 
