@@ -39,6 +39,36 @@ describe("Cursor result extraction", () => {
     expect(result.resultRawPayload).toMatchObject({ id: "run-1" });
   });
 
+  it("falls back to pull request URLs and Cursor branches in result text", () => {
+    const result = extractRunResult({
+      id: "run-1",
+      status: "finished",
+      result:
+        "Opened https://github.com/acme/web/pull/42 from branch cursor/smoke-test-aa36.",
+      git: { branches: [] },
+    });
+
+    expect(result.prUrl).toBe("https://github.com/acme/web/pull/42");
+    expect(result.branchName).toBe("cursor/smoke-test-aa36");
+  });
+
+  it("falls back to nested Cursor metadata when git branches are absent", () => {
+    const resultPayload = {
+      id: "run-1",
+      status: "finished",
+      result: "Done",
+      git: { branches: [] },
+      details: {
+        pullRequest: "https://github.com/acme/web/pull/43",
+        headRef: "cursor/fix-nested-pr",
+      },
+    } as unknown as Parameters<typeof extractRunResult>[0];
+    const result = extractRunResult(resultPayload);
+
+    expect(result.prUrl).toBe("https://github.com/acme/web/pull/43");
+    expect(result.branchName).toBe("cursor/fix-nested-pr");
+  });
+
   it("maps SDK artifacts into persisted records", () => {
     expect(
       artifactToRecord({

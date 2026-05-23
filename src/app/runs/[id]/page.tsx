@@ -59,6 +59,7 @@ export default async function RunDetailPage({
             <AgentRunResultPanel run={run} />
             <AgentRunPullRequestPanel
               runId={run.id}
+              prUrl={run.prUrl}
               initialPullRequest={pullRequestResult.pullRequest}
               initialError={pullRequestResult.error}
             />
