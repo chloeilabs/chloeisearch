@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cloud Coding Agents",
-  description: "Control plane for Cursor cloud coding agent runs.",
+  title: "Chloei Code",
+  description: "Cursor cloud coding agent control plane by Chloei.",
 };
 
 export default function RootLayout({

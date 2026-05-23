@@ -22,7 +22,7 @@ export function AppShell({
             </span>
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold">
-                Cloud Coding Agents
+                Chloei Code
               </span>
               <span className="block truncate text-xs text-muted-foreground">
                 Cursor run control plane
