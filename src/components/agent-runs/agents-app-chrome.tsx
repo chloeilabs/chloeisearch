@@ -25,11 +25,13 @@ function isEditableTarget(target: EventTarget | null) {
 export function AgentsAppChrome({
   sidebar,
   children,
+  headerStart,
   headerActions,
   className,
 }: {
   sidebar: ReactNode;
   children: ReactNode;
+  headerStart?: ReactNode;
   headerActions?: ReactNode;
   className?: string;
 }) {
@@ -98,7 +100,11 @@ export function AgentsAppChrome({
             >
               <PanelLeftIcon className="size-4" />
             </Button>
-            <div className="min-w-0 flex-1" />
+            {headerStart ? (
+              <div className="min-w-0 flex-1 overflow-hidden">{headerStart}</div>
+            ) : (
+              <div className="min-w-0 flex-1" />
+            )}
             {headerActions ? (
               <div className="flex shrink-0 items-center gap-1">{headerActions}</div>
             ) : null}

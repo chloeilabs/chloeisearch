@@ -56,6 +56,17 @@ describe("parseUpdateAgentRunInput", () => {
     expect(parsed.taskSummary).toBe("Ship sidebar polish");
   });
 
+
+  it("accepts archived flag", () => {
+    const parsed = parseUpdateAgentRunInput({ archived: true });
+    expect(parsed.archived).toBe(true);
+    expect(parsed.taskSummary).toBeUndefined();
+  });
+
+  it("requires at least one field", () => {
+    expect(() => parseUpdateAgentRunInput({})).toThrow();
+  });
+
   it("rejects empty summaries", () => {
     expect(() =>
       parseUpdateAgentRunInput({

@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { AgentRun } from "@prisma/client";
 import {
+  ArchiveIcon,
   CopyIcon,
   ExternalLinkIcon,
   PencilIcon,
@@ -18,8 +19,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { formatRelativeTime } from "@/lib/format";
+import { patchAgentRun } from "@/lib/agent-runs/client-patch";
 import { getValidRenameSummary } from "@/lib/agent-runs/task-summary";
+import { formatRelativeTime } from "@/lib/format";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +33,7 @@ export function SidebarRunRow({
   active: boolean;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { closeMobileSidebar } = useAgentsShell();
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const [isHovered, setIsHovered] = useState(false);
@@ -62,7 +65,7 @@ export function SidebarRunRow({
       ? "bg-sidebar-active text-sidebar-active-foreground"
       : "text-foreground/75 hover:bg-muted/50",
     isRunning && !active && "opacity-90",
-    isHovered && !isRenaming && !isMobile && "pr-14"
+    isHovered && !isRenaming && !isMobile && "pr-[4.75rem]"
   );
 
   const handleCancelRename = useCallback(() => {
@@ -84,17 +87,7 @@ export function SidebarRunRow({
     setRenamePending(true);
 
     try {
-      const response = await fetch(`/api/agent-runs/${run.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ taskSummary: nextSummary }),
-      });
-      const payload = await response.json();
-
-      if (!response.ok) {
-        throw new Error(payload.error ?? "Unable to rename agent.");
-      }
-
+      await patchAgentRun(run.id, { taskSummary: nextSummary });
       router.refresh();
     } catch (error) {
       console.error("Failed to rename agent run:", error);
@@ -111,6 +104,18 @@ export function SidebarRunRow({
       await navigator.clipboard.writeText(url);
     } catch (error) {
       console.error("Failed to copy run link:", error);
+    }
+  }
+
+  async function archiveRun() {
+    try {
+      await patchAgentRun(run.id, { archived: true });
+      if (pathname === `/runs/${run.id}`) {
+        router.push("/runs");
+      }
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to archive agent run:", error);
     }
   }
 
@@ -181,6 +186,27 @@ export function SidebarRunRow({
           </TooltipContent>
         </Tooltip>
       ) : null}
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <button
+              type="button"
+              className="rounded p-0.5 text-muted-foreground/60 transition-colors hover:text-muted-foreground"
+              aria-label="Archive agent"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                void archiveRun();
+              }}
+            >
+              <ArchiveIcon className="size-3.5" />
+            </button>
+          }
+        />
+        <TooltipContent side="top" sideOffset={4}>
+          Archive
+        </TooltipContent>
+      </Tooltip>
     </span>
   ) : null;
 

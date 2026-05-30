@@ -14,14 +14,32 @@ export type AgentRunWithRelations = Prisma.AgentRunGetPayload<{
   };
 }>;
 
+export type ListRunsForUserOptions = {
+  status?: NormalizedRunStatus;
+  archived?: "active" | "archived" | "all";
+};
+
 export async function listRunsForUser(
   userId: string,
-  status?: NormalizedRunStatus
+  options?: ListRunsForUserOptions | NormalizedRunStatus
 ) {
+  const resolved: ListRunsForUserOptions =
+    typeof options === "string"
+      ? { status: options, archived: "active" }
+      : { archived: "active", ...options };
+
+  const archivedWhere =
+    resolved.archived === "archived"
+      ? { archivedAt: { not: null } }
+      : resolved.archived === "all"
+        ? {}
+        : { archivedAt: null };
+
   return prisma.agentRun.findMany({
     where: {
       userId,
-      ...(status ? { normalizedStatus: status } : {}),
+      ...(resolved.status ? { normalizedStatus: resolved.status } : {}),
+      ...archivedWhere,
     },
     orderBy: { createdAt: "desc" },
     take: 100,
@@ -136,10 +154,13 @@ export async function getRunForUser(userId: string, id: string) {
   });
 }
 
-export async function updateRunTaskSummaryForUser(
+export async function patchAgentRunForUser(
   userId: string,
   id: string,
-  taskSummary: string
+  data: {
+    taskSummary?: string;
+    archived?: boolean;
+  }
 ) {
   const existing = await getRunForUser(userId, id);
 
@@ -147,9 +168,23 @@ export async function updateRunTaskSummaryForUser(
     return null;
   }
 
+  const patch: Prisma.AgentRunUpdateInput = {};
+
+  if (data.taskSummary !== undefined) {
+    patch.taskSummary = data.taskSummary;
+  }
+
+  if (data.archived !== undefined) {
+    patch.archivedAt = data.archived ? new Date() : null;
+  }
+
+  if (Object.keys(patch).length === 0) {
+    return existing;
+  }
+
   return prisma.agentRun.update({
     where: { id },
-    data: { taskSummary },
+    data: patch,
   });
 }
 

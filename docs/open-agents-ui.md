@@ -16,6 +16,10 @@ Chloei Code’s shell and inbox sidebar follow layout and styling patterns from 
 
 ## Recent additions
 
+- Chrome breadcrumbs + `RunChromeToolbar` on run/new pages
+
+- Archive agents (`archivedAt`, `PATCH { archived }`) — hidden from sidebar; `/runs?archived=1`
+
 - Hover preview on sidebar rows (desktop) — `sidebar-run-row.tsx`
 - Sidebar hover actions: rename (`PATCH /api/agent-runs/:id`), copy link, open PR
 - Repo groups auto-expand for active run / search

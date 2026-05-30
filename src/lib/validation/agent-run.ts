@@ -55,23 +55,35 @@ export function parseCreateAgentRunInput(input: unknown) {
   };
 }
 
-export const updateAgentRunInputSchema = z.object({
-  taskSummary: z
-    .string()
-    .trim()
-    .min(1, "Summary is required.")
-    .max(
-      taskSummaryMaxLength,
-      `Summary must be ${taskSummaryMaxLength} characters or fewer.`
-    ),
-});
+export const updateAgentRunInputSchema = z
+  .object({
+    taskSummary: z
+      .string()
+      .trim()
+      .min(1, "Summary is required.")
+      .max(
+        taskSummaryMaxLength,
+        `Summary must be ${taskSummaryMaxLength} characters or fewer.`
+      )
+      .optional(),
+    archived: z.boolean().optional(),
+  })
+  .refine(
+    (value) => value.taskSummary !== undefined || value.archived !== undefined,
+    { message: "Provide taskSummary or archived." }
+  );
 
 export type UpdateAgentRunInput = z.infer<typeof updateAgentRunInputSchema>;
 
 export function parseUpdateAgentRunInput(input: unknown) {
   const parsed = updateAgentRunInputSchema.parse(input);
   return {
-    taskSummary: parsed.taskSummary.replace(/\s+/g, " ").trim(),
+    ...(parsed.taskSummary !== undefined
+      ? {
+          taskSummary: parsed.taskSummary.replace(/\s+/g, " ").trim(),
+        }
+      : {}),
+    ...(parsed.archived !== undefined ? { archived: parsed.archived } : {}),
   };
 }
 

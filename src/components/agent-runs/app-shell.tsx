@@ -8,19 +8,24 @@ export async function AppShell({
   user,
   children,
   contentClassName,
+  headerStart,
   headerActions,
 }: {
   user: CurrentUser;
   children: React.ReactNode;
   contentClassName?: string;
+  headerStart?: React.ReactNode;
   headerActions?: React.ReactNode;
 }) {
-  const sidebarRuns = (await listRunsForUser(user.id)).slice(0, 50);
+  const sidebarRuns = (
+    await listRunsForUser(user.id, { archived: "active" })
+  ).slice(0, 50);
 
   return (
     <div className="flex h-dvh overflow-hidden bg-background">
       <AgentsAppChrome
         sidebar={<AppSidebar user={user} runs={sidebarRuns} />}
+        headerStart={headerStart}
         headerActions={headerActions}
         className={cn("px-4 py-4 lg:px-6 lg:py-5", contentClassName)}
       >

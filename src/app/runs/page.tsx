@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 export default async function RunsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; archived?: string }>;
 }) {
   const user = await getCurrentUser();
 
@@ -22,12 +22,37 @@ export default async function RunsPage({
     return <SignInPanel />;
   }
 
-  const { status } = await searchParams;
+  const { status, archived } = await searchParams;
+  const showArchived = archived === "1";
   const activeStatus = runStatusFilters.find((item) => item === status);
-  const allRuns = await listRunsForUser(user.id);
+  const allRuns = await listRunsForUser(user.id, {
+    archived: showArchived ? "archived" : "active",
+  });
   const runs = activeStatus
     ? allRuns.filter((run) => run.normalizedStatus === activeStatus)
     : allRuns;
+
+  if (showArchived && !activeStatus) {
+    return (
+      <AppShell
+        user={user}
+        headerActions={
+          <>
+            <RefreshButton />
+            <NewAgentRunButton />
+          </>
+        }
+      >
+        <div className="mx-auto w-full max-w-3xl">
+          <h1 className="mb-1 text-lg font-medium tracking-tight">Archived</h1>
+          <p className="mb-4 text-sm text-muted-foreground">
+            Agents hidden from the sidebar. Open one to unarchive or review.
+          </p>
+          <FilteredRunsView runs={runs} />
+        </div>
+      </AppShell>
+    );
+  }
 
   if (!activeStatus) {
     return (

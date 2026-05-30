@@ -1,7 +1,7 @@
 import { ApiError, handleApiError, noStoreJson, readJson } from "@/lib/api";
 import {
   getRunDetailForUser,
-  updateRunTaskSummaryForUser,
+  patchAgentRunForUser,
 } from "@/lib/agent-runs/repository";
 import { requireCurrentUser } from "@/lib/auth";
 import { assertRateLimit } from "@/lib/rate-limit";
@@ -39,8 +39,8 @@ export async function PATCH(
 
     const { id } = await params;
     const body = await readJson<unknown>(request);
-    const { taskSummary } = parseUpdateAgentRunInput(body);
-    const run = await updateRunTaskSummaryForUser(user.id, id, taskSummary);
+    const patch = parseUpdateAgentRunInput(body);
+    const run = await patchAgentRunForUser(user.id, id, patch);
 
     if (!run) {
       throw new ApiError(404, "Run not found.");

@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/agent-runs/app-shell";
 import { NewAgentRunForm } from "@/components/agent-runs/new-agent-run-form";
+import { NewRunBreadcrumbs } from "@/components/agent-runs/run-breadcrumbs";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { getRunCreationLimits } from "@/lib/agent-runs/limits";
 import { getCurrentUser } from "@/lib/auth";
@@ -19,6 +20,7 @@ export default async function NewRunPage() {
     <AppShell
       user={user}
       contentClassName="flex min-h-0 flex-1 flex-col py-2 lg:max-w-2xl"
+      headerStart={<NewRunBreadcrumbs />}
     >
       <NewAgentRunForm runLimits={runLimits} layout="composer" />
     </AppShell>

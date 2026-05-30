@@ -8,6 +8,8 @@ import { AgentRunPromptPanel } from "@/components/agent-runs/agent-run-prompt-pa
 import { AgentRunPullRequestPanel } from "@/components/agent-runs/agent-run-pull-request-panel";
 import { AgentRunResultPanel } from "@/components/agent-runs/agent-run-result-panel";
 import { AppShell } from "@/components/agent-runs/app-shell";
+import { RunBreadcrumbs } from "@/components/agent-runs/run-breadcrumbs";
+import { RunChromeToolbar } from "@/components/agent-runs/run-chrome-toolbar";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { getRunPullRequestLifecycle } from "@/lib/agent-runs/pull-request-service";
 import { getRunDetailForUser } from "@/lib/agent-runs/repository";
@@ -46,8 +48,24 @@ export default async function RunDetailPage({
     : { pullRequest: null, error: null };
 
   return (
-    <AppShell user={user} contentClassName="px-4 py-0 lg:px-6">
+    <AppShell
+      user={user}
+      contentClassName="px-4 py-0 lg:px-6"
+      headerStart={<RunBreadcrumbs current={run.taskSummary} />}
+      headerActions={
+        <RunChromeToolbar
+          runId={run.id}
+          prUrl={run.prUrl}
+          archivedAt={run.archivedAt}
+        />
+      }
+    >
       <div className="mx-auto flex w-full max-w-5xl flex-col">
+        {run.archivedAt ? (
+          <p className="border-b border-border py-2 text-xs text-muted-foreground">
+            This agent is archived and hidden from the sidebar.
+          </p>
+        ) : null}
         <AgentRunHeader run={run} />
         <div className="grid xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-8">
           <div className="min-w-0 border-border/50 xl:border-r xl:pr-8">

@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { PlusIcon, SettingsIcon } from "lucide-react";
 
+import { SidebarArchivedLink } from "@/components/agent-runs/sidebar-archived-link";
 import { SidebarRecentRuns } from "@/components/agent-runs/sidebar-recent-runs";
 import { SidebarStatusLink } from "@/components/agent-runs/sidebar-status-link";
 import { UserMenu } from "@/components/agent-runs/user-menu";
@@ -51,6 +53,9 @@ export function AppSidebar({
       <SidebarRecentRuns runs={runs} />
 
       <div className="mt-auto shrink-0 space-y-1 border-t border-border p-2">
+        <Suspense fallback={null}>
+          <SidebarArchivedLink />
+        </Suspense>
         <SidebarStatusLink />
         <UserMenu user={user} menuItems={<SignOutMenuItem />} />
       </div>

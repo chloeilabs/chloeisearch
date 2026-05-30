@@ -87,6 +87,7 @@ model AgentRun {
   updatedAt   DateTime  @updatedAt
   completedAt DateTime?
   cancelledAt DateTime?
+  archivedAt  DateTime?
 
   retryOfRunId String?
   retryOfRun   AgentRun?  @relation("AgentRunRetries", fields: [retryOfRunId], references: [id], onDelete: SetNull)
