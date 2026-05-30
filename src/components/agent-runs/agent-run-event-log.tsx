@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { CableIcon, ChevronDownIcon, UnplugIcon } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
@@ -108,81 +107,73 @@ export function AgentRunEventLog({
   );
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between gap-4">
-        <CardTitle className="text-sm font-medium">Stream</CardTitle>
+    <section className="border-b border-border/50 pb-6">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <h2 className="text-sm font-medium text-foreground">Stream</h2>
         <Badge
           variant="outline"
           className={cn(
+            "h-6 border-border/60 font-normal text-muted-foreground",
             connected &&
               "border-[var(--status-running-border)] bg-[var(--status-running-bg)] text-[var(--status-running-fg)]"
           )}
         >
           {connected ? (
-            <CableIcon data-icon="inline-start" className="animate-pulse" />
+            <CableIcon data-icon="inline-start" className="size-3 animate-pulse" />
           ) : (
-            <UnplugIcon data-icon="inline-start" />
+            <UnplugIcon data-icon="inline-start" className="size-3" />
           )}
-          {connected ? "Streaming" : "Refreshable"}
+          {connected ? "Live" : "Idle"}
         </Badge>
-      </CardHeader>
-      <CardContent>
-        {orderedEvents.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            No events have been persisted yet.
-          </p>
-        ) : (
-          <ScrollArea className="max-h-[min(70vh,640px)] rounded-md bg-transparent pr-3">
-            <ol className="relative flex flex-col gap-4 border-l border-border/80 pl-4">
-              {orderedEvents.map((event) => (
-                <li key={event.id} className="relative">
-                  <span
-                    className={cn(
-                      "absolute -left-[21px] top-2 size-2.5 rounded-full ring-2 ring-card",
-                      eventTypeDotClass(event.eventType)
-                    )}
-                  />
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary" className="tabular-nums">
-                      #{event.sequenceNumber}
-                    </Badge>
-                    <Badge variant="outline" className="font-mono text-[0.65rem]">
-                      {event.eventType}
-                    </Badge>
-                    <span className="text-xs text-muted-foreground">
-                      {formatDateTime(event.createdAt)}
-                    </span>
-                  </div>
-                  {event.messageText ? (
-                    <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-foreground/90">
-                      {event.messageText}
-                    </p>
-                  ) : null}
-                  <Collapsible className="mt-2">
-                    <CollapsibleTrigger className="flex items-center gap-1 rounded-md px-1 py-0.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground">
-                      <ChevronDownIcon className="size-3.5 transition-transform in-data-open:rotate-180" />
-                      Raw JSON
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <pre className="cursor-log-surface mt-2 max-h-56 overflow-auto">
-                        {JSON.stringify(event.rawPayload, null, 2)}
-                      </pre>
-                    </CollapsibleContent>
-                  </Collapsible>
-                </li>
-              ))}
-            </ol>
-          </ScrollArea>
-        )}
-      </CardContent>
-    </Card>
+      </div>
+      {orderedEvents.length === 0 ? (
+        <p className="text-sm text-muted-foreground">Waiting for events…</p>
+      ) : (
+        <ScrollArea className="max-h-[min(70vh,560px)]">
+          <ol className="relative flex flex-col gap-4 border-l border-border/40 pl-4">
+            {orderedEvents.map((event) => (
+              <li key={event.id} className="relative">
+                <span
+                  className={cn(
+                    "absolute -left-[17px] top-2 size-2 rounded-full ring-2 ring-background",
+                    eventTypeDotClass(event.eventType)
+                  )}
+                  aria-hidden
+                />
+                <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                  <span className="tabular-nums">#{event.sequenceNumber}</span>
+                  <span className="font-mono">{event.eventType}</span>
+                  <span>{formatDateTime(event.createdAt)}</span>
+                </div>
+                {event.messageText ? (
+                  <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">
+                    {event.messageText}
+                  </p>
+                ) : null}
+                <Collapsible className="mt-2">
+                  <CollapsibleTrigger className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+                    <ChevronDownIcon className="size-3 transition-transform in-data-open:rotate-180" />
+                    Raw
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <pre className="cursor-log-surface mt-2 max-h-48 overflow-auto">
+                      {JSON.stringify(event.rawPayload, null, 2)}
+                    </pre>
+                  </CollapsibleContent>
+                </Collapsible>
+              </li>
+            ))}
+          </ol>
+        </ScrollArea>
+      )}
+    </section>
   );
 }
 
 function eventTypeDotClass(eventType: string) {
   switch (eventType) {
     case "assistant":
-      return "bg-primary";
+      return "bg-foreground/80";
     case "thinking":
       return "bg-chart-5";
     case "tool_call":

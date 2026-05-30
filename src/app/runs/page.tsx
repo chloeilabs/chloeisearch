@@ -1,5 +1,6 @@
 import { AgentRunFilters } from "@/components/agent-runs/agent-run-filters";
 import { AgentRunsTable } from "@/components/agent-runs/agent-runs-table";
+import { AgentsHome } from "@/components/agent-runs/agents-home";
 import { AppShell } from "@/components/agent-runs/app-shell";
 import { RefreshButton } from "@/components/agent-runs/refresh-button";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
@@ -23,7 +24,18 @@ export default async function RunsPage({
 
   const { status } = await searchParams;
   const activeStatus = runStatusFilters.find((item) => item === status);
-  const runs = await listRunsForUser(user.id, activeStatus);
+  const allRuns = await listRunsForUser(user.id);
+  const runs = activeStatus
+    ? await listRunsForUser(user.id, activeStatus)
+    : allRuns;
+
+  if (!activeStatus) {
+    return (
+      <AppShell user={user}>
+        <AgentsHome runs={allRuns} />
+      </AppShell>
+    );
+  }
 
   return (
     <AppShell user={user}>

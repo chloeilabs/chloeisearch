@@ -148,6 +148,9 @@
   .cursor-content {
     @apply mx-auto w-full max-w-3xl;
   }
+  .cursor-content-wide {
+    @apply mx-auto w-full max-w-4xl;
+  }
   .cursor-field {
     @apply rounded-md border border-border/60 bg-input/30 shadow-none focus-visible:border-border focus-visible:bg-input/45 focus-visible:ring-1 focus-visible:ring-ring/40;
   }

@@ -32,6 +32,7 @@ import {
   type RepositoryCatalogItem,
 } from "@/lib/repositories/catalog";
 import type { RunCreationLimits } from "@/lib/agent-runs/limit-policy";
+import { cn } from "@/lib/utils";
 
 type CursorModel = {
   id: string;
@@ -68,9 +69,12 @@ type ApiErrorPayload = {
 
 export function NewAgentRunForm({
   runLimits,
+  layout = "default",
 }: {
   runLimits: RunCreationLimits;
+  layout?: "default" | "composer";
 }) {
+  const isComposer = layout === "composer";
   const router = useRouter();
   const [repoUrl, setRepoUrl] = useState("");
   const [startingRef, setStartingRef] = useState("main");
@@ -282,47 +286,59 @@ export function NewAgentRunForm({
     }
   }
 
+  const optionsGrid = (
+    <div className="grid gap-4 sm:grid-cols-2">
+      <RepoInput repoUrl={repoUrl} setRepoUrl={selectRepository} repositories={repositories} />
+      <StartingRefInput
+        startingRef={startingRef}
+        setStartingRef={setStartingRef}
+        branches={branches}
+        isLoadingBranches={isLoadingBranches}
+        branchError={branchError}
+      />
+      <ModelSelector
+        items={modelItems}
+        modelId={modelId}
+        setModelId={setModelId}
+        isLoading={isLoadingCatalog}
+      />
+      <div className="flex items-end pb-1">
+        <AutoCreatePRToggle checked={autoCreatePR} setChecked={setAutoCreatePR} />
+      </div>
+    </div>
+  );
+
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-6">
-      <div className="cursor-composer p-1">
+    <form
+      onSubmit={onSubmit}
+      className={cn("flex flex-col gap-6", isComposer && "min-h-0 flex-1 gap-4")}
+    >
+      <div className={cn("cursor-composer p-1", isComposer && "min-h-[min(50vh,420px)] flex-1")}>
         <FieldSet>
           <FieldGroup>
-            <PromptTextarea
-              taskPrompt={taskPrompt}
-              setTaskPrompt={setTaskPrompt}
-            />
+            <PromptTextarea taskPrompt={taskPrompt} setTaskPrompt={setTaskPrompt} />
           </FieldGroup>
         </FieldSet>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <RepoInput
-          repoUrl={repoUrl}
-          setRepoUrl={selectRepository}
-          repositories={repositories}
-        />
-        <StartingRefInput
-          startingRef={startingRef}
-          setStartingRef={setStartingRef}
-          branches={branches}
-          isLoadingBranches={isLoadingBranches}
-          branchError={branchError}
-        />
-        <ModelSelector
-          items={modelItems}
-          modelId={modelId}
-          setModelId={setModelId}
-          isLoading={isLoadingCatalog}
-        />
-        <div className="flex items-end pb-1">
-          <AutoCreatePRToggle
-            checked={autoCreatePR}
-            setChecked={setAutoCreatePR}
-          />
-        </div>
-      </div>
-
-      <RunSafetyPanel runLimits={runLimits} />
+      {isComposer ? (
+        <details className="text-sm">
+          <summary className="cursor-pointer list-none text-muted-foreground marker:content-none hover:text-foreground [&::-webkit-details-marker]:hidden">
+            <span className="border-b border-dotted border-muted-foreground/50">
+              Repository, branch & model
+            </span>
+          </summary>
+          <div className="mt-4 space-y-4">
+            {optionsGrid}
+            <RunSafetyPanel runLimits={runLimits} compact />
+          </div>
+        </details>
+      ) : (
+        <>
+          {optionsGrid}
+          <RunSafetyPanel runLimits={runLimits} />
+        </>
+      )}
 
       {catalogError ? (
         <Alert>
@@ -348,7 +364,7 @@ export function NewAgentRunForm({
         </Alert>
       ) : null}
 
-      <div className="flex gap-2 border-t border-border/50 pt-4">
+      <div className={cn("flex gap-2 border-t border-border/50 pt-4", isComposer && "sticky bottom-0 mt-auto bg-background")}>
         <Button
           type="submit"
           disabled={isSubmitting || !runLimits.canCreateRun}
@@ -376,7 +392,7 @@ export function NewAgentRunForm({
   );
 }
 
-function RunSafetyPanel({ runLimits }: { runLimits: RunCreationLimits }) {
+function RunSafetyPanel({ runLimits, compact = false }: { runLimits: RunCreationLimits; compact?: boolean }) {
   const items = [
     {
       label: "Active runs",
@@ -401,7 +417,7 @@ function RunSafetyPanel({ runLimits }: { runLimits: RunCreationLimits }) {
   ];
 
   return (
-    <div className="rounded-md border border-border/60 bg-card/20 p-4 text-sm">
+    <div className={cn("rounded-md border border-border/60 bg-card/20 p-4 text-sm", compact && "border-transparent bg-transparent p-0")}>
       <div className="mb-3 flex items-center justify-between gap-3">
         <h2 className="text-xs font-medium text-muted-foreground">Limits</h2>
         <span className="text-xs text-muted-foreground">

@@ -12,6 +12,7 @@ export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
   const pathname = usePathname();
   const activeRunId = pathname.match(/^\/runs\/([^/]+)$/)?.[1];
   const onRunsIndex = pathname === "/runs";
+  const onNewAgent = pathname === "/runs/new";
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -27,9 +28,30 @@ export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
             )}
             aria-current={onRunsIndex && !activeRunId ? "page" : undefined}
           >
-            <span className="text-[13px]">All agents</span>
+            <span className="text-[13px]">Overview</span>
           </Link>
         </li>
+        <li>
+          <Link
+            href="/runs/new"
+            className={cn(
+              "cursor-sidebar-item",
+              onNewAgent
+                ? "cursor-sidebar-item-active"
+                : "cursor-sidebar-item-inactive"
+            )}
+            aria-current={onNewAgent ? "page" : undefined}
+          >
+            <span className="text-[13px]">New agent</span>
+          </Link>
+        </li>
+        {runs.length > 0 ? (
+          <li className="px-2.5 pb-0.5 pt-3">
+            <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">
+              Agents
+            </span>
+          </li>
+        ) : null}
         {runs.map((run) => {
           const active = activeRunId === run.id;
 

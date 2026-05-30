@@ -46,7 +46,7 @@ export default async function RunDetailPage({
     : { pullRequest: null, error: null };
 
   return (
-    <AppShell user={user}>
+    <AppShell user={user} contentClassName="max-w-4xl">
       <div className="flex flex-col gap-6">
         <AgentRunHeader run={run} />
         <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_390px]">

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export function AgentRunFilters({ activeStatus }: { activeStatus?: string }) {
   const items = [
-    { href: "/runs", label: "All", active: !activeStatus },
+    { href: "/runs", label: "Overview", active: !activeStatus },
     ...runStatusFilters.map((status) => ({
       href: `/runs?status=${status}`,
       label: runStatusLabels[status],

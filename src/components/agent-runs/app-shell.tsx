@@ -13,9 +13,11 @@ import { cn } from "@/lib/utils";
 export async function AppShell({
   user,
   children,
+  contentClassName,
 }: {
   user: CurrentUser;
   children: React.ReactNode;
+  contentClassName?: string;
 }) {
   const sidebarRuns = (await listRunsForUser(user.id)).slice(0, 24);
 
@@ -32,7 +34,7 @@ export async function AppShell({
           </Link>
         </div>
 
-        <div className="px-2 pb-2">
+        <div className="px-2 pb-1">
           <Button
             nativeButton={false}
             variant="outline"
@@ -63,7 +65,14 @@ export async function AppShell({
       </aside>
 
       <main className="min-w-0 flex-1 overflow-auto">
-        <div className="cursor-content px-5 py-6 sm:px-8">{children}</div>
+        <div
+          className={cn(
+            "cursor-content px-5 py-6 sm:px-8",
+            contentClassName
+          )}
+        >
+          {children}
+        </div>
       </main>
     </div>
   );
