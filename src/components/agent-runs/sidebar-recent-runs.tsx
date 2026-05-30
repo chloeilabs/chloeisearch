@@ -4,22 +4,32 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { AgentRun } from "@prisma/client";
 
-import { AgentRunStatusBadge } from "@/components/agent-runs/agent-run-status-badge";
+import { AgentStatusDot } from "@/components/agent-runs/agent-run-status-badge";
 import { formatRelativeTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
   const pathname = usePathname();
   const activeRunId = pathname.match(/^\/runs\/([^/]+)$/)?.[1];
-
-  if (runs.length === 0) {
-    return null;
-  }
+  const onRunsIndex = pathname === "/runs";
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden border-t border-sidebar-border">
-      <p className="cursor-sidebar-label">Recent</p>
-      <ul className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-2 pb-2">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <ul className="flex flex-1 flex-col gap-px overflow-y-auto px-1.5 py-1">
+        <li>
+          <Link
+            href="/runs"
+            className={cn(
+              "cursor-sidebar-item",
+              onRunsIndex && !activeRunId
+                ? "cursor-sidebar-item-active"
+                : "cursor-sidebar-item-inactive"
+            )}
+            aria-current={onRunsIndex && !activeRunId ? "page" : undefined}
+          >
+            <span className="text-[13px]">All agents</span>
+          </Link>
+        </li>
         {runs.map((run) => {
           const active = activeRunId === run.id;
 
@@ -28,24 +38,17 @@ export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
               <Link
                 href={`/runs/${run.id}`}
                 className={cn(
-                  "block rounded-md px-2.5 py-2 transition-colors",
-                  active
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                    : "text-muted-foreground hover:bg-sidebar-accent/50 hover:text-foreground"
+                  "cursor-sidebar-item gap-2",
+                  active ? "cursor-sidebar-item-active" : "cursor-sidebar-item-inactive"
                 )}
                 aria-current={active ? "page" : undefined}
               >
-                <span className="line-clamp-2 text-xs leading-snug text-foreground/95">
-                  {run.taskSummary}
+                <AgentStatusDot status={run.normalizedStatus} />
+                <span className="min-w-0 flex-1">
+                  <span className="line-clamp-2 leading-snug">{run.taskSummary}</span>
                 </span>
-                <span className="mt-1.5 flex items-center justify-between gap-2">
-                  <AgentRunStatusBadge
-                    status={run.normalizedStatus}
-                    className="h-5 px-1.5 text-[10px]"
-                  />
-                  <span className="shrink-0 text-[10px] tabular-nums text-muted-foreground">
-                    {formatRelativeTime(run.updatedAt)}
-                  </span>
+                <span className="shrink-0 text-[10px] tabular-nums text-muted-foreground/80">
+                  {formatRelativeTime(run.updatedAt)}
                 </span>
               </Link>
             </li>

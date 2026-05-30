@@ -19,14 +19,11 @@ export function SignInPanel() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--control-canvas)] px-6 py-12">
-      <div className="mb-8 flex flex-col items-center text-center">
-        <CursorBrandMark size="lg" className="mb-4" />
-        <h1 className="mt-2 text-2xl font-medium tracking-tight text-foreground">
-          Cloud agent control plane
+      <div className="mb-10 flex flex-col items-center text-center">
+        <CursorBrandMark size="lg" className="mb-5" />
+        <h1 className="text-lg font-medium tracking-tight text-foreground">
+          Sign in to continue
         </h1>
-        <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-          Same agents as Cursor — orchestrated for your repositories.
-        </p>
       </div>
 
       <Card className="w-full max-w-md">

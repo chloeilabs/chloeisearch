@@ -110,7 +110,7 @@ export function AgentRunEventLog({
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-4">
-        <CardTitle className="text-base">Agent stream</CardTitle>
+        <CardTitle className="text-sm font-medium">Stream</CardTitle>
         <Badge
           variant="outline"
           className={cn(
@@ -132,7 +132,7 @@ export function AgentRunEventLog({
             No events have been persisted yet.
           </p>
         ) : (
-          <ScrollArea className="max-h-[min(70vh,640px)] rounded-md bg-muted/15 pr-3">
+          <ScrollArea className="max-h-[min(70vh,640px)] rounded-md bg-transparent pr-3">
             <ol className="relative flex flex-col gap-4 border-l border-border/80 pl-4">
               {orderedEvents.map((event) => (
                 <li key={event.id} className="relative">

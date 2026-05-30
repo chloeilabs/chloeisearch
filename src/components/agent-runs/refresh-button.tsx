@@ -2,23 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import { RefreshCwIcon } from "lucide-react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 
-export function RefreshButton({ label = "Refresh" }: { label?: string }) {
+export function RefreshButton() {
   const router = useRouter();
 
   return (
     <Button
-      variant="outline"
-      onClick={() => {
-        router.refresh();
-        toast.message("List refreshed");
-      }}
+      variant="ghost"
+      size="icon-sm"
+      aria-label="Refresh"
+      onClick={() => router.refresh()}
     >
-      <RefreshCwIcon data-icon="inline-start" />
-      {label}
+      <RefreshCwIcon className="size-4" />
     </Button>
   );
 }

@@ -1,41 +1,46 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { runStatusFilters, runStatusLabels } from "@/lib/agent-runs/types";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
 export function AgentRunFilters({ activeStatus }: { activeStatus?: string }) {
-  const router = useRouter();
-  const value = activeStatus ?? "all";
+  const items = [
+    { href: "/runs", label: "All", active: !activeStatus },
+    ...runStatusFilters.map((status) => ({
+      href: `/runs?status=${status}`,
+      label: runStatusLabels[status],
+      active: activeStatus === status,
+    })),
+  ];
 
   return (
-    <Tabs
-      value={value}
-      onValueChange={(next) => {
-        router.push(next === "all" ? "/runs" : `/runs?status=${next}`);
-      }}
+    <nav
+      className="mb-4 flex flex-wrap items-center gap-1 text-[13px]"
+      aria-label="Filter by status"
     >
-      <TabsList
-        variant="line"
-        className="h-auto w-full justify-start gap-0 border-b border-border/60 bg-transparent p-0"
-      >
-        <TabsTrigger
-          value="all"
-          className="rounded-none border-b-2 border-transparent px-3 py-2 data-active:border-foreground data-active:bg-transparent data-active:shadow-none"
-        >
-          All
-        </TabsTrigger>
-        {runStatusFilters.map((status) => (
-          <TabsTrigger
-            key={status}
-            value={status}
-            className="rounded-none border-b-2 border-transparent px-3 py-2 data-active:border-foreground data-active:bg-transparent data-active:shadow-none"
+      {items.map((item, index) => (
+        <span key={item.href} className="inline-flex items-center gap-1">
+          {index > 0 ? (
+            <span className="text-muted-foreground/35" aria-hidden>
+              ·
+            </span>
+          ) : null}
+          <Link
+            href={item.href}
+            className={cn(
+              "rounded px-1 py-0.5 transition-colors",
+              item.active
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+            aria-current={item.active ? "page" : undefined}
           >
-            {runStatusLabels[status]}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
+            {item.label}
+          </Link>
+        </span>
+      ))}
+    </nav>
   );
 }

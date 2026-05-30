@@ -39,11 +39,8 @@ export default async function StatusPage() {
 
   return (
     <AppShell user={user}>
-      <div className="flex flex-col gap-6">
-        <PageHeader
-          title="Status"
-          description="Runtime checks for the control plane, Cursor API, GitHub, and active cloud runs."
-        />
+      <div className="flex flex-col gap-5">
+        <PageHeader title="Status" />
 
         <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
           <Metric label="Total runs" value={runStats.totalRuns} />

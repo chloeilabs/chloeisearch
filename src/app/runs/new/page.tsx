@@ -18,11 +18,8 @@ export default async function NewRunPage() {
 
   return (
     <AppShell user={user}>
-      <div className="flex flex-col gap-6">
-        <PageHeader
-          title="New agent"
-          description="Send a repository-scoped task to Cursor cloud runtime. Your API key stays on the server."
-        />
+      <div className="flex flex-col gap-4">
+        <PageHeader title="New agent" />
         <NewAgentRunForm runLimits={runLimits} />
       </div>
     </AppShell>

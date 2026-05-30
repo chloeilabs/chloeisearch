@@ -283,22 +283,10 @@ export function NewAgentRunForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-[1fr_340px]">
-      <div className="cursor-panel p-5">
+    <form onSubmit={onSubmit} className="flex flex-col gap-6">
+      <div className="cursor-composer p-1">
         <FieldSet>
           <FieldGroup>
-            <RepoInput
-              repoUrl={repoUrl}
-              setRepoUrl={selectRepository}
-              repositories={repositories}
-            />
-            <StartingRefInput
-              startingRef={startingRef}
-              setStartingRef={setStartingRef}
-              branches={branches}
-              isLoadingBranches={isLoadingBranches}
-              branchError={branchError}
-            />
             <PromptTextarea
               taskPrompt={taskPrompt}
               setTaskPrompt={setTaskPrompt}
@@ -307,75 +295,83 @@ export function NewAgentRunForm({
         </FieldSet>
       </div>
 
-      <aside className="flex flex-col gap-4">
-        <div className="cursor-panel p-5">
-          <FieldSet>
-            <FieldGroup>
-              <ModelSelector
-                items={modelItems}
-                modelId={modelId}
-                setModelId={setModelId}
-                isLoading={isLoadingCatalog}
-              />
-              <AutoCreatePRToggle
-                checked={autoCreatePR}
-                setChecked={setAutoCreatePR}
-              />
-            </FieldGroup>
-          </FieldSet>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <RepoInput
+          repoUrl={repoUrl}
+          setRepoUrl={selectRepository}
+          repositories={repositories}
+        />
+        <StartingRefInput
+          startingRef={startingRef}
+          setStartingRef={setStartingRef}
+          branches={branches}
+          isLoadingBranches={isLoadingBranches}
+          branchError={branchError}
+        />
+        <ModelSelector
+          items={modelItems}
+          modelId={modelId}
+          setModelId={setModelId}
+          isLoading={isLoadingCatalog}
+        />
+        <div className="flex items-end pb-1">
+          <AutoCreatePRToggle
+            checked={autoCreatePR}
+            setChecked={setAutoCreatePR}
+          />
         </div>
+      </div>
 
-        <RunSafetyPanel runLimits={runLimits} />
+      <RunSafetyPanel runLimits={runLimits} />
 
-        {catalogError ? (
-          <Alert>
-            <AlertCircleIcon data-icon="inline-start" />
-            <AlertTitle>Cursor catalog unavailable</AlertTitle>
-            <AlertDescription>{catalogError}</AlertDescription>
-          </Alert>
-        ) : null}
+      {catalogError ? (
+        <Alert>
+          <AlertCircleIcon data-icon="inline-start" />
+          <AlertTitle>Cursor catalog unavailable</AlertTitle>
+          <AlertDescription>{catalogError}</AlertDescription>
+        </Alert>
+      ) : null}
 
-        {submitError ? (
-          <Alert>
-            <AlertCircleIcon data-icon="inline-start" />
-            <AlertTitle>Run creation failed</AlertTitle>
-            <AlertDescription>{submitError}</AlertDescription>
-          </Alert>
-        ) : null}
+      {submitError ? (
+        <Alert>
+          <AlertCircleIcon data-icon="inline-start" />
+          <AlertTitle>Run creation failed</AlertTitle>
+          <AlertDescription>{submitError}</AlertDescription>
+        </Alert>
+      ) : null}
 
-        {!runLimits.canCreateRun ? (
-          <Alert variant="destructive">
-            <AlertCircleIcon data-icon="inline-start" />
-            <AlertTitle>Run creation paused</AlertTitle>
-            <AlertDescription>{runLimits.reasons.join(" ")}</AlertDescription>
-          </Alert>
-        ) : null}
+      {!runLimits.canCreateRun ? (
+        <Alert variant="destructive">
+          <AlertCircleIcon data-icon="inline-start" />
+          <AlertTitle>Run creation paused</AlertTitle>
+          <AlertDescription>{runLimits.reasons.join(" ")}</AlertDescription>
+        </Alert>
+      ) : null}
 
-        <div className="flex gap-2">
-          <Button
-            type="submit"
-            disabled={isSubmitting || !runLimits.canCreateRun}
-            className="flex-1"
-          >
-            {isSubmitting ? (
-              <Loader2Icon data-icon="inline-start" className="animate-spin" />
-            ) : (
-              <PlayIcon data-icon="inline-start" />
-            )}
-            Start cloud run
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            onClick={() => void loadCatalog()}
-            disabled={isLoadingCatalog}
-            aria-label="Refresh Cursor catalog"
-          >
-            <RefreshCwIcon className={isLoadingCatalog ? "animate-spin" : ""} />
-          </Button>
-        </div>
-      </aside>
+      <div className="flex gap-2 border-t border-border/50 pt-4">
+        <Button
+          type="submit"
+          disabled={isSubmitting || !runLimits.canCreateRun}
+          className="min-w-[120px]"
+        >
+          {isSubmitting ? (
+            <Loader2Icon data-icon="inline-start" className="animate-spin" />
+          ) : (
+            <PlayIcon data-icon="inline-start" />
+          )}
+          Run agent
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          onClick={() => void loadCatalog()}
+          disabled={isLoadingCatalog}
+          aria-label="Refresh Cursor catalog"
+        >
+          <RefreshCwIcon className={isLoadingCatalog ? "animate-spin" : ""} />
+        </Button>
+      </div>
     </form>
   );
 }
@@ -405,9 +401,9 @@ function RunSafetyPanel({ runLimits }: { runLimits: RunCreationLimits }) {
   ];
 
   return (
-    <div className="cursor-panel p-5">
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold">Run safety</h2>
+    <div className="rounded-md border border-border/60 bg-card/20 p-4 text-sm">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h2 className="text-xs font-medium text-muted-foreground">Limits</h2>
         <span className="text-xs text-muted-foreground">
           {runLimits.canCreateRun ? "Available" : "Limit reached"}
         </span>
@@ -604,13 +600,15 @@ export function PromptTextarea({
 }) {
   return (
     <Field>
-      <FieldLabel htmlFor="task-prompt">Task prompt</FieldLabel>
+      <FieldLabel htmlFor="task-prompt" className="sr-only">
+        Prompt
+      </FieldLabel>
       <Textarea
         id="task-prompt"
         value={taskPrompt}
         onChange={(event) => setTaskPrompt(event.target.value)}
-        placeholder="Describe the code change, tests to update, and any constraints Cursor should follow."
-        className="min-h-72 resize-y"
+        placeholder="Ask the agent to work on your repository…"
+        className="min-h-[220px] resize-y border-0 bg-transparent shadow-none focus-visible:ring-0"
         required
         maxLength={20_000}
       />

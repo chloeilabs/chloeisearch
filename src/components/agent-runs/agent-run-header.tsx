@@ -13,7 +13,7 @@ export function AgentRunHeader({ run }: { run: AgentRun }) {
       <div className="min-w-0">
         <Link
           href="/runs"
-          className="mb-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          className="mb-4 inline-flex items-center gap-1 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeftIcon className="size-3.5" />
           All agents
