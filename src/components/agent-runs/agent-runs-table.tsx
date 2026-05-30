@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BotIcon, ExternalLinkIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 import type { AgentRun } from "@prisma/client";
 
 import { AgentRunStatusBadge, statusRailClassName } from "@/components/agent-runs/agent-run-status-badge";
@@ -20,12 +20,9 @@ import { cn } from "@/lib/utils";
 export function AgentRunsTable({ runs }: { runs: AgentRun[] }) {
   if (runs.length === 0) {
     return (
-      <Empty className="border bg-card py-12">
+      <Empty className="cursor-panel py-12">
         <EmptyHeader>
-          <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-xl border bg-muted/50">
-            <BotIcon className="size-6 text-muted-foreground" />
-          </div>
-        <EmptyTitle>No runs yet</EmptyTitle>
+          <EmptyTitle>No runs yet</EmptyTitle>
           <EmptyDescription>
             Create a Cursor cloud agent run to start tracking work here.
           </EmptyDescription>
@@ -40,7 +37,7 @@ export function AgentRunsTable({ runs }: { runs: AgentRun[] }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border bg-card">
+    <div className="cursor-panel overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
@@ -55,7 +52,7 @@ export function AgentRunsTable({ runs }: { runs: AgentRun[] }) {
         </TableHeader>
         <TableBody>
           {runs.map((run) => (
-            <TableRow key={run.id} className="relative hover:bg-muted/30">
+            <TableRow key={run.id} className="relative">
               <TableCell>
                 <span
                   aria-hidden

@@ -1,7 +1,6 @@
 import { AgentRunFilters } from "@/components/agent-runs/agent-run-filters";
 import { AgentRunsTable } from "@/components/agent-runs/agent-runs-table";
 import { AppShell } from "@/components/agent-runs/app-shell";
-import { NewAgentRunButton } from "@/components/agent-runs/new-agent-run-button";
 import { RefreshButton } from "@/components/agent-runs/refresh-button";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { PageHeader } from "@/components/ui/page-header";
@@ -28,20 +27,15 @@ export default async function RunsPage({
 
   return (
     <AppShell user={user}>
-      <main className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         <PageHeader
           title="Agent runs"
-          description="Create, monitor, cancel, retry, and review Cursor cloud coding runs across connected GitHub repositories."
-          actions={
-            <>
-              <RefreshButton />
-              <NewAgentRunButton />
-            </>
-          }
+          description="Monitor cloud agents working on your repositories — same runtime as Cursor."
+          actions={<RefreshButton />}
         />
         <AgentRunFilters activeStatus={activeStatus} />
         <AgentRunsTable runs={runs} />
-      </main>
+      </div>
     </AppShell>
   );
 }

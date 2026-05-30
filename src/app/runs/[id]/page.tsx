@@ -47,7 +47,7 @@ export default async function RunDetailPage({
 
   return (
     <AppShell user={user}>
-      <main className="flex flex-col gap-5">
+      <div className="flex flex-col gap-6">
         <AgentRunHeader run={run} />
         <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_390px]">
           <div className="flex min-w-0 flex-col gap-5">
@@ -70,7 +70,7 @@ export default async function RunDetailPage({
             <AgentRunArtifactsPanel runId={run.id} artifacts={run.artifacts} />
           </aside>
         </div>
-      </main>
+      </div>
     </AppShell>
   );
 }

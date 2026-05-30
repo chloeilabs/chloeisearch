@@ -1,4 +1,4 @@
-import { AlertCircleIcon, BotIcon } from "lucide-react";
+import { AlertCircleIcon } from "lucide-react";
 
 import { SignInButton } from "@/components/auth/auth-buttons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -17,16 +17,24 @@ export function SignInPanel() {
   );
 
   return (
-    <main className="mx-auto flex min-h-[80vh] w-full max-w-lg items-center px-6 py-12">
-      <Card className="w-full shadow-md">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--control-canvas)] px-6 py-12">
+      <div className="mb-8 text-center">
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+          Chloei Code
+        </p>
+        <h1 className="mt-2 text-2xl font-medium tracking-tight text-foreground">
+          Cloud agent control plane
+        </h1>
+        <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+          Same agents as Cursor — orchestrated for your repositories.
+        </p>
+      </div>
+
+      <Card className="w-full max-w-md cursor-panel border-border/80 bg-card">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-xl border bg-muted/50">
-            <BotIcon className="size-6 text-primary" />
-          </div>
-          <CardTitle className="text-xl">Chloei Code</CardTitle>
-          <CardDescription className="text-balance">
-            Sign in to create, monitor, and review Cursor cloud agent runs on
-            your GitHub repositories.
+          <CardTitle className="text-lg font-medium">Sign in</CardTitle>
+          <CardDescription>
+            Connect GitHub to list repositories and launch cloud runs.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
@@ -34,15 +42,15 @@ export function SignInPanel() {
             <>
               <SignInButton />
               <div className="flex items-center gap-3">
-                <Separator className="flex-1" />
-                <span className="text-xs text-muted-foreground">
-                  GitHub OAuth
+                <Separator className="flex-1 opacity-40" />
+                <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                  OAuth
                 </span>
-                <Separator className="flex-1" />
+                <Separator className="flex-1 opacity-40" />
               </div>
               <p className="text-center text-xs leading-relaxed text-muted-foreground">
-                Requests repository access so runs can target your repos. Your
-                token never leaves the server.
+                Scopes include repository access for the run picker. Tokens stay
+                on the server.
               </p>
             </>
           ) : (
@@ -57,6 +65,6 @@ export function SignInPanel() {
           )}
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 }

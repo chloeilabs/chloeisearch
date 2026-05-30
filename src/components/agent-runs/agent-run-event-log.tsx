@@ -108,7 +108,7 @@ export function AgentRunEventLog({
   );
 
   return (
-    <Card>
+    <Card className="cursor-panel border-border/80">
       <CardHeader className="flex flex-row items-center justify-between gap-4">
         <CardTitle>Event log</CardTitle>
         <Badge

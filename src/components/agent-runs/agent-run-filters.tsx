@@ -16,10 +16,22 @@ export function AgentRunFilters({ activeStatus }: { activeStatus?: string }) {
         router.push(next === "all" ? "/runs" : `/runs?status=${next}`);
       }}
     >
-      <TabsList className="h-auto flex-wrap">
-        <TabsTrigger value="all">All</TabsTrigger>
+      <TabsList
+        variant="line"
+        className="h-auto w-full justify-start gap-0 border-b border-border/60 bg-transparent p-0"
+      >
+        <TabsTrigger
+          value="all"
+          className="rounded-none border-b-2 border-transparent px-3 py-2 data-active:border-foreground data-active:bg-transparent data-active:shadow-none"
+        >
+          All
+        </TabsTrigger>
         {runStatusFilters.map((status) => (
-          <TabsTrigger key={status} value={status}>
+          <TabsTrigger
+            key={status}
+            value={status}
+            className="rounded-none border-b-2 border-transparent px-3 py-2 data-active:border-foreground data-active:bg-transparent data-active:shadow-none"
+          >
             {runStatusLabels[status]}
           </TabsTrigger>
         ))}

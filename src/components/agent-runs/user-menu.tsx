@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { CurrentUser } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 
 function initials(user: CurrentUser) {
   const source = user.name ?? user.email ?? user.id;
@@ -25,33 +26,38 @@ function initials(user: CurrentUser) {
 export function UserMenu({
   user,
   menuItems,
+  className,
 }: {
   user: CurrentUser;
   menuItems: React.ReactNode;
+  className?: string;
 }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
-            className="h-9 gap-2 pl-1.5 pr-2"
+            className={cn(
+              "h-auto w-full justify-start gap-2 rounded-md px-2 py-2 hover:bg-sidebar-accent",
+              className
+            )}
             aria-label="Account menu"
           />
         }
       >
         <Avatar size="sm">
           {user.image ? <AvatarImage src={user.image} alt="" /> : null}
-          <AvatarFallback className="text-xs font-medium">
+          <AvatarFallback className="bg-secondary text-xs font-medium">
             {initials(user)}
           </AvatarFallback>
         </Avatar>
-        <span className="hidden max-w-[140px] truncate text-xs font-normal sm:inline">
+        <span className="min-w-0 flex-1 truncate text-left text-xs font-normal text-sidebar-foreground">
           {user.email ?? user.name ?? "Account"}
         </span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="start" side="top" className="w-56">
         <DropdownMenuLabel className="font-normal">
           <p className="text-sm font-medium leading-none">
             {user.name ?? "Signed in"}
