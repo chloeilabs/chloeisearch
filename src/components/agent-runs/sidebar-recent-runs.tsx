@@ -10,6 +10,7 @@ import { useAgentsShell } from "@/components/agent-runs/agents-shell-context";
 import { SidebarRunRow } from "@/components/agent-runs/sidebar-run-row";
 import { Input } from "@/components/ui/input";
 import { groupRunsByRepository } from "@/lib/agent-runs/sidebar-groups";
+import { agentsSidebarSearchInputId } from "@/lib/agent-runs/sidebar-search";
 import { cn } from "@/lib/utils";
 
 function groupShouldBeOpen(
@@ -71,9 +72,14 @@ export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search agents…"
-            className="h-8 border-border/60 bg-background/40 pl-8 text-[13px] shadow-none"
+            id={agentsSidebarSearchInputId}
+            className="h-8 border-border/60 bg-background/40 pr-14 pl-8 text-[13px] shadow-none"
             aria-label="Search agents"
+            aria-keyshortcuts="Meta+K Control+K"
           />
+          <kbd className="pointer-events-none absolute top-1/2 right-2 hidden -translate-y-1/2 rounded border border-border/60 bg-muted/40 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground lg:inline">
+            ⌘K
+          </kbd>
         </div>
       </div>
 

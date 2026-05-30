@@ -20,6 +20,9 @@ Chloei Code’s shell and inbox sidebar follow layout and styling patterns from 
 - Sidebar hover actions: rename (`PATCH /api/agent-runs/:id`), copy link, open PR
 - Repo groups auto-expand for active run / search
 - Mobile sidebar closes on navigate — `agents-shell-context.tsx`
+- Sign-in split panel (`SignInPanel`) — dark brand column + form column
+- `⌘K` / `Ctrl+K` focuses sidebar search (`agents-app-chrome.tsx`)
+- Compact run detail header with status icon row
 
 ## Compare locally
 

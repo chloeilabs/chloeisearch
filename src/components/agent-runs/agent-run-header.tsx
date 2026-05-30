@@ -1,7 +1,7 @@
 import type { AgentRun } from "@prisma/client";
 
 import { AgentRunActions } from "@/components/agent-runs/agent-run-actions";
-import { AgentStatusDot } from "@/components/agent-runs/agent-run-status-badge";
+import { RunSidebarIcon } from "@/components/agent-runs/run-sidebar-icon";
 import { runStatusLabels } from "@/lib/agent-runs/types";
 import type { NormalizedRunStatus } from "@/lib/cursor/status";
 import { formatDateTime, hostAndRepo } from "@/lib/format";
@@ -12,25 +12,27 @@ export function AgentRunHeader({ run }: { run: AgentRun }) {
     run.normalizedStatus;
 
   return (
-    <header className="border-b border-border/50 pb-5">
+    <div className="flex flex-col gap-4 border-b border-border pb-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="min-w-0">
-          <div className="mb-2 flex items-center gap-2">
-            <AgentStatusDot status={run.normalizedStatus} className="size-2" />
-            <span className="text-[11px] font-medium text-muted-foreground">
-              {statusLabel}
-            </span>
-            {run.retryOfRunId ? (
-              <span className="text-[11px] text-muted-foreground">· Retry</span>
-            ) : null}
+        <div className="flex min-w-0 items-start gap-2.5">
+          <RunSidebarIcon
+            status={run.normalizedStatus}
+            hasPr={Boolean(run.prUrl)}
+            className="mt-0.5 size-4"
+          />
+          <div className="min-w-0">
+            <h1 className="text-lg font-medium tracking-tight leading-snug">
+              {run.taskSummary}
+            </h1>
+            <p className="mt-1.5 text-sm text-muted-foreground">
+              <span className="text-foreground/80">{statusLabel}</span>
+              {" · "}
+              {hostAndRepo(run.repoUrl)} from {run.startingRef}
+              {" · "}
+              created {formatDateTime(run.createdAt)}
+              {run.retryOfRunId ? " · retry" : null}
+            </p>
           </div>
-          <h1 className="text-lg font-medium leading-snug tracking-tight">
-            {run.taskSummary}
-          </h1>
-          <p className="mt-2 font-mono text-xs text-muted-foreground">
-            {hostAndRepo(run.repoUrl)} · {run.startingRef} ·{" "}
-            {formatDateTime(run.createdAt)}
-          </p>
         </div>
         <AgentRunActions
           runId={run.id}
@@ -39,6 +41,6 @@ export function AgentRunHeader({ run }: { run: AgentRun }) {
           prompt={run.taskPrompt}
         />
       </div>
-    </header>
+    </div>
   );
 }

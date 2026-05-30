@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 import {
-  getValidRenameSummary,
   taskSummaryMaxLength,
   truncateTaskSummary,
 } from "@/lib/agent-runs/task-summary";

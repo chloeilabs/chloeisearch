@@ -1,12 +1,26 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { PanelLeftIcon } from "lucide-react";
 
 import { AgentsShellProvider } from "@/components/agent-runs/agents-shell-context";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { agentsSidebarSearchInputId } from "@/lib/agent-runs/sidebar-search";
 import { cn } from "@/lib/utils";
+
+function isEditableTarget(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+
+  if (target.isContentEditable) {
+    return true;
+  }
+
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
+}
 
 export function AgentsAppChrome({
   sidebar,
@@ -21,8 +35,38 @@ export function AgentsAppChrome({
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const focusSidebarSearch = useCallback(() => {
+    setMobileOpen(true);
+    requestAnimationFrame(() => {
+      const input = document.getElementById(agentsSidebarSearchInputId);
+      if (input instanceof HTMLInputElement) {
+        input.focus();
+        input.select();
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (isEditableTarget(event.target)) {
+        return;
+      }
+
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        focusSidebarSearch();
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [focusSidebarSearch]);
+
   return (
-    <AgentsShellProvider closeMobileSidebar={() => setMobileOpen(false)}>
+    <AgentsShellProvider
+      closeMobileSidebar={() => setMobileOpen(false)}
+      focusSidebarSearch={focusSidebarSearch}
+    >
       <div className="flex min-h-0 flex-1 overflow-hidden">
         {mobileOpen ? (
           <button
