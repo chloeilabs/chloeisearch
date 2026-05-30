@@ -48,7 +48,7 @@ export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search agents…"
-            className="h-8 border-border/50 bg-input/20 pl-8 text-[13px] shadow-none"
+            className="h-8 cursor-field pl-8 text-[13px] shadow-none"
             aria-label="Search agents"
           />
         </div>
