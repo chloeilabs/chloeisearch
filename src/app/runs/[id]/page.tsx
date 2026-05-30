@@ -47,10 +47,10 @@ export default async function RunDetailPage({
 
   return (
     <AppShell user={user} contentClassName="max-w-4xl">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col">
         <AgentRunHeader run={run} />
-        <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_390px]">
-          <div className="flex min-w-0 flex-col gap-5">
+        <div className="grid xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-8">
+          <div className="min-w-0 border-border/50 xl:border-r xl:pr-8">
             <AgentRunEventLog
               runId={run.id}
               initialEvents={run.events}
@@ -65,7 +65,7 @@ export default async function RunDetailPage({
             />
             <AgentRunPromptPanel prompt={run.taskPrompt} />
           </div>
-          <aside className="flex min-w-0 flex-col gap-5">
+          <aside className="min-w-0 pt-6 xl:pt-0">
             <AgentRunMetadataPanel run={run} />
             <AgentRunArtifactsPanel runId={run.id} artifacts={run.artifacts} />
           </aside>

@@ -9,7 +9,6 @@ import {
   RotateCcwIcon,
   SquareIcon,
 } from "lucide-react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { isTerminalStatus } from "@/lib/cursor/status";
@@ -27,10 +26,12 @@ export function AgentRunActions({
 }) {
   const router = useRouter();
   const [isPending, setIsPending] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const terminal = isTerminalStatus(status);
 
   async function mutate(action: "refresh" | "cancel" | "retry") {
     setIsPending(action);
+    setError(null);
 
     try {
       const response = await fetch(`/api/agent-runs/${runId}/${action}`, {
@@ -42,76 +43,73 @@ export function AgentRunActions({
         throw new Error(payload.error ?? `Unable to ${action} run.`);
       }
 
-      if (action === "refresh") {
-        toast.success("Run refreshed");
-      } else if (action === "cancel") {
-        toast.success("Cancellation requested");
-      } else if (action === "retry") {
-        toast.success("Retry started");
+      if (action === "retry") {
         router.push(`/runs/${payload.run.id}`);
       }
 
       router.refresh();
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Action failed."
-      );
+      setError(error instanceof Error ? error.message : "Action failed.");
     } finally {
       setIsPending(null);
     }
   }
 
-  async function copyPrompt() {
-    try {
-      await navigator.clipboard.writeText(prompt);
-      toast.success("Prompt copied");
-    } catch {
-      toast.error("Unable to copy prompt");
-    }
-  }
-
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button
-        variant="outline"
-        onClick={() => void mutate("refresh")}
-        disabled={isPending !== null}
-      >
-        <RefreshCwIcon
-          data-icon="inline-start"
-          className={isPending === "refresh" ? "animate-spin" : ""}
-        />
-        Refresh
-      </Button>
-      <Button
-        variant="destructive"
-        onClick={() => void mutate("cancel")}
-        disabled={terminal || isPending !== null}
-      >
-        <SquareIcon data-icon="inline-start" />
-        Cancel
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() => void mutate("retry")}
-        disabled={isPending !== null}
-      >
-        <RotateCcwIcon data-icon="inline-start" />
-        Retry
-      </Button>
-      <Button variant="outline" onClick={() => void copyPrompt()}>
-        <CopyIcon data-icon="inline-start" />
-        Copy prompt
-      </Button>
-      {prUrl ? (
+    <div className="flex flex-col items-start gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button
-          nativeButton={false}
-          render={<a href={prUrl} target="_blank" rel="noreferrer" />}
+          variant="ghost"
+          size="sm"
+          onClick={() => void mutate("refresh")}
+          disabled={isPending !== null}
         >
-          <ExternalLinkIcon data-icon="inline-start" />
-          Open PR
+          <RefreshCwIcon
+            data-icon="inline-start"
+            className={isPending === "refresh" ? "animate-spin" : ""}
+          />
+          Refresh
         </Button>
-      ) : null}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-destructive hover:text-destructive"
+          onClick={() => void mutate("cancel")}
+          disabled={terminal || isPending !== null}
+        >
+          <SquareIcon data-icon="inline-start" />
+          Cancel
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => void mutate("retry")}
+          disabled={isPending !== null}
+        >
+          <RotateCcwIcon data-icon="inline-start" />
+          Retry
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => void navigator.clipboard.writeText(prompt)}
+        >
+          <CopyIcon data-icon="inline-start" />
+          Copy prompt
+        </Button>
+        {prUrl ? (
+          <Button
+            variant="ghost"
+            size="sm"
+            nativeButton={false}
+            render={<a href={prUrl} target="_blank" rel="noreferrer" />}
+          >
+            <ExternalLinkIcon data-icon="inline-start" />
+            Open PR
+          </Button>
+        ) : null}
+      </div>
+      {error ? <p className="text-sm text-destructive">{error}</p> : null}
     </div>
   );
 }

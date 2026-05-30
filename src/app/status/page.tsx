@@ -162,12 +162,10 @@ export default async function StatusPage() {
 
 function Metric({ label, value }: { label: string; value: number | string }) {
   return (
-    <Card>
-      <CardContent className="p-4">
-        <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p>
-      </CardContent>
-    </Card>
+    <div className="rounded-md border border-border/50 bg-card/20 px-4 py-3">
+      <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
+      <p className="mt-1 text-xl font-medium tabular-nums">{value}</p>
+    </div>
   );
 }
 

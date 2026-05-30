@@ -1,48 +1,48 @@
 import type { AgentRun } from "@prisma/client";
 
+import { DetailSection } from "@/components/agent-runs/detail-section";
 import { AgentRunStatusBadge } from "@/components/agent-runs/agent-run-status-badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDateTime, formatDuration } from "@/lib/format";
-
-const metadataLabelClassName = "text-xs font-medium text-muted-foreground";
-const metadataValueClassName = "break-words text-sm";
+import { cn } from "@/lib/utils";
 
 export function AgentRunMetadataPanel({ run }: { run: AgentRun }) {
   const items = [
     ["Repository", run.repoUrl],
     ["Starting ref", run.startingRef],
-    ["Model", run.modelId ?? "Cursor account default"],
-    ["Cursor agent ID", run.cursorAgentId ?? "Not created"],
-    ["Cursor run ID", run.cursorRunId ?? "Not created"],
-    ["Raw Cursor status", run.rawCursorStatus ?? "Unknown"],
-    ["Auto-create PR", run.autoCreatePR ? "Enabled" : "Disabled"],
+    ["Model", run.modelId ?? "Default"],
+    ["Cursor agent", run.cursorAgentId ?? "—"],
+    ["Cursor run", run.cursorRunId ?? "—"],
+    ["Raw status", run.rawCursorStatus ?? "—"],
+    ["Auto PR", run.autoCreatePR ? "On" : "Off"],
     ["Created", formatDateTime(run.createdAt)],
     ["Updated", formatDateTime(run.updatedAt)],
     ["Completed", formatDateTime(run.completedAt)],
     ["Elapsed", formatDuration(run.createdAt, run.completedAt)],
-  ];
+  ] as const;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Run metadata</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <dl className="grid gap-3 sm:grid-cols-2">
-          <div className="flex flex-col gap-1">
-            <dt className={metadataLabelClassName}>Normalized status</dt>
-            <dd>
-              <AgentRunStatusBadge status={run.normalizedStatus} />
+    <DetailSection title="Details">
+      <dl className="grid gap-3">
+        <div>
+          <dt className="text-[11px] font-medium text-muted-foreground">Status</dt>
+          <dd className="mt-1">
+            <AgentRunStatusBadge status={run.normalizedStatus} />
+          </dd>
+        </div>
+        {items.map(([label, value]) => (
+          <div key={label}>
+            <dt className="text-[11px] font-medium text-muted-foreground">{label}</dt>
+            <dd
+              className={cn(
+                "mt-0.5 break-words text-sm text-foreground/90",
+                label === "Repository" && "font-mono text-xs"
+              )}
+            >
+              {value}
             </dd>
           </div>
-          {items.map(([label, value]) => (
-            <div key={label} className="flex flex-col gap-1">
-              <dt className={metadataLabelClassName}>{label}</dt>
-              <dd className={metadataValueClassName}>{value}</dd>
-            </div>
-          ))}
-        </dl>
-      </CardContent>
-    </Card>
+        ))}
+      </dl>
+    </DetailSection>
   );
 }

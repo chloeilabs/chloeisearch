@@ -1,67 +1,63 @@
 import type { AgentRun } from "@prisma/client";
 
+import { DetailSection } from "@/components/agent-runs/detail-section";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function AgentRunResultPanel({ run }: { run: AgentRun }) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Result</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+    <DetailSection title="Result">
+      <div className="flex flex-col gap-4">
         {run.errorMessage ? (
-          <Alert>
-            <AlertTitle>Error details</AlertTitle>
+          <Alert variant="destructive">
+            <AlertTitle>Error</AlertTitle>
             <AlertDescription>{run.errorMessage}</AlertDescription>
           </Alert>
         ) : null}
-        <dl className="grid gap-3 sm:grid-cols-2">
-          <div>
-            <dt className="text-xs font-medium text-muted-foreground">
-              Branch
-            </dt>
-            <dd className="text-sm">{run.branchName ?? "Not available"}</dd>
-          </div>
-          <div>
-            <dt className="text-xs font-medium text-muted-foreground">
-              Pull request
-            </dt>
-            <dd className="break-words text-sm">
-              {run.prUrl ? (
-                <a
-                  href={run.prUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline underline-offset-4"
-                >
-                  {run.prUrl}
-                </a>
-              ) : (
-                "Not available"
-              )}
-            </dd>
-          </div>
-        </dl>
+        {(run.branchName || run.prUrl) && (
+          <dl className="grid gap-3 text-sm sm:grid-cols-2">
+            {run.branchName ? (
+              <div>
+                <dt className="text-[11px] font-medium text-muted-foreground">
+                  Branch
+                </dt>
+                <dd className="mt-0.5 font-mono text-xs">{run.branchName}</dd>
+              </div>
+            ) : null}
+            {run.prUrl ? (
+              <div>
+                <dt className="text-[11px] font-medium text-muted-foreground">
+                  Pull request
+                </dt>
+                <dd className="mt-0.5 break-all">
+                  <a
+                    href={run.prUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm underline underline-offset-4"
+                  >
+                    Open PR
+                  </a>
+                </dd>
+              </div>
+            ) : null}
+          </dl>
+        )}
         <div>
-          <h3 className="mb-2 text-xs font-medium text-muted-foreground">
-            Summary
-          </h3>
-          <p className="whitespace-pre-wrap text-sm leading-6">
-            {run.resultSummary ?? "No final result has been stored yet."}
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">
+            {run.resultSummary ?? "No result yet."}
           </p>
         </div>
         {run.resultRawPayload ? (
-          <details className="rounded-lg border bg-muted/40 p-3">
-            <summary className="cursor-pointer text-sm font-medium">
-              Raw result JSON
+          <details>
+            <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
+              Raw JSON
             </summary>
-            <pre className="mt-3 max-h-96 overflow-auto whitespace-pre-wrap text-xs">
+            <pre className="cursor-log-surface mt-2 max-h-64 overflow-auto">
               {JSON.stringify(run.resultRawPayload, null, 2)}
             </pre>
           </details>
         ) : null}
-      </CardContent>
-    </Card>
+      </div>
+    </DetailSection>
   );
 }

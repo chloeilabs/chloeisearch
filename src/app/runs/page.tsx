@@ -26,7 +26,7 @@ export default async function RunsPage({
   const activeStatus = runStatusFilters.find((item) => item === status);
   const allRuns = await listRunsForUser(user.id);
   const runs = activeStatus
-    ? await listRunsForUser(user.id, activeStatus)
+    ? allRuns.filter((run) => run.normalizedStatus === activeStatus)
     : allRuns;
 
   if (!activeStatus) {

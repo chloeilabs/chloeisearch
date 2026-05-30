@@ -19,7 +19,7 @@ export async function AppShell({
   children: React.ReactNode;
   contentClassName?: string;
 }) {
-  const sidebarRuns = (await listRunsForUser(user.id)).slice(0, 24);
+  const sidebarRuns = (await listRunsForUser(user.id)).slice(0, 50);
 
   return (
     <div className="flex min-h-screen bg-background">
