@@ -16,7 +16,10 @@ export default async function NewRunPage() {
   const runLimits = await getRunCreationLimits(user.id);
 
   return (
-    <AppShell user={user} contentClassName="flex min-h-[calc(100vh-3rem)] max-w-2xl flex-col py-4">
+    <AppShell
+      user={user}
+      contentClassName="flex min-h-0 flex-1 flex-col py-2 lg:max-w-2xl"
+    >
       <NewAgentRunForm runLimits={runLimits} layout="composer" />
     </AppShell>
   );

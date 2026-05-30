@@ -14,8 +14,10 @@ export function SidebarStatusLink() {
     <Link
       href="/status"
       className={cn(
-        "cursor-sidebar-item",
-        active ? "cursor-sidebar-item-active" : "cursor-sidebar-item-inactive"
+        "flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-[13px] transition-colors",
+        active
+          ? "bg-sidebar-active text-sidebar-active-foreground"
+          : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
       )}
       aria-current={active ? "page" : undefined}
     >

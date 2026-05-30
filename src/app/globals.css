@@ -18,6 +18,8 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-active-foreground: var(--sidebar-active-foreground);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -83,6 +85,8 @@
   --sidebar-accent-foreground: oklch(0.94 0.003 285);
   --sidebar-border: oklch(1 0 0 / 6%);
   --sidebar-ring: oklch(0.5 0.02 285);
+  --sidebar-active: oklch(0.274 0.006 286.033);
+  --sidebar-active-foreground: oklch(0.94 0.003 285);
   --control-canvas: oklch(0.12 0.003 285);
   --status-creating-bg: oklch(0.2 0.03 275);
   --status-creating-border: oklch(0.35 0.06 275);
@@ -160,4 +164,28 @@
   .cursor-divider {
     @apply border-border/50;
   }
+}
+
+.scrollbar-fade {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s;
+}
+
+.scrollbar-fade:hover {
+  scrollbar-color: var(--border) transparent;
+}
+
+.scrollbar-fade::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-fade::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 9999px;
+}
+
+.scrollbar-fade:hover::-webkit-scrollbar-thumb {
+  background: var(--border);
 }

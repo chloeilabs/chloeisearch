@@ -40,7 +40,7 @@ export default async function StatusPage() {
 
   return (
     <AppShell user={user}>
-      <div className="flex flex-col gap-5">
+      <div className="mx-auto w-full max-w-3xl flex flex-col gap-5">
         <PageHeader title="Status" />
 
         <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
