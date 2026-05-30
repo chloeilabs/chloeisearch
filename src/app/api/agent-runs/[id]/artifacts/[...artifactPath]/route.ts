@@ -1,13 +1,18 @@
 import { ApiError, handleApiError } from "@/lib/api";
 import { getRunForUser } from "@/lib/agent-runs/repository";
 import { downloadCloudAgentArtifact } from "@/lib/cursor/agent-service";
+import {
+  contentTypeForArtifactPath,
+  getArtifactPreviewKind,
+  isInlineArtifactPreview,
+} from "@/lib/cursor/artifact-preview";
 import { requireCurrentUser } from "@/lib/auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string; artifactPath: string[] }> }
 ) {
   try {
@@ -31,11 +36,20 @@ export async function GET(
       buffer.byteOffset + buffer.byteLength
     ) as ArrayBuffer;
 
+    const contentType = contentTypeForArtifactPath(path);
+    const previewKind = getArtifactPreviewKind(path, contentType);
+    const url = new URL(request.url);
+    const forceInline = url.searchParams.get("inline") === "1";
+    const inline = forceInline || isInlineArtifactPreview(previewKind);
+    const safeFilename = filename.replaceAll('"', "");
+
     return new Response(body, {
       headers: {
-        "Cache-Control": "private, no-store",
-        "Content-Disposition": `attachment; filename="${filename.replaceAll('"', "")}"`,
-        "Content-Type": "application/octet-stream",
+        "Cache-Control": inline ? "private, max-age=300" : "private, no-store",
+        "Content-Disposition": inline
+          ? `inline; filename="${safeFilename}"`
+          : `attachment; filename="${safeFilename}"`,
+        "Content-Type": contentType,
       },
     });
   } catch (error) {

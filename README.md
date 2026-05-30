@@ -90,7 +90,7 @@ but sign-in should be tested on the `preview` branch deployment.
 The server-side wrapper lives under `src/lib/cursor`.
 
 - `Cursor.models.list()` populates the model selector.
-- `Cursor.repositories.list()` provides connected repository suggestions.
+- `Cursor.repositories.list()` provides connected repository suggestions (cached ~55s per cookbook agent-kanban).
 - `Agent.create({ cloud })` creates repo-scoped cloud agents.
 - `agent.send(prompt, { idempotencyKey })` starts a run.
 - `Agent.getRun(runId, { runtime: "cloud", agentId })` reconnects.
