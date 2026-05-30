@@ -6,17 +6,37 @@ import { usePathname } from "next/navigation";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import type { AgentRun } from "@prisma/client";
 
-import { RunSidebarIcon } from "@/components/agent-runs/run-sidebar-icon";
+import { useAgentsShell } from "@/components/agent-runs/agents-shell-context";
+import { SidebarRunRow } from "@/components/agent-runs/sidebar-run-row";
 import { Input } from "@/components/ui/input";
 import { groupRunsByRepository } from "@/lib/agent-runs/sidebar-groups";
-import { formatRelativeTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
+
+function groupShouldBeOpen(
+  groupRuns: AgentRun[],
+  activeRunId: string | undefined,
+  groupCount: number,
+  isSearching: boolean
+) {
+  if (isSearching) {
+    return true;
+  }
+  if (groupCount <= 4) {
+    return true;
+  }
+  if (activeRunId && groupRuns.some((run) => run.id === activeRunId)) {
+    return true;
+  }
+  return false;
+}
 
 export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
   const pathname = usePathname();
+  const { closeMobileSidebar } = useAgentsShell();
   const [query, setQuery] = useState("");
   const activeRunId = pathname.match(/^\/runs\/([^/]+)$/)?.[1];
   const onRunsIndex = pathname === "/runs";
+  const isSearching = query.trim().length > 0;
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -60,6 +80,7 @@ export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
       <div className="min-h-0 flex-1 overflow-y-auto px-1.5 pb-2 scrollbar-fade">
         <Link
           href="/runs"
+          onClick={() => closeMobileSidebar()}
           className={cn(
             "mb-1 flex w-full items-center gap-1.5 rounded-lg px-2 py-1.5 text-left text-[13px] transition-colors",
             onRunsIndex && !activeRunId
@@ -77,56 +98,38 @@ export function SidebarRecentRuns({ runs }: { runs: AgentRun[] }) {
           <p className="px-2 py-4 text-xs text-muted-foreground">No matches.</p>
         ) : (
           <ul className="flex flex-col gap-3">
-            {groups.map((group) => (
-              <li key={group.id}>
-                <details className="group/repo" open>
-                  <summary className="flex cursor-pointer list-none items-center gap-1 px-2 py-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase marker:content-none [&::-webkit-details-marker]:hidden">
-                    <ChevronDownIcon className="size-3 shrink-0 transition-transform group-open/repo:rotate-0 -rotate-90" />
-                    <span className="truncate">{group.label}</span>
-                    <span className="ml-auto tabular-nums opacity-60">
-                      {group.runs.length}
-                    </span>
-                  </summary>
-                  <ul className="mt-0.5 flex flex-col gap-px">
-                    {group.runs.map((run) => {
-                      const active = activeRunId === run.id;
-                      const isRunning =
-                        run.normalizedStatus === "creating" ||
-                        run.normalizedStatus === "running";
+            {groups.map((group) => {
+              const open = groupShouldBeOpen(
+                group.runs,
+                activeRunId,
+                groups.length,
+                isSearching
+              );
 
-                      return (
+              return (
+                <li key={group.id}>
+                  <details className="group/repo" open={open}>
+                    <summary className="flex cursor-pointer list-none items-center gap-1 px-2 py-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase marker:content-none [&::-webkit-details-marker]:hidden">
+                      <ChevronDownIcon className="size-3 shrink-0 -rotate-90 transition-transform group-open/repo:rotate-0" />
+                      <span className="truncate normal-case">{group.label}</span>
+                      <span className="ml-auto tabular-nums opacity-60">
+                        {group.runs.length}
+                      </span>
+                    </summary>
+                    <ul className="mt-0.5 flex flex-col gap-px">
+                      {group.runs.map((run) => (
                         <li key={run.id}>
-                          <Link
-                            href={`/runs/${run.id}`}
-                            className={cn(
-                              "flex w-full items-center gap-1.5 rounded-lg px-2 py-1.5 text-left transition-colors",
-                              active
-                                ? "bg-sidebar-active text-sidebar-active-foreground"
-                                : "text-foreground/75 hover:bg-muted/50",
-                              isRunning && !active && "opacity-90"
-                            )}
-                            aria-current={active ? "page" : undefined}
-                          >
-                            <span className="flex size-5 shrink-0 items-center justify-center">
-                              <RunSidebarIcon
-                                status={run.normalizedStatus}
-                                hasPr={Boolean(run.prUrl)}
-                              />
-                            </span>
-                            <span className="min-w-0 flex-1 truncate text-[13px] leading-5">
-                              {run.taskSummary}
-                            </span>
-                            <span className="shrink-0 text-[10px] tabular-nums text-muted-foreground">
-                              {formatRelativeTime(run.updatedAt)}
-                            </span>
-                          </Link>
+                          <SidebarRunRow
+                            run={run}
+                            active={activeRunId === run.id}
+                          />
                         </li>
-                      );
-                    })}
-                  </ul>
-                </details>
-              </li>
-            ))}
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

@@ -2,6 +2,7 @@ import { AgentRunFilters } from "@/components/agent-runs/agent-run-filters";
 import { AgentsHome } from "@/components/agent-runs/agents-home";
 import { FilteredRunsView } from "@/components/agent-runs/filtered-runs-view";
 import { AppShell } from "@/components/agent-runs/app-shell";
+import { NewAgentRunButton } from "@/components/agent-runs/new-agent-run-button";
 import { RefreshButton } from "@/components/agent-runs/refresh-button";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { listRunsForUser } from "@/lib/agent-runs/repository";
@@ -37,7 +38,15 @@ export default async function RunsPage({
   }
 
   return (
-    <AppShell user={user} headerActions={<RefreshButton />}>
+    <AppShell
+      user={user}
+      headerActions={
+        <>
+          <RefreshButton />
+          <NewAgentRunButton />
+        </>
+      }
+    >
       <div className="mx-auto w-full max-w-3xl">
         <h1 className="mb-1 text-lg font-medium tracking-tight">Agents</h1>
         <p className="mb-4 text-sm text-muted-foreground">

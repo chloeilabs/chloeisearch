@@ -14,6 +14,12 @@ Chloei Code’s shell and inbox sidebar follow layout and styling patterns from 
 | Top chrome header + `SidebarTrigger` | `AgentsAppChrome` header with `PanelLeft` on mobile |
 | `h-dvh` app frame | `AppShell` uses `h-dvh overflow-hidden` |
 
+## Recent additions
+
+- Hover preview on sidebar rows (desktop) — `sidebar-run-row.tsx`
+- Repo groups auto-expand for active run / search
+- Mobile sidebar closes on navigate — `agents-shell-context.tsx`
+
 ## Compare locally
 
 ```bash
