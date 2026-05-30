@@ -1,6 +1,8 @@
 import { AppShell } from "@/components/agent-runs/app-shell";
 import { NewAgentRunForm } from "@/components/agent-runs/new-agent-run-form";
+import { NewRunBreadcrumbs } from "@/components/agent-runs/run-breadcrumbs";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
+import { PageHeader } from "@/components/ui/page-header";
 import { getRunCreationLimits } from "@/lib/agent-runs/limits";
 import { getCurrentUser } from "@/lib/auth";
 
@@ -17,13 +19,13 @@ export default async function NewRunPage() {
 
   return (
     <AppShell user={user}>
-      <main className="flex flex-col gap-5">
-        <div>
-          <h1 className="text-2xl font-semibold">New cloud run</h1>
-          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            Send a repository-scoped coding task to Cursor cloud runtime. The
-            Cursor API key stays server-side.
-          </p>
+      <main className="flex flex-col gap-6">
+        <div className="space-y-3">
+          <NewRunBreadcrumbs />
+          <PageHeader
+            title="New cloud run"
+            description="Send a repository-scoped coding task to Cursor cloud runtime. The Cursor API key stays server-side."
+          />
         </div>
         <NewAgentRunForm runLimits={runLimits} />
       </main>

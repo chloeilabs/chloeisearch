@@ -11,9 +11,9 @@ export function SignInButton() {
         await signIn("github", { redirectTo: "/runs" });
       }}
     >
-      <Button type="submit">
+      <Button type="submit" className="w-full" size="lg">
         <LogInIcon data-icon="inline-start" />
-        Sign in
+        Sign in with GitHub
       </Button>
     </form>
   );

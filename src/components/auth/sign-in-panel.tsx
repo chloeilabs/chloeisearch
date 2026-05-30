@@ -1,8 +1,15 @@
-import { AlertCircleIcon } from "lucide-react";
+import { AlertCircleIcon, BotIcon } from "lucide-react";
 
 import { SignInButton } from "@/components/auth/auth-buttons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 export function SignInPanel() {
   const hasProvider = Boolean(
@@ -10,17 +17,34 @@ export function SignInPanel() {
   );
 
   return (
-    <main className="mx-auto flex min-h-[70vh] w-full max-w-xl items-center px-6">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Chloei Code</CardTitle>
+    <main className="mx-auto flex min-h-[80vh] w-full max-w-lg items-center px-6 py-12">
+      <Card className="w-full shadow-md">
+        <CardHeader className="text-center">
+          <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-xl border bg-muted/50">
+            <BotIcon className="size-6 text-primary" />
+          </div>
+          <CardTitle className="text-xl">Chloei Code</CardTitle>
+          <CardDescription className="text-balance">
+            Sign in to create, monitor, and review Cursor cloud agent runs on
+            your GitHub repositories.
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <p className="text-sm text-muted-foreground">
-            Sign in to create and monitor Cursor cloud agent runs.
-          </p>
           {hasProvider ? (
-            <SignInButton />
+            <>
+              <SignInButton />
+              <div className="flex items-center gap-3">
+                <Separator className="flex-1" />
+                <span className="text-xs text-muted-foreground">
+                  GitHub OAuth
+                </span>
+                <Separator className="flex-1" />
+              </div>
+              <p className="text-center text-xs leading-relaxed text-muted-foreground">
+                Requests repository access so runs can target your repos. Your
+                token never leaves the server.
+              </p>
+            </>
           ) : (
             <Alert>
               <AlertCircleIcon data-icon="inline-start" />

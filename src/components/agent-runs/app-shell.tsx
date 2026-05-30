@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { ActivityIcon, BotIcon, PlusIcon } from "lucide-react";
+import { BotIcon } from "lucide-react";
 
+import { AppNavLinks } from "@/components/agent-runs/app-nav-links";
+import { UserMenu } from "@/components/agent-runs/user-menu";
+import { SignOutMenuItem } from "@/components/auth/sign-out-menu-item";
 import type { CurrentUser } from "@/lib/auth";
-import { SignOutButton } from "@/components/auth/auth-buttons";
-import { buttonVariants } from "@/components/ui/button";
 
 export function AppShell({
   user,
@@ -14,46 +15,28 @@ export function AppShell({
 }) {
   return (
     <div className="min-h-screen bg-[var(--control-canvas)]">
-      <header className="border-b bg-background/95">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <Link href="/runs" className="flex min-w-0 items-center gap-2">
-            <span className="flex size-8 items-center justify-center rounded-lg border bg-card">
-              <BotIcon />
-            </span>
-            <span className="min-w-0">
-              <span className="block truncate text-sm font-semibold">
-                Chloei Code
+      <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-3 sm:px-6">
+          <div className="flex items-center justify-between gap-4">
+            <Link href="/runs" className="flex min-w-0 items-center gap-2.5">
+              <span className="flex size-9 items-center justify-center rounded-lg border bg-card shadow-sm">
+                <BotIcon className="size-4.5 text-primary" />
               </span>
-              <span className="block truncate text-xs text-muted-foreground">
-                Cursor run control plane
+              <span className="min-w-0">
+                <span className="block truncate text-sm font-semibold tracking-tight">
+                  Chloei Code
+                </span>
+                <span className="block truncate text-xs text-muted-foreground">
+                  Cursor run control plane
+                </span>
               </span>
-            </span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/status"
-              className={buttonVariants({ size: "sm", variant: "outline" })}
-            >
-              <ActivityIcon data-icon="inline-start" />
-              Status
             </Link>
-            <Link
-              href="/runs/new"
-              className={buttonVariants({ size: "sm" })}
-            >
-              <PlusIcon data-icon="inline-start" />
-              New run
-            </Link>
-            <span className="hidden max-w-[180px] truncate text-xs text-muted-foreground sm:block">
-              {user.email ?? user.name ?? user.id}
-            </span>
-            <SignOutButton />
+            <UserMenu user={user} menuItems={<SignOutMenuItem />} />
           </div>
+          <AppNavLinks />
         </div>
       </header>
-      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6">
-        {children}
-      </div>
+      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6">{children}</div>
     </div>
   );
 }

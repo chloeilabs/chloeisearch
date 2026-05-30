@@ -9,6 +9,7 @@ import {
   RotateCcwIcon,
   SquareIcon,
 } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { isTerminalStatus } from "@/lib/cursor/status";
@@ -26,12 +27,10 @@ export function AgentRunActions({
 }) {
   const router = useRouter();
   const [isPending, setIsPending] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const terminal = isTerminalStatus(status);
 
   async function mutate(action: "refresh" | "cancel" | "retry") {
     setIsPending(action);
-    setError(null);
 
     try {
       const response = await fetch(`/api/agent-runs/${runId}/${action}`, {
@@ -43,66 +42,76 @@ export function AgentRunActions({
         throw new Error(payload.error ?? `Unable to ${action} run.`);
       }
 
-      if (action === "retry") {
+      if (action === "refresh") {
+        toast.success("Run refreshed");
+      } else if (action === "cancel") {
+        toast.success("Cancellation requested");
+      } else if (action === "retry") {
+        toast.success("Retry started");
         router.push(`/runs/${payload.run.id}`);
       }
 
       router.refresh();
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Action failed.");
+      toast.error(
+        error instanceof Error ? error.message : "Action failed."
+      );
     } finally {
       setIsPending(null);
     }
   }
 
+  async function copyPrompt() {
+    try {
+      await navigator.clipboard.writeText(prompt);
+      toast.success("Prompt copied");
+    } catch {
+      toast.error("Unable to copy prompt");
+    }
+  }
+
   return (
-    <div className="flex flex-col items-start gap-2">
-      <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2">
+      <Button
+        variant="outline"
+        onClick={() => void mutate("refresh")}
+        disabled={isPending !== null}
+      >
+        <RefreshCwIcon
+          data-icon="inline-start"
+          className={isPending === "refresh" ? "animate-spin" : ""}
+        />
+        Refresh
+      </Button>
+      <Button
+        variant="destructive"
+        onClick={() => void mutate("cancel")}
+        disabled={terminal || isPending !== null}
+      >
+        <SquareIcon data-icon="inline-start" />
+        Cancel
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() => void mutate("retry")}
+        disabled={isPending !== null}
+      >
+        <RotateCcwIcon data-icon="inline-start" />
+        Retry
+      </Button>
+      <Button variant="outline" onClick={() => void copyPrompt()}>
+        <CopyIcon data-icon="inline-start" />
+        Copy prompt
+      </Button>
+      {prUrl ? (
         <Button
-          variant="outline"
-          onClick={() => void mutate("refresh")}
-          disabled={isPending !== null}
+          nativeButton={false}
+          render={<a href={prUrl} target="_blank" rel="noreferrer" />}
         >
-          <RefreshCwIcon
-            data-icon="inline-start"
-            className={isPending === "refresh" ? "animate-spin" : ""}
-          />
-          Refresh
+          <ExternalLinkIcon data-icon="inline-start" />
+          Open PR
         </Button>
-        <Button
-          variant="destructive"
-          onClick={() => void mutate("cancel")}
-          disabled={terminal || isPending !== null}
-        >
-          <SquareIcon data-icon="inline-start" />
-          Cancel
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => void mutate("retry")}
-          disabled={isPending !== null}
-        >
-          <RotateCcwIcon data-icon="inline-start" />
-          Retry
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => void navigator.clipboard.writeText(prompt)}
-        >
-          <CopyIcon data-icon="inline-start" />
-          Copy prompt
-        </Button>
-        {prUrl ? (
-          <Button
-            nativeButton={false}
-            render={<a href={prUrl} target="_blank" rel="noreferrer" />}
-          >
-            <ExternalLinkIcon data-icon="inline-start" />
-            Open PR
-          </Button>
-        ) : null}
-      </div>
-      {error ? <p className="text-sm text-destructive">{error}</p> : null}
+      ) : null}
     </div>
   );
 }

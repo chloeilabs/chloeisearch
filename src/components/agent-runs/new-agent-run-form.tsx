@@ -25,8 +25,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Progress, ProgressTrack } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 import {
   mergeRepositoryCatalogs,
   type RepositoryCatalogItem,
@@ -271,6 +273,7 @@ export function NewAgentRunForm({
         throw new Error(payload.error ?? "Unable to create run.");
       }
 
+      toast.success("Cloud run started");
       router.push(`/runs/${payload.run.id}`);
       router.refresh();
     } catch (error) {
@@ -381,26 +384,18 @@ export function NewAgentRunForm({
 }
 
 function RunSafetyPanel({ runLimits }: { runLimits: RunCreationLimits }) {
-  const items = [
+  const limitRows = [
     {
       label: "Active runs",
-      value: formatLimit(
-        runLimits.activeRuns,
-        runLimits.activeLimit,
-        runLimits.remainingActiveRuns
-      ),
+      count: runLimits.activeRuns,
+      limit: runLimits.activeLimit,
+      remaining: runLimits.remainingActiveRuns,
     },
     {
       label: "Runs in 24h",
-      value: formatLimit(
-        runLimits.runsLast24Hours,
-        runLimits.dailyLimit,
-        runLimits.remainingRunsLast24Hours
-      ),
-    },
-    {
-      label: "Per-minute actions",
-      value: `${runLimits.perMinuteLimit.toLocaleString()} / user`,
+      count: runLimits.runsLast24Hours,
+      limit: runLimits.dailyLimit,
+      remaining: runLimits.remainingRunsLast24Hours,
     },
   ];
 
@@ -408,21 +403,60 @@ function RunSafetyPanel({ runLimits }: { runLimits: RunCreationLimits }) {
     <div className="rounded-lg border bg-card p-5">
       <div className="mb-4 flex items-center justify-between gap-3">
         <h2 className="text-sm font-semibold">Run safety</h2>
-        <span className="text-xs text-muted-foreground">
+        <span
+          className={
+            runLimits.canCreateRun
+              ? "text-xs text-[var(--status-finished-fg)]"
+              : "text-xs text-destructive"
+          }
+        >
           {runLimits.canCreateRun ? "Available" : "Limit reached"}
         </span>
       </div>
-      <dl className="grid gap-3">
-        {items.map((item) => (
-          <div
-            key={item.label}
-            className="flex items-center justify-between gap-3 text-sm"
-          >
-            <dt className="text-muted-foreground">{item.label}</dt>
-            <dd className="font-medium tabular-nums">{item.value}</dd>
-          </div>
+      <dl className="grid gap-4">
+        {limitRows.map((row) => (
+          <LimitRow key={row.label} {...row} />
         ))}
+        <div className="flex items-center justify-between gap-3 text-sm">
+          <dt className="text-muted-foreground">Per-minute actions</dt>
+          <dd className="font-medium tabular-nums">
+            {runLimits.perMinuteLimit.toLocaleString()} / user
+          </dd>
+        </div>
       </dl>
+    </div>
+  );
+}
+
+function LimitRow({
+  label,
+  count,
+  limit,
+  remaining,
+}: {
+  label: string;
+  count: number;
+  limit: number | null;
+  remaining: number | null;
+}) {
+  const percent =
+    limit != null && limit > 0
+      ? Math.min(100, Math.round((count / limit) * 100))
+      : null;
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-3 text-sm">
+        <dt className="text-muted-foreground">{label}</dt>
+        <dd className="font-medium tabular-nums">
+          {formatLimit(count, limit, remaining)}
+        </dd>
+      </div>
+      {percent != null ? (
+        <Progress value={percent}>
+          <ProgressTrack />
+        </Progress>
+      ) : null}
     </div>
   );
 }

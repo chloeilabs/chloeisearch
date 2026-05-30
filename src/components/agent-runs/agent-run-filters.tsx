@@ -1,35 +1,29 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 
 import { runStatusFilters, runStatusLabels } from "@/lib/agent-runs/types";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function AgentRunFilters({ activeStatus }: { activeStatus?: string }) {
+  const router = useRouter();
+  const value = activeStatus ?? "all";
+
   return (
-    <nav className="flex flex-wrap gap-2" aria-label="Run status filters">
-      <Link
-        href="/runs"
-        className={cn(
-          buttonVariants({
-            variant: activeStatus ? "outline" : "default",
-            size: "sm",
-          })
-        )}
-      >
-        All
-      </Link>
-      {runStatusFilters.map((status) => (
-        <Link
-          key={status}
-          href={`/runs?status=${status}`}
-          className={buttonVariants({
-            variant: activeStatus === status ? "default" : "outline",
-            size: "sm",
-          })}
-        >
-          {runStatusLabels[status]}
-        </Link>
-      ))}
-    </nav>
+    <Tabs
+      value={value}
+      onValueChange={(next) => {
+        router.push(next === "all" ? "/runs" : `/runs?status=${next}`);
+      }}
+    >
+      <TabsList className="h-auto flex-wrap">
+        <TabsTrigger value="all">All</TabsTrigger>
+        {runStatusFilters.map((status) => (
+          <TabsTrigger key={status} value={status}>
+            {runStatusLabels[status]}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   );
 }

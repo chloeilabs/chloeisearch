@@ -9,6 +9,8 @@ import { AppShell } from "@/components/agent-runs/app-shell";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/ui/page-header";
+import { Progress, ProgressTrack } from "@/components/ui/progress";
 import { getRunCreationLimits } from "@/lib/agent-runs/limits";
 import {
   getRunHealthStats,
@@ -39,13 +41,10 @@ export default async function StatusPage() {
   return (
     <AppShell user={user}>
       <main className="flex flex-col gap-5">
-        <div>
-          <h1 className="text-2xl font-semibold">Production status</h1>
-          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            Runtime checks for the control plane, external APIs, and active
-            Cursor runs.
-          </p>
-        </div>
+        <PageHeader
+          title="Production status"
+          description="Runtime checks for the control plane, external APIs, and active Cursor runs."
+        />
 
         <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
           <Metric label="Total runs" value={runStats.totalRuns} />
@@ -58,10 +57,18 @@ export default async function StatusPage() {
               runLimits.activeRuns,
               runLimits.activeLimit
             )}
+            percent={limitPercent(
+              runLimits.activeRuns,
+              runLimits.activeLimit
+            )}
           />
           <Metric
             label="24h runs"
             value={formatLimitMetric(
+              runLimits.runsLast24Hours,
+              runLimits.dailyLimit
+            )}
+            percent={limitPercent(
               runLimits.runsLast24Hours,
               runLimits.dailyLimit
             )}
@@ -165,15 +172,38 @@ export default async function StatusPage() {
   );
 }
 
-function Metric({ label, value }: { label: string; value: number | string }) {
+function Metric({
+  label,
+  value,
+  percent,
+}: {
+  label: string;
+  value: number | string;
+  percent?: number | null;
+}) {
   return (
     <Card>
-      <CardContent className="p-4">
-        <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p>
+      <CardContent className="space-y-3 p-4">
+        <div>
+          <p className="text-sm text-muted-foreground">{label}</p>
+          <p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p>
+        </div>
+        {percent != null ? (
+          <Progress value={percent}>
+            <ProgressTrack />
+          </Progress>
+        ) : null}
       </CardContent>
     </Card>
   );
+}
+
+function limitPercent(count: number, limit: number | null) {
+  if (limit == null || limit <= 0) {
+    return null;
+  }
+
+  return Math.min(100, Math.round((count / limit) * 100));
 }
 
 function ConfigMetric({ label, value }: { label: string; value: string }) {

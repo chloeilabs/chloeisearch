@@ -2,12 +2,19 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CableIcon, UnplugIcon } from "lucide-react";
+import { CableIcon, ChevronDownIcon, UnplugIcon } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDateTime } from "@/lib/format";
 import { isTerminalStatus } from "@/lib/cursor/status";
+import { cn } from "@/lib/utils";
 
 export type EventLogItem = {
   id: string;
@@ -104,9 +111,15 @@ export function AgentRunEventLog({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-4">
         <CardTitle>Event log</CardTitle>
-        <Badge variant="outline">
+        <Badge
+          variant="outline"
+          className={cn(
+            connected &&
+              "border-[var(--status-running-border)] bg-[var(--status-running-bg)] text-[var(--status-running-fg)]"
+          )}
+        >
           {connected ? (
-            <CableIcon data-icon="inline-start" />
+            <CableIcon data-icon="inline-start" className="animate-pulse" />
           ) : (
             <UnplugIcon data-icon="inline-start" />
           )}
@@ -119,37 +132,69 @@ export function AgentRunEventLog({
             No events have been persisted yet.
           </p>
         ) : (
-          <ol className="relative flex flex-col gap-3 border-l pl-4">
-            {orderedEvents.map((event) => (
-              <li key={event.id} className="relative">
-                <span className="absolute -left-[21px] top-1.5 size-2 rounded-full bg-foreground" />
-                <div className="flex flex-wrap items-center gap-2">
-                  <Badge variant="secondary">#{event.sequenceNumber}</Badge>
-                  <span className="font-mono text-xs">{event.eventType}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {formatDateTime(event.createdAt)}
-                  </span>
-                </div>
-                {event.messageText ? (
-                  <p className="mt-1 whitespace-pre-wrap text-sm leading-6">
-                    {event.messageText}
-                  </p>
-                ) : null}
-                <details className="mt-2 rounded-lg bg-muted/50 p-2">
-                  <summary className="cursor-pointer text-xs text-muted-foreground">
-                    Raw event JSON
-                  </summary>
-                  <pre className="mt-2 max-h-72 overflow-auto whitespace-pre-wrap text-xs">
-                    {JSON.stringify(event.rawPayload, null, 2)}
-                  </pre>
-                </details>
-              </li>
-            ))}
-          </ol>
+          <ScrollArea className="max-h-[min(70vh,640px)] pr-3">
+            <ol className="relative flex flex-col gap-4 border-l border-border/80 pl-4">
+              {orderedEvents.map((event) => (
+                <li key={event.id} className="relative">
+                  <span
+                    className={cn(
+                      "absolute -left-[21px] top-2 size-2.5 rounded-full ring-2 ring-card",
+                      eventTypeDotClass(event.eventType)
+                    )}
+                  />
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary" className="tabular-nums">
+                      #{event.sequenceNumber}
+                    </Badge>
+                    <Badge variant="outline" className="font-mono text-[0.65rem]">
+                      {event.eventType}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">
+                      {formatDateTime(event.createdAt)}
+                    </span>
+                  </div>
+                  {event.messageText ? (
+                    <p className="mt-2 whitespace-pre-wrap text-sm leading-6">
+                      {event.messageText}
+                    </p>
+                  ) : null}
+                  <Collapsible className="mt-2">
+                    <CollapsibleTrigger className="flex items-center gap-1 rounded-md px-1 py-0.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground">
+                      <ChevronDownIcon className="size-3.5 transition-transform in-data-open:rotate-180" />
+                      Raw JSON
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <pre className="mt-2 max-h-56 overflow-auto rounded-lg bg-muted/60 p-3 font-mono text-xs leading-relaxed">
+                        {JSON.stringify(event.rawPayload, null, 2)}
+                      </pre>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </li>
+              ))}
+            </ol>
+          </ScrollArea>
         )}
       </CardContent>
     </Card>
   );
+}
+
+function eventTypeDotClass(eventType: string) {
+  switch (eventType) {
+    case "assistant":
+      return "bg-primary";
+    case "thinking":
+      return "bg-chart-5";
+    case "tool_call":
+      return "bg-chart-3";
+    case "status":
+      return "bg-chart-2";
+    case "error":
+    case "app.stream_error":
+      return "bg-destructive";
+    default:
+      return "bg-muted-foreground";
+  }
 }
 
 function mergeEvents(current: EventLogItem[], incoming: EventLogItem[]) {

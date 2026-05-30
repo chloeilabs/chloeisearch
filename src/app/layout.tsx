@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { TooltipProvider } from "@/components/ui/tooltip";
+
+import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,9 +30,10 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full">
-        <TooltipProvider>{children}</TooltipProvider>
+        <AppProviders>{children}</AppProviders>
         <Analytics />
         <SpeedInsights />
       </body>
