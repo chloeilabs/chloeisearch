@@ -4,14 +4,35 @@ import { Cursor, type SDKModel } from "@cursor/sdk";
 
 import { getCursorRequestOptions } from "@/lib/cursor/client";
 
-export async function listCursorModels(): Promise<SDKModel[]> {
-  const models = await Cursor.models.list(getCursorRequestOptions());
+/** Matches cookbook agent-kanban catalog caching (~55s). */
+const modelCacheTtlMs = 55_000;
 
-  return [...models].sort((a, b) =>
-    a.displayName.localeCompare(b.displayName, undefined, {
-      sensitivity: "base",
-    })
+const globalForModelCache = globalThis as typeof globalThis & {
+  __chloeiCursorModelCache?: {
+    loadedAt: number;
+    models: SDKModel[];
+  };
+};
+
+export async function listCursorModels(): Promise<SDKModel[]> {
+  const cache = globalForModelCache.__chloeiCursorModelCache;
+  if (cache && Date.now() - cache.loadedAt < modelCacheTtlMs) {
+    return cache.models;
+  }
+
+  const models = [...(await Cursor.models.list(getCursorRequestOptions()))].sort(
+    (a, b) =>
+      a.displayName.localeCompare(b.displayName, undefined, {
+        sensitivity: "base",
+      })
   );
+
+  globalForModelCache.__chloeiCursorModelCache = {
+    loadedAt: Date.now(),
+    models,
+  };
+
+  return models;
 }
 
 export async function validateCursorModel(modelId?: string) {

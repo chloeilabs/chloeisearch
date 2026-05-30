@@ -39,3 +39,16 @@ Compare `sdk/agent-kanban/src/lib/agents/server.ts` with `src/lib/cursor/agent-s
 ## API key
 
 Create a key in the [Cursor integrations dashboard](https://cursor.com/dashboard/integrations) and set `CURSOR_API_KEY` in `.env` (this app uses one server key, not per-user keys like the kanban demo).
+
+## Implemented cookbook patterns in this repo
+
+- **Catalog cache (~55s):** `src/lib/cursor/repositories.ts`, `src/lib/cursor/models.ts`
+- **Artifact inline media:** `src/lib/cursor/artifact-preview.ts` + `GET /api/agent-runs/:id/artifacts/*`
+- **Cloud agent lifecycle:** `src/lib/cursor/agent-service.ts` (`Agent.create`, `send`, `getRun`, stream/wait/cancel)
+- **UI reference:** sidebar agent list + search (kanban board filters), composer-style new-agent form
+
+## Possible next ports from agent-kanban
+
+- Group runs by status/repository in a kanban board view (optional route)
+- Live `Agent.list({ runtime: "cloud" })` reconciliation against Postgres (operator tooling)
+- Artifact thumbnails on the runs list (not only run detail)
