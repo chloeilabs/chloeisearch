@@ -29,8 +29,8 @@ export default async function RunsPage({
     <AppShell user={user}>
       <div className="flex flex-col gap-6">
         <PageHeader
-          title="Agent runs"
-          description="Monitor cloud agents working on your repositories — same runtime as Cursor."
+          title="Agents"
+          description="Cloud agents on your repositories — same runtime and models as Cursor."
           actions={<RefreshButton />}
         />
         <AgentRunFilters activeStatus={activeStatus} />

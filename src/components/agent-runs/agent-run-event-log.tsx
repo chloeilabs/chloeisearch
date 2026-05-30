@@ -108,9 +108,9 @@ export function AgentRunEventLog({
   );
 
   return (
-    <Card className="cursor-panel border-border/80">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-4">
-        <CardTitle>Event log</CardTitle>
+        <CardTitle className="text-base">Agent stream</CardTitle>
         <Badge
           variant="outline"
           className={cn(
@@ -132,7 +132,7 @@ export function AgentRunEventLog({
             No events have been persisted yet.
           </p>
         ) : (
-          <ScrollArea className="max-h-[min(70vh,640px)] pr-3">
+          <ScrollArea className="max-h-[min(70vh,640px)] rounded-md bg-muted/15 pr-3">
             <ol className="relative flex flex-col gap-4 border-l border-border/80 pl-4">
               {orderedEvents.map((event) => (
                 <li key={event.id} className="relative">
@@ -154,7 +154,7 @@ export function AgentRunEventLog({
                     </span>
                   </div>
                   {event.messageText ? (
-                    <p className="mt-2 whitespace-pre-wrap text-sm leading-6">
+                    <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-foreground/90">
                       {event.messageText}
                     </p>
                   ) : null}
@@ -164,7 +164,7 @@ export function AgentRunEventLog({
                       Raw JSON
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <pre className="mt-2 max-h-56 overflow-auto rounded-lg bg-muted/60 p-3 font-mono text-xs leading-relaxed">
+                      <pre className="cursor-log-surface mt-2 max-h-56 overflow-auto">
                         {JSON.stringify(event.rawPayload, null, 2)}
                       </pre>
                     </CollapsibleContent>

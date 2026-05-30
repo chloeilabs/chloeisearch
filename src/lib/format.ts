@@ -1,3 +1,31 @@
+export function formatRelativeTime(value?: Date | string | null) {
+  if (!value) {
+    return "—";
+  }
+
+  const date = new Date(value);
+  const deltaMs = date.getTime() - Date.now();
+  const absSec = Math.round(Math.abs(deltaMs) / 1000);
+
+  const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+
+  if (absSec < 60) {
+    return formatter.format(Math.round(deltaMs / 1000), "second");
+  }
+
+  const absMin = Math.round(absSec / 60);
+  if (absMin < 60) {
+    return formatter.format(Math.round(deltaMs / 60_000), "minute");
+  }
+
+  const absHour = Math.round(absMin / 60);
+  if (absHour < 48) {
+    return formatter.format(Math.round(deltaMs / 3_600_000), "hour");
+  }
+
+  return formatter.format(Math.round(deltaMs / 86_400_000), "day");
+}
+
 export function formatDateTime(value?: Date | string | null) {
   if (!value) {
     return "Not set";

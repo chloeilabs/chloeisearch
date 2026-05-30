@@ -1,6 +1,7 @@
 import { AlertCircleIcon } from "lucide-react";
 
 import { SignInButton } from "@/components/auth/auth-buttons";
+import { CursorBrandMark } from "@/components/brand/cursor-brand-mark";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Card,
@@ -18,10 +19,8 @@ export function SignInPanel() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--control-canvas)] px-6 py-12">
-      <div className="mb-8 text-center">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          Chloei Code
-        </p>
+      <div className="mb-8 flex flex-col items-center text-center">
+        <CursorBrandMark size="lg" className="mb-4" />
         <h1 className="mt-2 text-2xl font-medium tracking-tight text-foreground">
           Cloud agent control plane
         </h1>
@@ -30,7 +29,7 @@ export function SignInPanel() {
         </p>
       </div>
 
-      <Card className="w-full max-w-md cursor-panel border-border/80 bg-card">
+      <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-lg font-medium">Sign in</CardTitle>
           <CardDescription>

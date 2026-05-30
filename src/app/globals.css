@@ -131,4 +131,43 @@
   .cursor-sidebar-item-inactive {
     @apply text-muted-foreground hover:bg-sidebar-accent/60 hover:text-foreground;
   }
+  .cursor-sidebar-label {
+    @apply px-2.5 pb-1 pt-3 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80;
+  }
+  .cursor-field {
+    @apply border-border/70 bg-input/40 shadow-inner shadow-black/10 focus-visible:border-ring/80 focus-visible:bg-input/55;
+  }
+  .cursor-content {
+    @apply mx-auto w-full max-w-6xl;
+  }
+  .cursor-agent-row {
+    @apply border-b border-border/50 transition-colors last:border-0 hover:bg-accent/25;
+  }
+  .cursor-log-surface {
+    @apply rounded-md border border-border/60 bg-[oklch(0.09_0.006_285)] p-3 font-mono text-xs leading-relaxed text-foreground/90;
+  }
+
+}
+
+
+@layer base {
+  ::selection {
+    background: oklch(0.35 0.04 285);
+    color: oklch(0.98 0 0);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.32 0.01 285) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: oklch(0.28 0.01 285);
+    border-radius: 999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.36 0.02 285);
+  }
 }

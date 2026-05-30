@@ -1,4 +1,6 @@
 import type { AgentRun } from "@prisma/client";
+import Link from "next/link";
+import { ChevronLeftIcon } from "lucide-react";
 
 import { AgentRunActions } from "@/components/agent-runs/agent-run-actions";
 import { AgentRunStatusBadge } from "@/components/agent-runs/agent-run-status-badge";
@@ -9,6 +11,13 @@ export function AgentRunHeader({ run }: { run: AgentRun }) {
   return (
     <div className="flex flex-col gap-4 border-b border-border/60 pb-5 lg:flex-row lg:items-start lg:justify-between">
       <div className="min-w-0">
+        <Link
+          href="/runs"
+          className="mb-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ChevronLeftIcon className="size-3.5" />
+          All agents
+        </Link>
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <AgentRunStatusBadge status={run.normalizedStatus} />
           <Badge variant="outline">{run.runtime}</Badge>

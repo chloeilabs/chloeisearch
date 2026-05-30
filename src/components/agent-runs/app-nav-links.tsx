@@ -2,24 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ActivityIcon, ListIcon, PlusIcon } from "lucide-react";
+import { ActivityIcon, ListIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 const links = [
   {
     href: "/runs",
-    label: "Agent runs",
+    label: "Agents",
     icon: ListIcon,
     match: (path: string) =>
       path === "/runs" ||
       (path.startsWith("/runs/") && path !== "/runs/new"),
-  },
-  {
-    href: "/runs/new",
-    label: "New agent",
-    icon: PlusIcon,
-    match: (path: string) => path === "/runs/new",
   },
   {
     href: "/status",
@@ -57,30 +51,45 @@ export function AppNavLinks({ layout = "sidebar" }: { layout?: "sidebar" | "bar"
             </Link>
           );
         })}
+        <Link
+          href="/runs/new"
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm transition-colors",
+            pathname === "/runs/new"
+              ? "bg-accent text-foreground"
+              : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+          )}
+          aria-current={pathname === "/runs/new" ? "page" : undefined}
+        >
+          New agent
+        </Link>
       </nav>
     );
   }
 
   return (
-    <nav className="flex flex-col gap-0.5 px-2 py-3" aria-label="Primary">
-      {links.map(({ href, label, icon: Icon, match }) => {
-        const active = match(pathname);
+    <nav className="shrink-0 px-2 py-2" aria-label="Primary">
+      <p className="cursor-sidebar-label">Workspace</p>
+      <div className="flex flex-col gap-0.5">
+        {links.map(({ href, label, icon: Icon, match }) => {
+          const active = match(pathname);
 
-        return (
-          <Link
-            key={href}
-            href={href}
-            className={cn(
-              "cursor-sidebar-item",
-              active ? "cursor-sidebar-item-active" : "cursor-sidebar-item-inactive"
-            )}
-            aria-current={active ? "page" : undefined}
-          >
-            <Icon className="size-4 shrink-0 opacity-90" />
-            {label}
-          </Link>
-        );
-      })}
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "cursor-sidebar-item",
+                active ? "cursor-sidebar-item-active" : "cursor-sidebar-item-inactive"
+              )}
+              aria-current={active ? "page" : undefined}
+            >
+              <Icon className="size-4 shrink-0 opacity-90" />
+              {label}
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 }
