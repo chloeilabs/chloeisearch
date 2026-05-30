@@ -15,7 +15,10 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const status = url.searchParams.get("status");
     const normalizedStatus = runStatusFilters.find((item) => item === status);
-    const runs = await listRunsForUser(user.id, normalizedStatus);
+    const runs = await listRunsForUser(user.id, {
+      status: normalizedStatus,
+      archived: "active",
+    });
 
     return noStoreJson({ runs });
   } catch (error) {

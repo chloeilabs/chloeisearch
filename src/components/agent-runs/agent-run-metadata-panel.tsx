@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 
 export function AgentRunMetadataPanel({ run }: { run: AgentRun }) {
   const items = [
+    ...(run.archivedAt
+      ? ([["Archived", formatDateTime(run.archivedAt)]] as const)
+      : []),
     ["Repository", run.repoUrl],
     ["Starting ref", run.startingRef],
     ["Model", run.modelId ?? "Default"],

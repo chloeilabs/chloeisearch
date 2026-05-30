@@ -17,6 +17,9 @@ SDK docs: https://cursor.com/docs/api/sdk/typescript
 - **Stack:** `pnpm`, Postgres via `docker compose` (port **55432**), `pnpm setup:dev`, dev server `pnpm dev` → http://localhost:3000
 - **UI:** Dark sidebar shell (`AppShell`), flat `DetailSection` panels, `cursor-panel` / `cursor-field` in `src/app/globals.css`
 - **Verify:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`
+- **Agents UI:** Inbox shell on `/runs`; **⌘K** focuses sidebar search; archive via sidebar or `PATCH { "archived": true }`; browse archived at `/runs?archived=1`
+- **DB:** After pull, run `pnpm exec prisma migrate deploy` (includes `archivedAt` on `AgentRun`)
+
 
 ## Open Agents UI
 

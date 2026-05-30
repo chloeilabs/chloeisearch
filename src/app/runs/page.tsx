@@ -5,7 +5,10 @@ import { AppShell } from "@/components/agent-runs/app-shell";
 import { NewAgentRunButton } from "@/components/agent-runs/new-agent-run-button";
 import { RefreshButton } from "@/components/agent-runs/refresh-button";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
-import { listRunsForUser } from "@/lib/agent-runs/repository";
+import {
+  countArchivedRunsForUser,
+  listRunsForUser,
+} from "@/lib/agent-runs/repository";
 import { runStatusFilters } from "@/lib/agent-runs/types";
 import { getCurrentUser } from "@/lib/auth";
 
@@ -25,9 +28,12 @@ export default async function RunsPage({
   const { status, archived } = await searchParams;
   const showArchived = archived === "1";
   const activeStatus = runStatusFilters.find((item) => item === status);
-  const allRuns = await listRunsForUser(user.id, {
-    archived: showArchived ? "archived" : "active",
-  });
+  const [allRuns, archivedCount] = await Promise.all([
+    listRunsForUser(user.id, {
+      archived: showArchived ? "archived" : "active",
+    }),
+    countArchivedRunsForUser(user.id),
+  ]);
   const runs = activeStatus
     ? allRuns.filter((run) => run.normalizedStatus === activeStatus)
     : allRuns;
@@ -48,7 +54,8 @@ export default async function RunsPage({
           <p className="mb-4 text-sm text-muted-foreground">
             Agents hidden from the sidebar. Open one to unarchive or review.
           </p>
-          <FilteredRunsView runs={runs} />
+          <AgentRunFilters showArchived />
+          <FilteredRunsView runs={runs} showUnarchive />
         </div>
       </AppShell>
     );
@@ -57,7 +64,7 @@ export default async function RunsPage({
   if (!activeStatus) {
     return (
       <AppShell user={user}>
-        <AgentsHome runs={allRuns} />
+        <AgentsHome runs={allRuns} archivedCount={archivedCount} />
       </AppShell>
     );
   }

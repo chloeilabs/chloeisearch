@@ -13,7 +13,13 @@ import {
 } from "@/components/ui/empty";
 import { formatRelativeTime, hostAndRepo } from "@/lib/format";
 
-export function AgentsHome({ runs }: { runs: AgentRun[] }) {
+export function AgentsHome({
+  runs,
+  archivedCount = 0,
+}: {
+  runs: AgentRun[];
+  archivedCount?: number;
+}) {
   const latest = runs[0];
 
   if (!latest) {
@@ -29,11 +35,22 @@ export function AgentsHome({ runs }: { runs: AgentRun[] }) {
               Choose an agent from the sidebar to continue, or start a new one.
             </EmptyDescription>
           </EmptyHeader>
-          <EmptyContent>
+          <EmptyContent className="flex flex-col gap-2">
             <Button nativeButton={false} render={<Link href="/runs/new" />}>
               <PlusIcon data-icon="inline-start" />
               New agent
             </Button>
+            {archivedCount > 0 ? (
+              <Button
+                nativeButton={false}
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground"
+                render={<Link href="/runs?archived=1" />}
+              >
+                View {archivedCount} archived
+              </Button>
+            ) : null}
           </EmptyContent>
         </Empty>
       </div>

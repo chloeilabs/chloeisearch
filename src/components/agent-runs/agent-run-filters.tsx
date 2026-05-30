@@ -5,7 +5,29 @@ import Link from "next/link";
 import { runStatusFilters, runStatusLabels } from "@/lib/agent-runs/types";
 import { cn } from "@/lib/utils";
 
-export function AgentRunFilters({ activeStatus }: { activeStatus?: string }) {
+export function AgentRunFilters({
+  activeStatus,
+  showArchived = false,
+}: {
+  activeStatus?: string;
+  showArchived?: boolean;
+}) {
+  if (showArchived) {
+    return (
+      <nav
+        className="mb-4 flex flex-wrap items-center gap-1 text-[13px]"
+        aria-label="Archived agents"
+      >
+        <Link
+          href="/runs"
+          className="rounded px-1 py-0.5 text-muted-foreground transition-colors hover:text-foreground"
+        >
+          ← Active agents
+        </Link>
+      </nav>
+    );
+  }
+
   const items = [
     { href: "/runs", label: "Overview", active: !activeStatus },
     ...runStatusFilters.map((status) => ({
@@ -13,6 +35,7 @@ export function AgentRunFilters({ activeStatus }: { activeStatus?: string }) {
       label: runStatusLabels[status],
       active: activeStatus === status,
     })),
+    { href: "/runs?archived=1", label: "Archived", active: false },
   ];
 
   return (

@@ -7,7 +7,13 @@ import type { AgentRun } from "@prisma/client";
 import { AgentRunsTable } from "@/components/agent-runs/agent-runs-table";
 import { Input } from "@/components/ui/input";
 
-export function FilteredRunsView({ runs }: { runs: AgentRun[] }) {
+export function FilteredRunsView({
+  runs,
+  showUnarchive = false,
+}: {
+  runs: AgentRun[];
+  showUnarchive?: boolean;
+}) {
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
@@ -39,9 +45,15 @@ export function FilteredRunsView({ runs }: { runs: AgentRun[] }) {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search filtered agents…"
+          placeholder={
+            showUnarchive
+              ? "Search archived agents…"
+              : "Search filtered agents…"
+          }
           className="cursor-field h-8 pl-8 text-[13px]"
-          aria-label="Search filtered agents"
+          aria-label={
+            showUnarchive ? "Search archived agents" : "Search filtered agents"
+          }
         />
       </div>
       {query.trim() && filtered.length === 0 ? (
@@ -49,7 +61,7 @@ export function FilteredRunsView({ runs }: { runs: AgentRun[] }) {
           No agents match your search.
         </p>
       ) : (
-        <AgentRunsTable runs={filtered} />
+        <AgentRunsTable runs={filtered} showUnarchive={showUnarchive} />
       )}
     </div>
   );

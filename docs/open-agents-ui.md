@@ -39,3 +39,4 @@ Key files:
 - `apps/web/components/inbox-sidebar.tsx`
 - `apps/web/app/sessions/sessions-route-shell.tsx`
 - `apps/web/app/globals.css`
+- Archived list: unarchive from `/runs?archived=1`; status metrics exclude archived runs

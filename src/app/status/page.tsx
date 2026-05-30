@@ -8,9 +8,10 @@ import {
 } from "lucide-react";
 
 import { AppShell } from "@/components/agent-runs/app-shell";
+import { StatusBreadcrumbs } from "@/components/agent-runs/status-breadcrumbs";
+import { RefreshButton } from "@/components/agent-runs/refresh-button";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { Badge } from "@/components/ui/badge";
-import { PageHeader } from "@/components/ui/page-header";
 import { getRunCreationLimits } from "@/lib/agent-runs/limits";
 import {
   getRunHealthStats,
@@ -39,9 +40,12 @@ export default async function StatusPage() {
   ]);
 
   return (
-    <AppShell user={user}>
+    <AppShell user={user} headerStart={<StatusBreadcrumbs />} headerActions={<RefreshButton iconOnly />}>
       <div className="mx-auto w-full max-w-3xl flex flex-col gap-5">
-        <PageHeader title="Status" />
+        <p className="text-sm text-muted-foreground">
+          Runtime checks for the control plane, external APIs, and active
+          Cursor runs (excluding archived).
+        </p>
 
         <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
           <Metric label="Total runs" value={runStats.totalRuns} />
