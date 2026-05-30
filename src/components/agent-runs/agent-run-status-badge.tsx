@@ -64,9 +64,8 @@ export function AgentRunStatusBadge({
     <Badge
       variant="outline"
       className={cn(
-        "h-5 border-transparent bg-transparent px-0 font-normal text-muted-foreground shadow-none",
+        "h-5 border px-1.5 text-[10px] font-medium shadow-none",
         statusClassName[normalized],
-        "border px-1.5 text-[10px] font-medium",
         className
       )}
     >

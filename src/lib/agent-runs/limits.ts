@@ -16,16 +16,18 @@ export async function getRunCreationLimits(
   const env = getEnv();
   const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
+  const activeOnly = { userId, archivedAt: null } as const;
+
   const [activeRuns, runsLast24Hours] = await Promise.all([
     prisma.agentRun.count({
       where: {
-        userId,
+        ...activeOnly,
         normalizedStatus: { in: activeRunStatuses },
       },
     }),
     prisma.agentRun.count({
       where: {
-        userId,
+        ...activeOnly,
         createdAt: { gte: since },
       },
     }),

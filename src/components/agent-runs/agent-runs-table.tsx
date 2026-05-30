@@ -51,29 +51,31 @@ export function AgentRunsTable({
     <ul className="divide-y divide-border/50">
       {runs.map((run) => (
         <li key={run.id}>
-          <Link
-            href={`/runs/${run.id}`}
-            className="group flex items-start gap-3 py-3.5 transition-colors hover:bg-accent/20"
-          >
-            <AgentStatusDot
-              status={run.normalizedStatus}
-              className="mt-1.5"
-            />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm leading-snug text-foreground group-hover:text-foreground">
-                {run.taskSummary}
-              </p>
-              <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-muted-foreground">
-                <span className="font-mono">{hostAndRepo(run.repoUrl)}</span>
-                <span className="opacity-40">·</span>
-                <span>{run.startingRef}</span>
-                <span className="opacity-40">·</span>
-                <span className="tabular-nums">
-                  {formatRelativeTime(run.updatedAt)}
-                </span>
-              </p>
-            </div>
-            <div className="flex shrink-0 flex-col items-end gap-2">
+          <div className="group flex items-start gap-3 py-3.5 transition-colors hover:bg-accent/20">
+            <Link
+              href={`/runs/${run.id}`}
+              className="flex min-w-0 flex-1 items-start gap-3"
+            >
+              <AgentStatusDot
+                status={run.normalizedStatus}
+                className="mt-1.5"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm leading-snug text-foreground">
+                  {run.taskSummary}
+                </p>
+                <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-muted-foreground">
+                  <span className="font-mono">{hostAndRepo(run.repoUrl)}</span>
+                  <span className="opacity-40">·</span>
+                  <span>{run.startingRef}</span>
+                  <span className="opacity-40">·</span>
+                  <span className="tabular-nums">
+                    {formatRelativeTime(run.updatedAt)}
+                  </span>
+                </p>
+              </div>
+            </Link>
+            <div className="flex shrink-0 flex-col items-end gap-2 pr-1">
               <span className="text-[11px] text-muted-foreground">
                 {runStatusLabels[run.normalizedStatus as NormalizedRunStatus] ??
                   run.normalizedStatus}
@@ -91,7 +93,6 @@ export function AgentRunsTable({
                         href={run.prUrl}
                         target="_blank"
                         rel="noreferrer"
-                        onClick={(event) => event.stopPropagation()}
                       />
                     }
                   >
@@ -101,7 +102,7 @@ export function AgentRunsTable({
                 ) : null}
               </div>
             </div>
-          </Link>
+          </div>
         </li>
       ))}
     </ul>
