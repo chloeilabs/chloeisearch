@@ -17,3 +17,7 @@ SDK docs: https://cursor.com/docs/api/sdk/typescript
 - **Stack:** `pnpm`, Postgres via `docker compose` (port **55432**), `pnpm setup:dev`, dev server `pnpm dev` → http://localhost:3000
 - **UI:** Dark sidebar shell (`AppShell`), flat `DetailSection` panels, `cursor-panel` / `cursor-field` in `src/app/globals.css`
 - **Verify:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`
+
+## Open Agents UI
+
+Shell and inbox patterns follow [vercel-labs/open-agents](https://github.com/vercel-labs/open-agents). See `docs/open-agents-ui.md` when changing layout.
