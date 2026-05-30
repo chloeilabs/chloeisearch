@@ -4,6 +4,7 @@ import {
   artifactToRecord,
   extractGitResultMetadata,
   extractRunResult,
+  type ExtractableRunPayload,
 } from "@/lib/cursor/results";
 
 describe("Cursor result extraction", () => {
@@ -31,12 +32,28 @@ describe("Cursor result extraction", () => {
       id: "run-1",
       status: "finished",
       result: "Done",
+      durationMs: 23000,
       git: { branches: [] },
-    });
+    } satisfies ExtractableRunPayload);
 
     expect(result.rawCursorStatus).toBe("finished");
     expect(result.resultSummary).toBe("Done");
-    expect(result.resultRawPayload).toMatchObject({ id: "run-1" });
+    expect(result.resultRawPayload).toMatchObject({
+      id: "run-1",
+      durationMs: 23000,
+    });
+  });
+
+  it("does not summarize partial result while run is still active", () => {
+    const result = extractRunResult({
+      id: "run-1",
+      status: "running",
+      result: "Partial output so far",
+      git: { branches: [] },
+    } satisfies ExtractableRunPayload);
+
+    expect(result.resultSummary).toBeUndefined();
+    expect(result.rawCursorStatus).toBe("running");
   });
 
   it("falls back to pull request URLs and Cursor branches in result text", () => {
