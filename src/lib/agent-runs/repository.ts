@@ -3,6 +3,11 @@ import "server-only";
 import type { AgentRun, Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
+import {
+  buildArchivedAtWhere,
+  resolveListRunsForUserOptions,
+  type ListRunsForUserOptions,
+} from "@/lib/agent-runs/list-runs-options";
 import type { NormalizedRunStatus } from "@/lib/cursor/status";
 
 export type AgentRunWithRelations = Prisma.AgentRunGetPayload<{
@@ -14,32 +19,19 @@ export type AgentRunWithRelations = Prisma.AgentRunGetPayload<{
   };
 }>;
 
-export type ListRunsForUserOptions = {
-  status?: NormalizedRunStatus;
-  archived?: "active" | "archived" | "all";
-};
+export type { ListRunsForUserOptions } from "@/lib/agent-runs/list-runs-options";
 
 export async function listRunsForUser(
   userId: string,
   options?: ListRunsForUserOptions | NormalizedRunStatus
 ) {
-  const resolved: ListRunsForUserOptions =
-    typeof options === "string"
-      ? { status: options, archived: "active" }
-      : { archived: "active", ...options };
-
-  const archivedWhere =
-    resolved.archived === "archived"
-      ? { archivedAt: { not: null } }
-      : resolved.archived === "all"
-        ? {}
-        : { archivedAt: null };
+  const resolved = resolveListRunsForUserOptions(options);
 
   return prisma.agentRun.findMany({
     where: {
       userId,
       ...(resolved.status ? { normalizedStatus: resolved.status } : {}),
-      ...archivedWhere,
+      ...buildArchivedAtWhere(resolved.archived),
     },
     orderBy: { createdAt: "desc" },
     take: 100,

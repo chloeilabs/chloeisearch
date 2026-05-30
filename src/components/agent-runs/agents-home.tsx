@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MessageSquareIcon, PlusIcon } from "lucide-react";
 import type { AgentRun } from "@prisma/client";
 
+import { RunSidebarIcon } from "@/components/agent-runs/run-sidebar-icon";
 import { Button } from "@/components/ui/button";
 import {
   Empty,
@@ -74,6 +75,11 @@ export function AgentsHome({
             href={`/runs/${latest.id}`}
             className="flex items-center gap-3 rounded-lg border border-border bg-card/40 px-4 py-3 text-left transition-colors hover:bg-muted/40"
           >
+            <RunSidebarIcon
+              status={latest.normalizedStatus}
+              hasPr={Boolean(latest.prUrl)}
+              className="size-4 shrink-0"
+            />
             <span className="min-w-0 flex-1">
               <span className="line-clamp-2 text-sm font-medium leading-snug">
                 {latest.taskSummary}
