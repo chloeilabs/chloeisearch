@@ -15,16 +15,10 @@ import {
   Trash2Icon,
 } from "lucide-react";
 
+import { DetailSection } from "@/components/agent-runs/detail-section";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Empty,
   EmptyDescription,
@@ -33,6 +27,7 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { formatDateTime } from "@/lib/format";
+import { cn } from "@/lib/utils";
 import type { PullRequestLifecycle } from "@/lib/github/pull-requests";
 
 type PullRequestResponse = {
@@ -155,39 +150,45 @@ export function AgentRunPullRequestPanel({
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Pull request</CardTitle>
-        <CardAction className="flex gap-2">
+    <DetailSection
+      title="Pull request"
+      action={
+        <div className="flex gap-0.5">
           <Button
             type="button"
-            size="icon"
-            variant="outline"
+            size="sm"
+            variant="ghost"
+            className="h-7 w-7 px-0"
             onClick={() => void refreshPullRequest()}
             disabled={pendingAction !== null}
             aria-label="Refresh pull request"
           >
             <RefreshCwIcon
-              className={pendingAction === "refresh" ? "animate-spin" : ""}
+              className={cn(
+                "size-3.5",
+                pendingAction === "refresh" && "animate-spin"
+              )}
             />
           </Button>
           {linkedPrUrl ? (
             <Button
               type="button"
-              size="icon"
-              variant="outline"
+              size="sm"
+              variant="ghost"
+              className="h-7 w-7 px-0"
               nativeButton={false}
               render={
                 <a href={linkedPrUrl} target="_blank" rel="noreferrer" />
               }
               aria-label="Open pull request"
             >
-              <ExternalLinkIcon />
+              <ExternalLinkIcon className="size-3.5" />
             </Button>
           ) : null}
-        </CardAction>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+        </div>
+      }
+    >
+      <div className="flex flex-col gap-4">
         {error ? (
           <Alert variant="destructive">
             <AlertTriangleIcon data-icon="inline-start" />
@@ -240,8 +241,8 @@ export function AgentRunPullRequestPanel({
             </div>
           </>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </DetailSection>
   );
 }
 

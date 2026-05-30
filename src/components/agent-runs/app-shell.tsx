@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ActivityIcon, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 
 import { SidebarRecentRuns } from "@/components/agent-runs/sidebar-recent-runs";
+import { SidebarStatusLink } from "@/components/agent-runs/sidebar-status-link";
 import { UserMenu } from "@/components/agent-runs/user-menu";
 import { SignOutMenuItem } from "@/components/auth/sign-out-menu-item";
 import { CursorBrandMark } from "@/components/brand/cursor-brand-mark";
@@ -50,16 +51,7 @@ export async function AppShell({
         <SidebarRecentRuns runs={sidebarRuns} />
 
         <div className="shrink-0 space-y-1 border-t border-sidebar-border p-2">
-          <Link
-            href="/status"
-            className={cn(
-              "cursor-sidebar-item text-muted-foreground",
-              "hover:bg-sidebar-accent/50 hover:text-foreground"
-            )}
-          >
-            <ActivityIcon className="size-3.5 opacity-70" />
-            Status
-          </Link>
+          <SidebarStatusLink />
           <UserMenu user={user} menuItems={<SignOutMenuItem />} />
         </div>
       </aside>

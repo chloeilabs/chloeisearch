@@ -2,11 +2,10 @@ import Link from "next/link";
 import { ExternalLinkIcon } from "lucide-react";
 import type { AgentRun } from "@prisma/client";
 
-import {
-  AgentRunStatusBadge,
-  AgentStatusDot,
-} from "@/components/agent-runs/agent-run-status-badge";
+import { AgentStatusDot } from "@/components/agent-runs/agent-run-status-badge";
 import { Button } from "@/components/ui/button";
+import { runStatusLabels } from "@/lib/agent-runs/types";
+import type { NormalizedRunStatus } from "@/lib/cursor/status";
 import { formatRelativeTime, hostAndRepo } from "@/lib/format";
 
 export function AgentRunsTable({ runs }: { runs: AgentRun[] }) {
@@ -54,7 +53,9 @@ export function AgentRunsTable({ runs }: { runs: AgentRun[] }) {
               </p>
             </div>
             <div className="flex shrink-0 flex-col items-end gap-2">
-              <AgentRunStatusBadge status={run.normalizedStatus} />
+              <span className="text-[11px] text-muted-foreground">
+                {runStatusLabels[run.normalizedStatus as NormalizedRunStatus] ?? run.normalizedStatus}
+              </span>
               {run.prUrl ? (
                 <Button
                   variant="ghost"

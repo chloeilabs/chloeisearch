@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import {
   ActivityIcon,
   CheckCircle2Icon,
@@ -8,7 +10,6 @@ import {
 import { AppShell } from "@/components/agent-runs/app-shell";
 import { SignInPanel } from "@/components/auth/sign-in-panel";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 import { getRunCreationLimits } from "@/lib/agent-runs/limits";
 import {
@@ -64,99 +65,111 @@ export default async function StatusPage() {
         </section>
 
         <section className="grid gap-5 lg:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Runtime configuration</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <dl className="grid gap-3 sm:grid-cols-2">
-                <ConfigMetric
-                  label="Default model"
-                  value={env.DEFAULT_CURSOR_MODEL || "Cursor account default"}
-                />
-                <ConfigMetric
-                  label="Git hosts"
-                  value={env.ALLOWED_GIT_HOSTS.join(", ")}
-                />
-                <ConfigMetric
-                  label="GitHub orgs"
-                  value={
-                    env.ALLOWED_GITHUB_ORGS.length > 0
-                      ? `${env.ALLOWED_GITHUB_ORGS.length} configured`
-                      : "Any repository you can access"
-                  }
-                />
-                <ConfigMetric
-                  label="Sign-in allowlist"
-                  value={`${env.ALLOWED_GITHUB_USERS.length} GitHub user(s), ${env.ALLOWED_EMAILS.length} email(s)`}
-                />
-                <ConfigMetric
-                  label="Create/cancel/retry rate"
-                  value={`${env.AGENT_RUN_RATE_LIMIT} / user / minute`}
-                />
-                <ConfigMetric
-                  label="Cron batch size"
-                  value={`${env.CRON_REFRESH_BATCH_SIZE} active run(s)`}
-                />
-              </dl>
-            </CardContent>
-          </Card>
+          <StatusPanel title="Runtime configuration">
+            <dl className="grid gap-3 sm:grid-cols-2">
+              <ConfigMetric
+                label="Default model"
+                value={env.DEFAULT_CURSOR_MODEL || "Cursor account default"}
+              />
+              <ConfigMetric
+                label="Git hosts"
+                value={env.ALLOWED_GIT_HOSTS.join(", ")}
+              />
+              <ConfigMetric
+                label="GitHub orgs"
+                value={
+                  env.ALLOWED_GITHUB_ORGS.length > 0
+                    ? `${env.ALLOWED_GITHUB_ORGS.length} configured`
+                    : "Any repository you can access"
+                }
+              />
+              <ConfigMetric
+                label="Sign-in allowlist"
+                value={`${env.ALLOWED_GITHUB_USERS.length} GitHub user(s), ${env.ALLOWED_EMAILS.length} email(s)`}
+              />
+              <ConfigMetric
+                label="Create/cancel/retry rate"
+                value={`${env.AGENT_RUN_RATE_LIMIT} / user / minute`}
+              />
+              <ConfigMetric
+                label="Cron batch size"
+                value={`${env.CRON_REFRESH_BATCH_SIZE} active run(s)`}
+              />
+            </dl>
+          </StatusPanel>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Refresh activity</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <dl className="grid gap-3 sm:grid-cols-2">
-                <ConfigMetric
-                  label="Cron schedule"
-                  value="Every 5 minutes in production"
-                />
-                <ConfigMetric
-                  label="Last cron refresh"
-                  value={
-                    operationsActivity.latestCronEvent
-                      ? formatDateTime(operationsActivity.latestCronEvent.createdAt)
-                      : "No active-run cron event yet"
-                  }
-                />
-                <ConfigMetric
-                  label="Latest run update"
-                  value={
-                    runStats.latestRunRefresh
-                      ? formatDateTime(runStats.latestRunRefresh.updatedAt)
-                      : "No Cursor run updates yet"
-                  }
-                />
-                <ConfigMetric
-                  label="Latest event"
-                  value={
-                    operationsActivity.latestRunEvent
-                      ? operationsActivity.latestRunEvent.eventType
-                      : "No events yet"
-                  }
-                />
-              </dl>
-            </CardContent>
-          </Card>
+          <StatusPanel title="Refresh activity">
+            <dl className="grid gap-3 sm:grid-cols-2">
+              <ConfigMetric
+                label="Cron schedule"
+                value="Every 5 minutes in production"
+              />
+              <ConfigMetric
+                label="Last cron refresh"
+                value={
+                  operationsActivity.latestCronEvent
+                    ? formatDateTime(operationsActivity.latestCronEvent.createdAt)
+                    : "No active-run cron event yet"
+                }
+              />
+              <ConfigMetric
+                label="Latest run update"
+                value={
+                  runStats.latestRunRefresh
+                    ? formatDateTime(runStats.latestRunRefresh.updatedAt)
+                    : "No Cursor run updates yet"
+                }
+              />
+              <ConfigMetric
+                label="Latest event"
+                value={
+                  operationsActivity.latestRunEvent
+                    ? operationsActivity.latestRunEvent.eventType
+                    : "No events yet"
+                }
+              />
+            </dl>
+          </StatusPanel>
         </section>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between gap-3">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <ActivityIcon className="size-4" />
+        <StatusPanel
+          title={
+            <span className="flex items-center gap-2">
+              <ActivityIcon className="size-4 opacity-70" />
               Service checks
-            </CardTitle>
-            <HealthBadge status={health.status} />
-          </CardHeader>
-          <CardContent className="divide-y p-0">
-            {health.checks.map((check) => (
-              <HealthRow key={check.name} check={check} />
-            ))}
-          </CardContent>
-        </Card>
+            </span>
+          }
+          action={<HealthBadge status={health.status} />}
+          bodyClassName="divide-y divide-border/50 p-0"
+        >
+          {health.checks.map((check) => (
+            <HealthRow key={check.name} check={check} />
+          ))}
+        </StatusPanel>
       </div>
     </AppShell>
+  );
+}
+
+function StatusPanel({
+  title,
+  action,
+  children,
+  bodyClassName = "p-4",
+}: {
+  title: ReactNode;
+  action?: ReactNode;
+  children: ReactNode;
+  bodyClassName?: string;
+}) {
+  return (
+    <section className="cursor-panel overflow-hidden">
+      <div className="flex items-center justify-between gap-3 border-b border-border/50 px-4 py-3">
+        <h2 className="text-sm font-medium text-foreground">{title}</h2>
+        {action}
+      </div>
+      <div className={bodyClassName}>{children}</div>
+    </section>
   );
 }
 
@@ -172,8 +185,8 @@ function Metric({ label, value }: { label: string; value: number | string }) {
 function ConfigMetric({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-xs font-medium text-muted-foreground">{label}</dt>
-      <dd className="mt-1 break-words text-sm">{value}</dd>
+      <dt className="text-[11px] font-medium text-muted-foreground">{label}</dt>
+      <dd className="mt-1 break-words text-sm text-foreground/90">{value}</dd>
     </div>
   );
 }
@@ -187,10 +200,12 @@ function HealthRow({ check }: { check: HealthCheck }) {
         : CircleAlertIcon;
 
   return (
-    <div className="grid gap-3 p-4 md:grid-cols-[220px_1fr_auto] md:items-center">
+    <div className="grid gap-3 px-4 py-3.5 md:grid-cols-[220px_1fr_auto] md:items-center">
       <div className="flex items-center gap-2">
-        <Icon className="size-4" />
-        <span className="font-medium">{check.name.replaceAll("_", " ")}</span>
+        <Icon className="size-4 shrink-0 opacity-80" />
+        <span className="text-sm font-medium">
+          {check.name.replaceAll("_", " ")}
+        </span>
       </div>
       <p className="text-sm text-muted-foreground">{check.message}</p>
       <div className="flex items-center gap-2">
