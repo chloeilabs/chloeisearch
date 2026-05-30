@@ -17,6 +17,7 @@ Chloei Code’s shell and inbox sidebar follow layout and styling patterns from 
 ## Recent additions
 
 - Hover preview on sidebar rows (desktop) — `sidebar-run-row.tsx`
+- Sidebar hover actions: rename (`PATCH /api/agent-runs/:id`), copy link, open PR
 - Repo groups auto-expand for active run / search
 - Mobile sidebar closes on navigate — `agents-shell-context.tsx`
 

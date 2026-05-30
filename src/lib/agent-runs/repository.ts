@@ -136,6 +136,23 @@ export async function getRunForUser(userId: string, id: string) {
   });
 }
 
+export async function updateRunTaskSummaryForUser(
+  userId: string,
+  id: string,
+  taskSummary: string
+) {
+  const existing = await getRunForUser(userId, id);
+
+  if (!existing) {
+    return null;
+  }
+
+  return prisma.agentRun.update({
+    where: { id },
+    data: { taskSummary },
+  });
+}
+
 export async function getRunDetailForUser(userId: string, id: string) {
   return prisma.agentRun.findFirst({
     where: { id, userId },

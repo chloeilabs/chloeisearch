@@ -1,10 +1,19 @@
 import { z } from "zod";
 
+import {
+  getValidRenameSummary,
+  taskSummaryMaxLength,
+  truncateTaskSummary,
+} from "@/lib/agent-runs/task-summary";
 import { getEnv } from "@/lib/env";
 import { normalizeRepositoryUrl } from "@/lib/validation/repository";
 
+export {
+  getValidRenameSummary,
+  taskSummaryMaxLength,
+} from "@/lib/agent-runs/task-summary";
+
 export const cursorAgentNameMaxLength = 100;
-export const taskSummaryMaxLength = 120;
 
 const startingRefSchema = z
   .string()
@@ -47,22 +56,37 @@ export function parseCreateAgentRunInput(input: unknown) {
   };
 }
 
+export const updateAgentRunInputSchema = z.object({
+  taskSummary: z
+    .string()
+    .trim()
+    .min(1, "Summary is required.")
+    .max(
+      taskSummaryMaxLength,
+      `Summary must be ${taskSummaryMaxLength} characters or fewer.`
+    ),
+});
+
+export type UpdateAgentRunInput = z.infer<typeof updateAgentRunInputSchema>;
+
+export function parseUpdateAgentRunInput(input: unknown) {
+  const parsed = updateAgentRunInputSchema.parse(input);
+  return {
+    taskSummary: parsed.taskSummary.replace(/\s+/g, " ").trim(),
+  };
+}
+
 export function summarizeTaskPrompt(prompt: string) {
   const normalized = prompt.replace(/\s+/g, " ").trim();
 
-  return truncateWithEllipsis(normalized, taskSummaryMaxLength);
+  return truncateTaskSummary(normalized);
 }
 
 export function createCursorAgentName(summary: string) {
   const normalized = summary.replace(/\s+/g, " ").trim();
 
-  return truncateWithEllipsis(normalized || "Chloei Code task", cursorAgentNameMaxLength);
-}
-
-function truncateWithEllipsis(value: string, maxLength: number) {
-  if (value.length <= maxLength) {
-    return value;
-  }
-
-  return `${value.slice(0, Math.max(0, maxLength - 3)).trimEnd()}...`;
+  return truncateTaskSummary(
+    normalized || "Chloei Code task",
+    cursorAgentNameMaxLength
+  );
 }

@@ -3,7 +3,9 @@ import { describe, expect, it, vi } from "vitest";
 import {
   createCursorAgentName,
   cursorAgentNameMaxLength,
+  getValidRenameSummary,
   parseCreateAgentRunInput,
+  parseUpdateAgentRunInput,
   summarizeTaskPrompt,
   taskSummaryMaxLength,
 } from "@/lib/validation/agent-run";
@@ -40,6 +42,53 @@ describe("summarizeTaskPrompt", () => {
 
     expect(summary.length).toBeLessThanOrEqual(taskSummaryMaxLength);
     expect(summary).not.toContain("\n");
+  });
+});
+
+
+
+describe("parseUpdateAgentRunInput", () => {
+  it("normalizes summary whitespace", () => {
+    const parsed = parseUpdateAgentRunInput({
+      taskSummary: "  Ship   sidebar   polish  ",
+    });
+
+    expect(parsed.taskSummary).toBe("Ship sidebar polish");
+  });
+
+  it("rejects empty summaries", () => {
+    expect(() =>
+      parseUpdateAgentRunInput({
+        taskSummary: "   ",
+      })
+    ).toThrow();
+  });
+});
+
+describe("getValidRenameSummary", () => {
+  it("returns null when unchanged or blank", () => {
+    expect(
+      getValidRenameSummary({
+        draftSummary: "Fix tests",
+        originalSummary: "Fix tests",
+      })
+    ).toBeNull();
+    expect(
+      getValidRenameSummary({
+        draftSummary: "   ",
+        originalSummary: "Fix tests",
+      })
+    ).toBeNull();
+  });
+
+  it("truncates long renames", () => {
+    const summary = getValidRenameSummary({
+      draftSummary: `${"Rename ".repeat(40)}`,
+      originalSummary: "Old title",
+    });
+
+    expect(summary).not.toBeNull();
+    expect(summary!.length).toBeLessThanOrEqual(taskSummaryMaxLength);
   });
 });
 
