@@ -1,0 +1,550 @@
+{
+  "type": "news",
+  "query": {
+    "original": "technology",
+    "spellcheck_off": false,
+    "show_strict_warning": false
+  },
+  "results": [
+    {
+      "type": "news_result",
+      "title": "Technology News -- ScienceDaily",
+      "url": "https://sciencedaily.com/news/matter_energy/technology",
+      "description": "Technology news. Read articles on new gadgets and prototypes for future technology from leading research institutes around the world.",
+      "age": "12 hours ago",
+      "page_age": "2026-07-03T11:00:03",
+      "profile": {
+        "name": "ScienceDaily",
+        "url": "https://sciencedaily.com/news/matter_energy/technology"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "sciencedaily.com",
+        "hostname": "sciencedaily.com",
+        "favicon": "https://imgs.search.brave.com/QMxzIRv3nUYelI4Sg8j6d5I7a8NPHLMLzgb3BEtREZk/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMjczYzIzZjhj/MmJlZDY4ZjYyY2Rk/MDQ4MGQ0ZWUxOGIx/YmY5OGNiN2FjMGQ1/MzEzNTA0YmJlMTM4/ZmNkYTdhOC9zY2ll/bmNlZGFpbHkuY29t/Lw",
+        "path": "› news  › matter_energy  › technology"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/dYZ2vdocxOWr1DxdjtH87B18OYgAQUSExFi6GS2G58s/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly93d3cu/c2NpZW5jZWRhaWx5/LmNvbS9pbWFnZXMv/c2NpZGFpbHktaWNv/bi5wbmc"
+      },
+      "extra_snippets": [
+        "June 4, 2026  Researchers at EPFL have developed a chip-scale ultrafast laser that performs on par with traditional tabletop femtosecond lasers. The innovation could make advanced laser technologies far smaller, cheaper, and more accessible for applications ...",
+        "June 1, 2026  A remarkable crystal called molybdenum oxychloride could help make futuristic technologies like smart contact lenses and ultrathin AR glasses a reality.",
+        "May 30, 2026  A new room-temperature quantum device uses twisted light to entangle photons and electrons, overcoming one of the biggest hurdles in quantum technology.",
+        "May 13, 2026  Scientists in Japan have developed a new way to instantly detect elusive quantum “W states,” a major milestone for quantum technology."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "The Guardian view on how culture is taking on tech: the ultimate handheld device | Editorial | The Guardian",
+      "url": "https://theguardian.com/commentisfree/2026/jul/03/the-guardian-view-on-how-culture-is-taking-on-tech-the-ultimate-handheld-device",
+      "description": "Above all, Transcription is about 21st-century anxiety, and particularly the experiences of children. Covid, environmental collapse, endless wars – technology is not the sole culprit. Thomas’s granddaughter will only eat once she is given an unlimited diet of junk food and YouTube videos.",
+      "age": "6 hours ago",
+      "page_age": "2026-07-03T17:25:34",
+      "profile": {
+        "name": "The Guardian",
+        "url": "https://theguardian.com/commentisfree/2026/jul/03/the-guardian-view-on-how-culture-is-taking-on-tech-the-ultimate-handheld-device"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "theguardian.com",
+        "hostname": "theguardian.com",
+        "favicon": "https://imgs.search.brave.com/RUl9ybA9ntMGVUE4dG-E30SF5zaX2G90cR9BhutzZfI/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMmY3M2ZmODU1/Njg0MGQwZmU4ZmIx/MmExNWNkZTFkY2Q0/MzM2MDNmOWQxYWYz/MjZiZjQ4ZDIzMmYz/OTU5MmE2NC90aGVn/dWFyZGlhbi5jb20v",
+        "path": "› commentisfree  › 2026  › jul  › 03  › the-guardian-view-on-how-culture-is-taking-on-tech-the-ultimate-handheld-device"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/hvr8uq-rvOJi7WfaZ3INn_GXSH7M-x7N5p-tafTbGkM/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLmd1/aW0uY28udWsvaW1n/L21lZGlhL2YzNDI3/YjY0ODBkOWI5ZDQ4/ZDEwMmJkZGE1NTcw/NTY2ZWM1MjFkOTYv/MTIzOV8wXzU4NThf/NDY4OC9tYXN0ZXIv/NTg1OC5qcGc_d2lk/dGg9MTIwMCZoZWln/aHQ9NjMwJnF1YWxp/dHk9ODUmYXV0bz1m/b3JtYXQmZml0PWNy/b3AmcHJlY3JvcD00/MDoyMSxvZmZzZXQt/eDUwLG9mZnNldC15/MCZvdmVybGF5LWFs/aWduPWJvdHRvbSUy/Q2xlZnQmb3Zlcmxh/eS13aWR0aD0xMDBw/Jm92ZXJsYXktYmFz/ZTY0PUwybHRaeTl6/ZEdGMGFXTXZiM1ps/Y214aGVYTXZkR2N0/YjNCcGJtbHZibk11/Y0c1biZlbmFibGU9/dXBzY2FsZSZzPTky/ODhhNzI2NzQ4Y2Jj/MWIyNmY1OTM0MDRk/M2M2NzAw"
+      },
+      "extra_snippets": [
+        "“The question of how certain forms of media flatten or monetise our attention – I do think that’s political territory,” the author said of his win. With its shiny black cover and stark white typeface, this slim novel is designed to remind to us that the book is also a handheld portable device. It invites us to consider the relationship between art and technology.",
+        "Editorial: Transcription, the winner of the Orwell prize for political fiction, and Toy Story 5 show life before smartphones and screen time"
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "How Credo Technology Group Holding Ltd’s (CRDO) DustPhotonics Deal Deepens Its AI Data Center Connectivity Roadmap",
+      "url": "https://finance.yahoo.com/technology/ai/articles/credo-technology-group-holding-ltd-215834431.html",
+      "description": "Credo Technology Group Holding Ltd (NASDAQ:CRDO) is one of the stocks with rising earnings estimates and fresh catalysts. The stock has 15 upward EPS revisions and no downward revisions for the upcoming fiscal year over the last three months, while revenue estimates show 14 upward revisions ...",
+      "age": "1 hour ago",
+      "page_age": "2026-07-03T21:58:34",
+      "profile": {
+        "name": "Yahoo! Finance",
+        "url": "https://finance.yahoo.com/technology/ai/articles/credo-technology-group-holding-ltd-215834431.html"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "finance.yahoo.com",
+        "hostname": "finance.yahoo.com",
+        "favicon": "https://imgs.search.brave.com/ZxJbtHZiiBXciqcRfJn3XPiTEOf_XYrooAjrJf1rnag/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNjRkNjc1NWY5/MzM5ZjlkMWQyNjM5/OWNiMTQ4ZjcwNTQx/ZjA3ZDE4NDQ2M2Iw/MWZjZjVhOTFlM2Ji/NTE1NWRjZS9maW5h/bmNlLnlhaG9vLmNv/bS8",
+        "path": "› technology  › ai  › articles  › credo-technology-group-holding-ltd-215834431.html"
+      },
+      "thumbnail": {
+        "src": ""
+      },
+      "extra_snippets": [
+        "Credo Technology Group Holding Ltd (NASDAQ:CRDO) is one of the stocks with rising earnings estimates and fresh catalysts. The stock has 15 upward EPS revisions and no downward revisions for the upcoming fiscal year over the last three months, while revenue estimates show 14 upward revisions and no downward revisions.",
+        "The catalyst is the company's deeper role in AI data-center connectivity, where active electrical cables, optical transceivers, DSPs, and retimers help improve cluster reliability and GPU utilization. Credo also completed its DustPhotonics acquisition on May 28, bringing silicon photonics technology in-house and expanding its optical interconnect roadmap across 800G, 1.6T, and future platforms.",
+        "Credo Technology Group Holding Ltd (NASDAQ:CRDO) develops high-speed connectivity products used in data centers, including active electrical cables, optical transceivers, retimers, and signal-processing chips.",
+        "MU.TO Micron Technology, Inc."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Council Post: The Importance Of The Connected Technology Stack For Small Businesses",
+      "url": "https://forbes.com/councils/forbesbusinessdevelopmentcouncil/2026/07/02/the-importance-of-the-connected-technology-stack-for-small-businesses",
+      "description": "While most small businesses have embraced digital tools, the real issue is that these tools often operate in isolation.",
+      "age": "2 days ago",
+      "page_age": "2026-07-02T11:00:00",
+      "profile": {
+        "name": "Forbes",
+        "url": "https://forbes.com/councils/forbesbusinessdevelopmentcouncil/2026/07/02/the-importance-of-the-connected-technology-stack-for-small-businesses"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "forbes.com",
+        "hostname": "forbes.com",
+        "favicon": "https://imgs.search.brave.com/3H2YLZf1BpiKMUuzUF67-uu01Z1HBFeJ0q74dreksHY/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvODQ5ODIyYjJl/NWVkNmIxZTRiNTFj/MjZjNjlkNmU3NDhi/YjBjM2Q4OWZkNzY2/MWFlYjZmNGU4NTM1/NjczOWE5Ni9mb3Ji/ZXMuY29tLw",
+        "path": "› councils  › forbesbusinessdevelopmentcouncil  › 2026  › 07  › 02  › the-importance-of-the-connected-technology-stack-for-small-businesses"
+      },
+      "thumbnail": {
+        "src": ""
+      },
+      "extra_snippets": [
+        "Over the last decade, the technology market has become saturated with standalone applications designed to solve specific problems. One platform handles billing, another manages scheduling, a third tracks inventory and a fourth stores customer information.",
+        "Even the best software cannot perform effectively without reliable access to data and applications. Unstable connectivity leads to interrupted workflows, delayed transactions and poor customer experiences. Reliable LTE, 5G and managed Wi-Fi should be viewed as essential components of any technology strategy.",
+        "Technology investments should be evaluated based on business outcomes, not features. Before implementing new solutions, organizations should establish clear performance benchmarks and measure improvements over time.",
+        "By adopting connected ecosystems that integrate hardware, software, connectivity, security and support, small businesses can streamline operations, increase productivity and focus on what matters most. A connected technology stack is quickly becoming essential for sustainable growth.​​"
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Nvidia CEO's iconic leather jacket heads to auction",
+      "url": "https://finance.yahoo.com/technology/ai/articles/nvidia-ceos-iconic-leather-jacket-123300136.html",
+      "description": "Long Journey Ventures organizes the auction, and proceeds will benefit the Edge Institute, a non-profit that runs pop-up residencies for researchers and builders working across technology, science and culture.",
+      "age": "11 hours ago",
+      "page_age": "2026-07-03T12:33:00",
+      "profile": {
+        "name": "Yahoo! Finance",
+        "url": "https://finance.yahoo.com/technology/ai/articles/nvidia-ceos-iconic-leather-jacket-123300136.html"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "finance.yahoo.com",
+        "hostname": "finance.yahoo.com",
+        "favicon": "https://imgs.search.brave.com/ZxJbtHZiiBXciqcRfJn3XPiTEOf_XYrooAjrJf1rnag/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNjRkNjc1NWY5/MzM5ZjlkMWQyNjM5/OWNiMTQ4ZjcwNTQx/ZjA3ZDE4NDQ2M2Iw/MWZjZjVhOTFlM2Ji/NTE1NWRjZS9maW5h/bmNlLnlhaG9vLmNv/bS8",
+        "path": "› technology  › ai  › articles  › nvidia-ceos-iconic-leather-jacket-123300136.html"
+      },
+      "thumbnail": {
+        "src": ""
+      },
+      "extra_snippets": [
+        "MU.TO Micron Technology, Inc.",
+        "Huang has worn the jacket for more than a decade, through product launches, developer conferences and major AI announcements, making it, in Sotheby's words, a piece present for \"some of the most consequential moments in modern technology.\"",
+        "NVIDIA (NASDAQ: NVDA) co-founder and CEO Jensen Huang is putting his trademark black leather jacket up for auction at Sotheby's, with bidding opening July 7. The Tom Ford piece, signed by Huang himself, carries an estimated value of $40,000 to $60,000, according to Sotheby's listing. ..."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Microchip Technology Inc (MCHP) Stock Down 4.6% but Still Overvalued -- GF Score: 75/100",
+      "url": "https://www.gurufocus.com/news/8943825/microchip-technology-inc-mchp-stock-down-46-but-still-overvalued-gf-score-75100",
+      "description": "On July 02, 2026, Microchip Technology Inc (MCHP) shares fell 4.6% today, bringing the current price to $84.64. The stock has experienced a 52-week range of $48",
+      "age": "1 day ago",
+      "page_age": "2026-07-02T22:44:20",
+      "profile": {
+        "name": "GuruFocus",
+        "url": "https://www.gurufocus.com/news/8943825/microchip-technology-inc-mchp-stock-down-46-but-still-overvalued-gf-score-75100"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "gurufocus.com",
+        "hostname": "www.gurufocus.com",
+        "favicon": "https://imgs.search.brave.com/hBLgj5i1YDzVbQPYh-6XZSL0zjaAay-bDiBhfjkjfYc/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNzIwNmViMzBj/YTZkZWJiNTRhNTJj/NjI0YjYxYmNjZTdh/MzQxMTVlYjc5MDcw/ZDFjNmFmMDU0MTVj/OWY3MzYwNi93d3cu/Z3VydWZvY3VzLmNv/bS8",
+        "path": "› news  › 8943825  › microchip-technology-inc-mchp-stock-down-46-but-still-overvalued-gf-score-75100"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/Jq0VCWRPAwTOUPwxSJ5m2DfMLWiD29VzKeerYEUEUjg/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMuZ3VydWZvY3Vz/LmNvbS9sb2dvcy8w/QzAwMDAwOERaLnBu/Zz8yMA"
+      },
+      "extra_snippets": [
+        "Microchip Technology Inc MCHP is currently trading at $84.64, which represents a significant premium compared to its GF Value™ of $58.97. This places the stock at 43.5% above its intrinsic value, signaling that it may be overvalued at this time.",
+        "The GF Score™ of 75/100 indicates that Microchip Technology is above average in terms of quality and potential long-term returns. The strongest area is its Momentum score of 10/10, reflecting strong recent price performance. However, the weakest area is its Valuation score of 3/10, which corroborates the overvalued stance suggested by the GF Value™ analysis.",
+        "In the last three months, insiders have sold $51.7 million worth of Microchip Technology stock, with no reported insider buying during this period. This pattern of selling may suggest that insiders are cautious about the company’s future performance or believe the stock is currently overvalued.",
+        "Based on the GF Value™ assessment, Microchip Technology Inc MCHP is currently overvalued. The substantial premium over its intrinsic value, coupled with the recent insider selling activity, suggests that potential investors should exercise caution."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "5 Samsung Galaxy Features You Have To Enable Yourself - BGR",
+      "url": "https://www.bgr.com/2203684/samsung-galaxy-features-have-to-enable-yourself/",
+      "description": "Samsung Galaxy phones have many handy features, but not all are on by default. Among the ones you have to enable are physical music controls and auto-restart.",
+      "age": "4 hours ago",
+      "page_age": "2026-07-03T19:17:00",
+      "profile": {
+        "name": "BGR",
+        "url": "https://www.bgr.com/2203684/samsung-galaxy-features-have-to-enable-yourself/"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "bgr.com",
+        "hostname": "www.bgr.com",
+        "favicon": "https://imgs.search.brave.com/wJG8yZdp_0irm99iXT36aBEjt9AWAalCOQ3Z6giFizY/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvN2JhZjA2ZmRj/OWIzMmRhYTY5YWE3/YjBjNTY3NDYzMDVi/NmExMmY5NWQxN2U1/ZTBlMThkZGE1MTRj/YjE1M2I1OS93d3cu/YmdyLmNvbS8",
+        "path": "› 2203684  › samsung-galaxy-features-have-to-enable-yourself"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/qnklIVhqC1HsUIzuSsS3LDNtGOYVfg2-y9gn0UI7m70/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly93d3cu/YmdyLmNvbS9pbWcv/Z2FsbGVyeS81LXNh/bXN1bmctZ2FsYXh5/LWZlYXR1cmVzLXlv/dS1oYXZlLXRvLWVu/YWJsZS15b3Vyc2Vs/Zi9sLWludHJvLTE3/ODI2ODA5MzkuanBn"
+      },
+      "extra_snippets": [
+        "Technology · Mobile · Android · By Marinel Sigue July 3, 2026 3:17 pm EST · Samsung · Your Samsung Galaxy phone is already an impressive productivity tool out of the box. This is thanks in part to most of its major features being turned on by default, making them much more accessible to you."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "As 'Terminator 2: Judgment Day' turns 35, it's time to accept the truth: Terminator shouldn't be back | Space",
+      "url": "https://www.space.com/entertainment/space-movies-shows/as-terminator-2-judgment-day-turns-35-its-time-to-accept-the-truth-terminator-shouldnt-be-back",
+      "description": "It's not just that the movies failed to change with the times, though… we've changed. The \"Terminator\" movies are a warning about the dangers of technology and AI. The problem with watching it now is that it doesn't feel like fiction anymore.",
+      "age": "3 hours ago",
+      "page_age": "2026-07-03T20:00:00",
+      "profile": {
+        "name": "Space.com",
+        "url": "https://www.space.com/entertainment/space-movies-shows/as-terminator-2-judgment-day-turns-35-its-time-to-accept-the-truth-terminator-shouldnt-be-back"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "space.com",
+        "hostname": "www.space.com",
+        "favicon": "https://imgs.search.brave.com/3XCWt_c3BOddJsusRhNQvWZ04Lxr1r3p5zwYi96n5Pw/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYjQ1NzY5OGQ2/YmQ3ODRkMDExMjg1/NzJhMTQyZWI3NmQ5/ZDhkNDkzNGZlNGJj/MGRmNmVhNTAyOWRm/ZmQxYWM3Mi93d3cu/c3BhY2UuY29tLw",
+        "path": "› entertainment  › space-movies-shows  › as-terminator-2-judgment-day-turns-35-its-time-to-accept-the-truth-terminator-shouldnt-be-back"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/DGZCCILQkWEAmqP-RuDrl-1VfggaOR0lzRFP0ChGIs8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9jZG4u/bW9zLmNtcy5mdXR1/cmVjZG4ubmV0L2Yz/V2szVjV5Qm5xa2Vv/WUM4bzU3cUgtMTYw/MC04MC5qcGc"
+      },
+      "extra_snippets": [
+        "The future has been written, and it's a dark fate for the Terminator franchise."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "7 Best Portable Tech Gadgets That Were Designed for the Job Site and Are Better for It Everywhere Else - Yanko Design",
+      "url": "https://news.google.com/read/CBMi2gFBVV95cUxNN0QxdjR2eVJEb0JiV3BJU2pfc3FKUk5oZkU4Tk5WbGlPOUxRQnlWc1dQZjlOdF9YTU9fdDRNVnloX1N1MktpOS16ZElDS0g2RTdiOTlMSlFFREJ0aDY5SVBic1lYMm1zamdkQUVXQU5CQjZsQnRsS25lLXZMYVZfazJqYnV1VmlNVEU4UmdwcWhCaC1OSG45X0ZVNnJIYWtUd2pDMkhiRWk4NFI1TWh6cTZ1NWRRZWJLSkEweGRvaFpqaGYtazFrbmVJY3VwdGdkMG4wN2JSb3BmZ9IB3wFBVV95cUxQVjNPN19jdThJUVFDWkZsUi10bTRRd3BUb2dUN3BpaHl4cGI1OVU2WFZuSlpKV1JUc1UyMmtEOGdWdFl3ajRmTUl2T29oZG5vWWk3bHdmZGdIOF81dGZQb3pyLURiWk1aSWk4LVAxbmM3SVJWcW1ucUV5NWhfUTV1ZWFJUDVGU1pocjl6MG0wbjNHTVdyZGxVMUQ1Zy1ETzZFX3FuR1Bmai1Mbk01Q1NKeThZOGxhZVhERHdiUVg0RTRSamVqeU9oS0U0by10a0d5WmJCckszcl9NcGxBcnZv?hl=en-US&gl=US&ceid=US%3Aen",
+      "description": "Most wearable safety technology carries its purpose visibly. It bulks up, goes tactical, and ends up being gear you wear only when you genuinely expect to need it. The O-Boy, developed by Brussels-based studio Futurewave, refuses that convention.",
+      "age": "2 days ago",
+      "page_age": "2026-07-01T11:40:38",
+      "profile": {
+        "name": "Google News",
+        "url": "https://news.google.com/read/CBMi2gFBVV95cUxNN0QxdjR2eVJEb0JiV3BJU2pfc3FKUk5oZkU4Tk5WbGlPOUxRQnlWc1dQZjlOdF9YTU9fdDRNVnloX1N1MktpOS16ZElDS0g2RTdiOTlMSlFFREJ0aDY5SVBic1lYMm1zamdkQUVXQU5CQjZsQnRsS25lLXZMYVZfazJqYnV1VmlNVEU4UmdwcWhCaC1OSG45X0ZVNnJIYWtUd2pDMkhiRWk4NFI1TWh6cTZ1NWRRZWJLSkEweGRvaFpqaGYtazFrbmVJY3VwdGdkMG4wN2JSb3BmZ9IB3wFBVV95cUxQVjNPN19jdThJUVFDWkZsUi10bTRRd3BUb2dUN3BpaHl4cGI1OVU2WFZuSlpKV1JUc1UyMmtEOGdWdFl3ajRmTUl2T29oZG5vWWk3bHdmZGdIOF81dGZQb3pyLURiWk1aSWk4LVAxbmM3SVJWcW1ucUV5NWhfUTV1ZWFJUDVGU1pocjl6MG0wbjNHTVdyZGxVMUQ1Zy1ETzZFX3FuR1Bmai1Mbk01Q1NKeThZOGxhZVhERHdiUVg0RTRSamVqeU9oS0U0by10a0d5WmJCckszcl9NcGxBcnZv?hl=en-US&gl=US&ceid=US%3Aen"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "news.google.com",
+        "hostname": "news.google.com",
+        "favicon": "https://imgs.search.brave.com/Y8s0oHCKokK0lXGLQMuNUaMMTAqcCV1qLJyvztcobX8/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMDIxMTRhYjQ3/MzgyZjM0OGQ5NTdi/ZTI2NDAyYzQ1Njc2/OWVlNjIzNjI5NzIx/ZmNhODIxMjk0Njdh/ZTY4MjBmMS9uZXdz/Lmdvb2dsZS5jb20v",
+        "path": "› read  › CBMi2gFBVV95cUxNN0QxdjR2eVJEb0JiV3BJU2pfc3FKUk5oZkU4Tk5WbGlPOUxRQnlWc1dQZjlOdF9YTU9fdDRNVnloX1N1MktpOS16ZElDS0g2RTdiOTlMSlFFREJ0aDY5SVBic1lYMm1zamdkQUVXQU5CQjZsQnRsS25lLXZMYVZfazJqYnV1VmlNVEU4UmdwcWhCaC1OSG45X0ZVNnJIYWtUd2pDMkhiRWk4NFI1TWh6cTZ1NWRRZWJLSkEweGRvaFpqaGYtazFrbmVJY3VwdGdkMG4wN2JSb3BmZ9IB3wFBVV95cUxQVjNPN19jdThJUVFDWkZsUi10bTRRd3BUb2dUN3BpaHl4cGI1OVU2WFZuSlpKV1JUc1UyMmtEOGdWdFl3ajRmTUl2T29oZG5vWWk3bHdmZGdIOF81dGZQb3pyLURiWk1aSWk4LVAxbmM3SVJWcW1ucUV5NWhfUTV1ZWFJUDVGU1pocjl6MG0wbjNHTVdyZGxVMUQ1Zy1ETzZFX3FuR1Bmai1Mbk01Q1NKeThZOGxhZVhERHdiUVg0RTRSamVqeU9oS0U0by10a0d5WmJCckszcl9NcGxBcnZv"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/pE2aSBNFtpp1JwLV17GeLam0xXAmca4JT26dUjtnNa4/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly93d3cu/eWFua29kZXNpZ24u/Y29tL2ltYWdlcy9k/ZXNpZ25fbmV3cy8y/MDI2LzA2L3BvcnRh/YmxlLXRlY2gtZ2Fk/Z2V0cy10aGF0LXdl/cmUtZGVzaWduZWQt/Zm9yLXRoZS1qb2It/c2l0ZS1hbmQtYXJl/LWJldHRlci1mb3It/aXQtZXZlcnl3aGVy/ZS1lbHNlLzdfYmVz/dF9wb3J0YWJsZV90/ZWNoX3lhbmtvX2Rl/c2lnbl9oZXJvLmpw/Zw"
+      },
+      "extra_snippets": [
+        "What Futurewave got right, beyond the technology, is the design brief. The O-Boy does not read as survival gear. It looks like something a person who regularly spends time in remote environments would choose to wear rather than something they reach for when a trip turns serious.",
+        "The practical difference between this and a power station you remember to put in the bag is that the Handsfree 2 charges while you walk. Transit becomes charging time, which is a consequence of starting from job site requirements rather than outdoor recreation ones. Fragmented solar panel technology handles overcast days with reasonable efficiency.",
+        "https://www.youtube.com/watch?t=1&v=gdWt5OhoRe0 Most portable tech exists on a spectrum of compromise. It is either capable but too heavy, light but too fragile, or designed so carefully for the desk that the real world breaks it within a year. The products in this list started from a harder question — what does this need to survive a"
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "ROV Technology Leader Invests In Next-Generation Underwater Robotics Firm",
+      "url": "https://oceannews.com/news/science-technology/rov-technology-leader-invests-in-next-generation-underwater-robotics-firm/",
+      "description": "Imenco Future Technologies, a global leader in remotely operated vehicle (ROV) technology, has announced it has taken a strategic investment stake in Frontier Robotics, a specialist developer of advanced subsea robotics technologies supporting its long-term innovation and growth strategy.",
+      "age": "1 day ago",
+      "page_age": "2026-07-02T15:40:05",
+      "profile": {
+        "name": "Oceannews",
+        "url": "https://oceannews.com/news/science-technology/rov-technology-leader-invests-in-next-generation-underwater-robotics-firm/"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "oceannews.com",
+        "hostname": "oceannews.com",
+        "favicon": "https://imgs.search.brave.com/uFWaY7KXcncNMsqArfxEZPj4HorRC7xQQ0yW0NxbsgM/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNmFjYzQ0OTJk/YzUwMTFiZGQ5Zjcz/MDQxNDkyMjY0ZWY3/MmE5MzVkYmUzMGI5/Yzg1NmYzMjgwNzU2/M2I3OGNlZS9vY2Vh/bm5ld3MuY29tLw",
+        "path": "› news  › science-technology  › rov-technology-leader-invests-in-next-generation-underwater-robotics-firm"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/pRKWmKOAx-0jWlamqcDQfV6lTV9J9MVdDd0cAwi3RG0/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9vY2Vh/bm5ld3MuY29tL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDI2LzA3/L0ltZW5jby1GdXR1/cmUtVGVjaG5vbG9n/aWVzLWFuZC1Gcm9u/dGllci1Sb2JvdGlj/cy5qcGc"
+      },
+      "extra_snippets": [
+        "The investment represents a significant step in Imenco Future Technologies’ ongoing commitment to advancing subsea capabilities, enhancing operational efficiency, and accelerating the development of next-generation solutions for offshore energy, defense, and emerging blue economy sectors.",
+        "The investment represents a significant step in Imenco’s Future Technologies ongoing commitment to advancing subsea capabilities, enhancing operational efficiency and accelerating the development of next-generation solutions for offshore energy, defense, and emerging blue economy sectors.",
+        "Jonatan Scharff Willners, Founder and CEO at Frontier Robotics said: “We are delighted to welcome Imenco Future Technologies as a strategic investor. Their deep domain expertise, global market presence, and commitment to innovation make them an ideal partner as we continue to grow and expand our technology portfolio.",
+        "Frontier Technologies will benefit from Imenco’s global reach, operational experience, and established customer base, providing a strong platform to scale its technologies and bring innovations to market more rapidly."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Advanced Technology Services Names Eric Martin President | citybiz",
+      "url": "https://www.citybiz.co/article/869555/advanced-technology-services-names-eric-martin-president/",
+      "description": "Advanced Technology Services (ATS) has appointed Eric Martin as president, expanding his leadership responsibilities as the industrial maintenance and reliability... Read More",
+      "age": "1 day ago",
+      "page_age": "2026-07-02T18:36:08",
+      "profile": {
+        "name": "Citybiz",
+        "url": "https://www.citybiz.co/article/869555/advanced-technology-services-names-eric-martin-president/"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "citybiz.co",
+        "hostname": "www.citybiz.co",
+        "favicon": "https://imgs.search.brave.com/L7LVnssfDSOmACNmu2sFH3fTM5uOyH7NgGb3RRcR-MU/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMzJiMzM0M2Q1/NWQ5NmFmNGJmYzFk/YzUwNjAzZDY1MzBm/MjQ0ODA4NThkYmQz/Mzg3OGZhZDhiZDNi/ZmNlMTdjYy93d3cu/Y2l0eWJpei5jby8",
+        "path": "› article  › 869555  › advanced-technology-services-names-eric-martin-president"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/vwxSJo1xivhxAFKo1qmQNzFhL5DKS6393JKayS3qx4c/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly93d3cu/Y2l0eWJpei5jby93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyNi8w/Ny9FcmljLU1hcnRp/bi5qcGc"
+      },
+      "extra_snippets": [
+        "Advanced Technology Services (ATS) has appointed Eric Martin as president, expanding his leadership responsibilities as the industrial maintenance and reliability services provider aligns its sales, strategy and operations organizations to support continued growth.",
+        "Martin will oversee ATS’s sales, strategy and operations teams, with responsibility for advancing the company’s technology-driven maintenance and reliability solutions for manufacturers.",
+        "As president, Martin will focus on executing the company’s long-term growth strategy while expanding its portfolio of maintenance, reliability and technology-enabled industrial services.",
+        "Headquartered in Peoria, Illinois, Advanced Technology Services provides industrial maintenance, reliability, technology and parts services to more than 1,400 manufacturing facilities worldwide."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Belgian defense minister says Europe should tap Turkish technology - Türkiye Today",
+      "url": "https://www.turkiyetoday.com/region/belgian-defense-minister-says-europe-should-tap-turkish-technology-3223143",
+      "description": "Belgian Defense Minister Theo Francken calls Türkiye ‘very important ally' that should be included in Europe’s defense programs",
+      "age": "14 hours ago",
+      "page_age": "2026-07-03T09:20:15",
+      "profile": {
+        "name": "Türkiye Today",
+        "url": "https://www.turkiyetoday.com/region/belgian-defense-minister-says-europe-should-tap-turkish-technology-3223143"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "turkiyetoday.com",
+        "hostname": "www.turkiyetoday.com",
+        "favicon": "https://imgs.search.brave.com/INJn7EogOFT_ay9Sxz9NdW8ecvE4-mcXG1fix1MfQ-E/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNDMyNTc4Zjc1/NDYyNjU2NTIxNmM5/ZjgzMGU3MThkNGIz/NDJhOThmOTk2Nzg3/ODcxNzE3NmRlYWE4/MzY4NzUyNS93d3cu/dHVya2l5ZXRvZGF5/LmNvbS8",
+        "path": "› region  › belgian-defense-minister-says-europe-should-tap-turkish-technology-3223143"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/isbtht0WwE-UNmxCknNPGz9HAAQRyTr-F_MFOneLEG8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pbWcu/dHVya2l5ZXRvZGF5/LmNvbS9pbWFnZXMv/MjAyNi83LzMvYmVs/Z2lhbi1kZWZlbnNl/LW1pbmlzdGVyLXNh/eXMtZXVyb3BlLXNo/b3VsZC10YXAtdHVy/a2lzaC10ZWNobm9s/b2d5LTMyMjMxNDNf/MjAyNjA3MDMxMjA3/MDIuanBn"
+      },
+      "extra_snippets": [
+        "Belgian Defense Minister Theo Francken said Türkiye is an important NATO ally and that Europe should make greater use of Turkish technology in defense production, ahead of the July 7-8 NATO meeting in Ankara.",
+        "He stressed the need for cooperation on defense investment, the NATO Force Model, increased production, air defense and new technologies.",
+        "Francken said the alliance’s second priority should be technology, air defense and increased industrial production, while the third should be continued support for Ukraine.",
+        "“We can learn a lot from your technology,” he added."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Tech hiring momentum continues as tech occupations and new job postings increase, CompTIA analysis reveals",
+      "url": "https://prnewswire.com/news-releases/tech-hiring-momentum-continues-as-tech-occupations-and-new-job-postings-increase-comptia-analysis-reveals-302816985.html",
+      "description": "/PRNewswire/ -- Technology occupation employment posted gains in June and new tech job postings increased for the sixth consecutive month, indicating that...",
+      "age": "1 day ago",
+      "page_age": "2026-07-02T14:43:00",
+      "profile": {
+        "name": "PR Newswire",
+        "url": "https://prnewswire.com/news-releases/tech-hiring-momentum-continues-as-tech-occupations-and-new-job-postings-increase-comptia-analysis-reveals-302816985.html"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "prnewswire.com",
+        "hostname": "prnewswire.com",
+        "favicon": "https://imgs.search.brave.com/Cy2gc2T9cd0w-vFEA2i1BYmYtjk9X4-WZcW2MXG3rsM/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvZTlmZGYyZTI2/NWRmYmU3MmZiNWJl/OTllODE0ZThjMWQ0/NWEwMzhiYjhhMmI5/OGY4Yjg0MmIyNDRm/YTgzOTJhMy9wcm5l/d3N3aXJlLmNvbS8",
+        "path": "› news-releases  › tech-hiring-momentum-continues-as-tech-occupations-and-new-job-postings-increase-comptia-analysis-reveals-302816985.html"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/n5Cdh9SgR6rLqgy6NARdoWH8OvjOzXP_zdEzSCKYZas/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9tbWEu/cHJuZXdzd2lyZS5j/b20vbWVkaWEvMjk1/MDUzNy9Db21wVElB/X0xvZ28uanBnP3A9/ZmFjZWJvb2s"
+      },
+      "extra_snippets": [
+        "DOWNERS GROVE, Ill., July 2, 2026 /PRNewswire/ -- Technology occupation employment posted gains in June and new tech job postings increased for the sixth consecutive month, indicating that demand for technology skills remains resilient, analysis by CompTIA, the leading global provider of vendor-neutral IT training and certifications, reveals.",
+        "CompTIA, Inc. is the leading global provider of vendor-neutral training and certification products in the information technology (IT) space. Over four million CompTIA certifications have been awarded to current and aspiring technology workers, business professionals, government and military personnel, career changers, students and others.",
+        "Tech occupation employment, which includes technology professionals working in all industry sectors, increased by 47,000 workers in June, CompTIA's analysis of the U.S.",
+        "\"Employers are ramping up their technology investments and hiring the talent needed to support them.\" Post this"
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "As Chinese Tech Pulls Ahead, U.S. Fears It Will Become Dependent - The New York Times",
+      "url": "https://www.nytimes.com/2026/06/23/business/economy/china-megafactory-us-tech-race.html",
+      "description": "Chinese firms have some of the world’s most advanced technology. But U.S. officials say relying on it could come with a downside.",
+      "age": "2 weeks ago",
+      "page_age": "2026-06-23T09:00:30",
+      "profile": {
+        "name": "NYTimes",
+        "url": "https://www.nytimes.com/2026/06/23/business/economy/china-megafactory-us-tech-race.html"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "nytimes.com",
+        "hostname": "www.nytimes.com",
+        "favicon": "https://imgs.search.brave.com/lWA-zkTMlWM2cUvrcYa1Fls86e-Vl-rkSBOjichQqVs/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMGFlZWRkYmVh/YWFhZmFjYjM4MWYy/NTQzZmExMTIwN2Nm/NGJmZjgwYTRhYjI5/OTliM2JkYmI2MWY0/M2RlOGFlMi93d3cu/bnl0aW1lcy5jb20v",
+        "path": "› 2026  › 06  › 23  › business  › economy  › china-megafactory-us-tech-race.html"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/FqpLPbYE-IEgFor-Yq2Xsm6VjAXW60kwZ5HgJ6sPH40/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMwMS5ueXQuY29t/L2ltYWdlcy8yMDI2/LzA2LzE1L211bHRp/bWVkaWEvMDBkYy1j/aGluYS1iYXR0ZXJ5/LXRlY2gtcHJvbW8t/cXRsdi8wMGRjLWNo/aW5hLWJhdHRlcnkt/dGVjaC1wcm9tby1x/dGx2LWZhY2Vib29r/SnVtYm8uanBn"
+      },
+      "extra_snippets": [
+        "In at least a few sectors, that equation has flipped, with China racing ahead of the United States. From batteries and solar panels to rare earths and life sciences, China is developing some of the world’s most advanced technologies, and it is rapidly deploying plans to corner other markets.",
+        "It has unveiled a battery that, according to the company, can power an electric vehicle for 250 miles with less than 10 minutes of charging — about three times the charging speed of batteries typically found in other electric vehicles. CATL’s battery technology is powering millions of cheap electric vehicles that China is exporting around the world.",
+        "The site, owned by Contemporary Amperex Technology Company Ltd., or CATL, is the world’s largest cluster of battery factories, and the most advanced.",
+        "For decades, American companies maintained a huge technological lead over their Chinese competitors. U.S. firms came to China to manufacture their goods more cheaply."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Whittling Away: The technological advancements of phones | Hudsonvalley360.com | dailygazette.com",
+      "url": "https://dailygazette.com/hv360/hv360/whittling-away-the-technological-advancements-of-phones/article_90317fc7-f5b3-4d89-9573-87388245caa4.html",
+      "description": "They just came out with the newest generation of smartphones. I will not be rushing to my nearest purveyor of such items to stand in line to purchase one. The",
+      "age": "1 day ago",
+      "page_age": "2026-07-02T18:30:00",
+      "profile": {
+        "name": "Daily Gazette",
+        "url": "https://dailygazette.com/hv360/hv360/whittling-away-the-technological-advancements-of-phones/article_90317fc7-f5b3-4d89-9573-87388245caa4.html"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "dailygazette.com",
+        "hostname": "dailygazette.com",
+        "favicon": "https://imgs.search.brave.com/lxwjYZRwxvN_25LghjW9tBH8X4LYq8KxNkQonPCOCZU/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMmQyMzBiNWYz/ZGQ0YTdjM2MzOGFl/MzAzZjZlNzA5YjA5/NTBlNDBmZTk4ZDVi/ZjYzYzU4NTYxZTQx/MDYyMzk4Zi9kYWls/eWdhemV0dGUuY29t/Lw",
+        "path": "› hv360  › hv360  › whittling-away-the-technological-advancements-of-phones  › article_90317fc7-f5b3-4d89-9573-87388245caa4.html"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/Pn4fqcs3d8rzh7ykAvuly9Xkqe4A2m0XkdRCAaVvgNs/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9ibG94/aW1hZ2VzLmNoaWNh/Z28yLnZpcC50b3du/bmV3cy5jb20vZGFp/bHlnYXpldHRlLmNv/bS9jb250ZW50L3Ru/Y21zL2Fzc2V0cy92/My9lZGl0b3JpYWwv/MC8wYS8wMGFmYTdk/OS0yMWUwLTRlNGMt/YTI1ZS1mYmQxOTEz/MTE3MTIvNjY2Y2I2/MjViYzA1YS5pbWFn/ZS5qcGc_Y3JvcD01/MjUlMkM1MjUlMkMw/JTJDMzcmYW1wO3Jl/c2l6ZT0yMDAlMkMy/MDAmYW1wO29yZGVy/PWNyb3AlMkNyZXNp/emU"
+      },
+      "extra_snippets": [
+        "Technology is making such rapid advances that I’m having trouble keeping up with it. I think that might be expected from a person whose favorite hobbies are woodcarving and blacksmithing.",
+        "It is just the fact that, as you age, technology just sort of piles up on you."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "UKtech50 2026: The most influential people in UK technology | Computer Weekly",
+      "url": "https://computerweekly.com/news/366645297/UKtech50-2026-The-most-influential-people-in-UK-technology",
+      "description": "Computer Weekly has announced the 16th annual UKtech50v, our definitive list of the movers and shakers in UK technology – the CIOs, industry executives, public servants and business leaders driving the role of technology in the UK economy.",
+      "age": "1 day ago",
+      "page_age": "2026-07-02T15:00:00",
+      "profile": {
+        "name": "Computer Weekly",
+        "url": "https://computerweekly.com/news/366645297/UKtech50-2026-The-most-influential-people-in-UK-technology"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "computerweekly.com",
+        "hostname": "computerweekly.com",
+        "favicon": "https://imgs.search.brave.com/qEsoVG4r2BcA4exVdWa-9iga-TYJQXkfO_P-dHbDhvs/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMjU4ZDIwZTU0/YTIzMTc0ODUyMzVi/MGFjMDYxZTQyNTgx/NmQwZjZmYzNkODZl/ZDM1YzRiNjIxNDEw/NzczZWZmOC9jb21w/dXRlcndlZWtseS5j/b20v",
+        "path": "› news  › 366645297  › UKtech50-2026-The-most-influential-people-in-UK-technology"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/-3CJ_X5hf50osCb-q8ezNO2A8zQgXV3QQCwYWrMkUKs/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly93d3cu/Y29tcHV0ZXJ3ZWVr/bHkuY29tL3Zpc3Vh/bHMvQ29tcHV0ZXJX/ZWVrbHkvSGVybyBJ/bWFnZXMvSVQtbGVh/ZGVyLVVLdGVjaDUw/LTItMjAxOC1hZG9i/ZS5qcGVn"
+      },
+      "extra_snippets": [
+        "Computer Weekly has announced the 16th annual UKtech50, our definitive list of the movers and shakers in UK technology – the CIOs, industry executives, public servants and business leaders driving the role of technology in the UK economy.",
+        "In a world where artificial intelligence (AI) is becoming an integral part of our lives, Hassabis’s work on using AI for the benefit of society, and his effort to keep technology homegrown on UK soil, made it a unanimous decision among the judges, along with the reader vote.",
+        "Kanishka Narayan was appointed to his role in the Department for Science, Innovation and Technology (DSIT) in September 2025 and is responsible for AI opportunities, the AI Security Institute, government semiconductor strategy, online safety and tech for growth.",
+        "Former Home Office digital chief Rob Thompson joined the Department of Health and Social Care (DHSC) in May 2026. He is responsible for driving digital, data and technology transformation across the department and NHS England."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Tech giant Oracle cuts 21,000 jobs as it embraces AI",
+      "url": "https://www.bbc.com/news/articles/c4gy0x0j5deo",
+      "description": "Oracle was co-founded by Larry Ellison in 1977. He remains its chief technology officer",
+      "age": "2 weeks ago",
+      "page_age": "2026-06-23T01:51:58",
+      "profile": {
+        "name": "BBC",
+        "url": "https://www.bbc.com/news/articles/c4gy0x0j5deo"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "bbc.com",
+        "hostname": "www.bbc.com",
+        "favicon": "https://imgs.search.brave.com/-9uoAONEhH31ac708C2NinDM9OjKbNcruJo3O1baQTM/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYTljMGQ4ZTFj/YzcwNTIyYTU4ZDk4/ZTg5NTQ0NGQyYjQy/NzU3NTMxNDRjZGFi/NjFkMmRiNGE1MGE5/ZDhhOWMyZS93d3cu/YmJjLmNvbS8",
+        "path": "› news  › articles  › c4gy0x0j5deo"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/fc2xY_QPLBIuYZ1Hv_xGqzDU4eWPaHcEOZrcjfh1SEE/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pY2hl/Zi5iYmNpLmNvLnVr/L25ld3MvMTAyNC9i/cmFuZGVkX25ld3Mv/MDExZC9saXZlLzIx/YjJjOTIwLTZlOWEt/MTFmMS1hZTgwLWJm/MTMxNTczODJmYS5q/cGc"
+      },
+      "extra_snippets": [
+        "Oracle shed about 21,000 roles globally in the last year as the US technology giant reshapes its business around artificial intelligence (AI), the firm's latest annual report shows.",
+        "The \"deployment of AI technologies across our operations have resulted, and may continue to result, in reductions to our workforce,\" the report says.",
+        "The company was co-founded by Larry Ellison, one of the richest people in the world, who also serves as Oracle's chief technology officer.",
+        "Google, Amazon and Meta collectively plan to pour some $650bn into the technology this year."
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Release Notes for Safari Technology Preview 247 | WebKit",
+      "url": "https://webkit.org/blog/18133/release-notes-for-safari-technology-preview-247/",
+      "description": "Safari Technology Preview Release 247 is now available for download for macOS Golden Gate and macOS Tahoe.",
+      "age": "2 days ago",
+      "page_age": "2026-07-01T21:28:08",
+      "profile": {
+        "name": "WebKit",
+        "url": "https://webkit.org/blog/18133/release-notes-for-safari-technology-preview-247/"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "webkit.org",
+        "hostname": "webkit.org",
+        "favicon": "https://imgs.search.brave.com/pt-N-aMQkB2bpVlQPFZfmeGBI-m09fc4MpgVFDpONtk/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOWM1YWMwNzEw/ZjgxY2Y1Y2ZkN2Ri/ZGJlODg3ZjdhM2Y3/MTIxMDZhYjEwMTAw/YjQ5YjI3NzAzNmQy/MWViYTIyYS93ZWJr/aXQub3JnLw",
+        "path": "› blog  › 18133  › release-notes-for-safari-technology-preview-247"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/Cyt0c1ZcTG6FEzaoCjICsfeGbWX2Se-WaKHyuIYuF40/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly93ZWJr/aXQub3JnL3dwLWNv/bnRlbnQvdGhlbWVz/L3dlYmtpdC9pbWFn/ZXMvcHJldmlldy1j/YXJkLmpwZw"
+      },
+      "extra_snippets": [
+        "If you already have Safari Technology Preview installed, you can update it in System Settings under General → Software Update.",
+        "PreviouslyRelease Notes for Safari Technology Preview 246Learn more"
+      ]
+    },
+    {
+      "type": "news_result",
+      "title": "Lansforsakringar Fondforvaltning AB publ Acquires 27,169 Shares of Microchip Technology Incorporated $MCHP",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-lansforsakringar-fondforvaltning-ab-publ-acquires-27169-shares-of-microchip-technology-incorporated-mchp-2026-07-03/",
+      "description": "Lansforsakringar Fondforvaltning AB publ grew its holdings in Microchip Technology Incorporated (NASDAQ:MCHP - Free Report) by 53.9% during the first quarter, according to the company in its most recent Form 13F filing with the SEC. The institutional investor owned 77,545 shares of the semiconduct",
+      "age": "14 hours ago",
+      "page_age": "2026-07-03T08:48:55",
+      "profile": {
+        "name": "MarketBeat",
+        "url": "https://www.marketbeat.com/instant-alerts/filing-lansforsakringar-fondforvaltning-ab-publ-acquires-27169-shares-of-microchip-technology-incorporated-mchp-2026-07-03/"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "marketbeat.com",
+        "hostname": "www.marketbeat.com",
+        "favicon": "https://imgs.search.brave.com/3pLfeg_w2jRn0sTccsiS-3G4EHDnNbLDbFuDlc-ni5g/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvZjc1MDA0NTA0/ZDczMTE2MjMwNWVh/ZDU2YzViYTYyNDdh/YjQ2NmZkZjM2YTA3/YTkyMjMzZmZjOWEw/NTdkODI1Yi93d3cu/bWFya2V0YmVhdC5j/b20v",
+        "path": "› instant-alerts  › filing-lansforsakringar-fondforvaltning-ab-publ-acquires-27169-shares-of-microchip-technology-incorporated-mchp-2026-07-03"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/1Wtu2DIbhwEXheQOKXKFakGV2QD5iuyZQPX_0rUWlAc/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly93d3cu/bWFya2V0YmVhdC5j/b20vaW1hZ2VzL21h/cmtldGJlYXQtbG9n/by0xMjAwLTEyMDAu/anBnP3Y9MQ"
+      }
+    },
+    {
+      "type": "news_result",
+      "title": "Vodafone Ireland and Government trial satellite technology to keep emergency services connected - Irish Tech News",
+      "url": "https://irishtechnews.ie/vodafone-ireland-and-government-trial-satellite-technology-to-keep-emergency-services-connected/amp/",
+      "description": "Vodafone Ireland, in partnership with the Office of the Government Chief Information Officer (OGCIO), has successfully tested the integration of satellite",
+      "age": "11 hours ago",
+      "page_age": "2026-07-03T12:00:56",
+      "profile": {
+        "name": "Irish Tech News",
+        "url": "https://irishtechnews.ie/vodafone-ireland-and-government-trial-satellite-technology-to-keep-emergency-services-connected/amp/"
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "irishtechnews.ie",
+        "hostname": "irishtechnews.ie",
+        "favicon": "https://imgs.search.brave.com/FhTd_X0aHQowGN2shuuQ0cKITmwNBLoArSqIXE47jQE/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOWVlNzNkNTQ0/MWFhZWMwZmExZTJh/MDJiODhlZDNlOWQx/OGMzYjdiNWQxMGI1/MzE3YjJiYWE0M2Mw/NDRmOWJjNi9pcmlz/aHRlY2huZXdzLmll/Lw",
+        "path": "› vodafone-ireland-and-government-trial-satellite-technology-to-keep-emergency-services-connected  › amp"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/bQWNrmga2UwdvVWMeH7lOuWKq_OuMHD7eNnJqEE-k9Q/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pcmlz/aHRlY2huZXdzLmll/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDI2/LzA1L1NoZWlsYS1L/YXZhbmFnaC1WRi0u/anBlZw"
+      },
+      "extra_snippets": [
+        "Vodafone Ireland, in partnership with the Office of the Government Chief Information Officer (OGCIO), has successfully tested the integration of satellite technology for emergency and public service organisations.",
+        "Delivered under a Memorandum of Understanding (MoU) with the OGCIO, the technology would keep emergency services running during severe weather events or major outages, when mobile networks can be impacted by disruption to their power supply.",
+        "Clare Island has played a central role in Vodafone Ireland’s satellite testing programme, including Ireland’s first mobile video call via satellite earlier this year. Its unique terrain makes it an ideal real-world environment for testing how satellite-enabled communications technologies can support rural communities and critical national infrastructure.",
+        "The trial showed how satellite connectivity can help maintain communications at all times, supporting access to 999 and 112 emergency services — regardless of mobile provider — as well as blue light organisations such as police, fire and ambulance services. Satellite technology provides an additional layer of connectivity alongside terrestrial networks, helping ensure that the public and emergency responders can stay connected when it matters most."
+      ]
+    }
+  ]
+}

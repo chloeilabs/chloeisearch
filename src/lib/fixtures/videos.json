@@ -1,0 +1,640 @@
+{
+  "type": "videos",
+  "query": {
+    "original": "cooking tutorial",
+    "spellcheck_off": false,
+    "show_strict_warning": false
+  },
+  "results": [
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=zhI7bQyTmHw",
+      "title": "Learn To Cook In Less Than 1 Hour - YouTube",
+      "description": "Everybody should know how to cook. At the very least, learn the basics. It's a fundamental life skill that's fun, delicious, and enjoyable. I've created a ma...",
+      "age": "January 14, 2023",
+      "page_age": "2023-01-14T17:00:38",
+      "video": {
+        "duration": "59:59",
+        "creator": "Nick DiGiovanni",
+        "publisher": "YouTube",
+        "tags": [
+          "Kid’s Cooking"
+        ],
+        "author": {
+          "name": "Nick DiGiovanni",
+          "url": "http://www.youtube.com/@NickDiGiovanni"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/ES-9JZNjBa4mjziIM6LygW-dA1asveS5dsvP1tvNv_k/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS96/aEk3YlF5VG1Idy9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/zhI7bQyTmHw/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=P6W8kwmwcno",
+      "title": "Learn How To Cook in Under 25 Minutes - YouTube",
+      "description": "Let's fast track and make cooking easy. Made In is offering up to 30% off during their Black Friday Sale. Use my link to get the best deals of the year - htt...",
+      "age": "November 17, 2024",
+      "page_age": "2024-11-17T15:30:08",
+      "video": {
+        "duration": "24:12",
+        "creator": "Joshua Weissman",
+        "publisher": "YouTube",
+        "tags": [
+          "cooking basics"
+        ],
+        "author": {
+          "name": "Joshua Weissman",
+          "url": "http://www.youtube.com/@JoshuaWeissman"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/UdRkGCsLf_tKI1kgX5a_1oFhOk1Ktchk0KcydbiqSm8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9Q/Nlc4a3dtd2Nuby9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/P6W8kwmwcno/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=A7XNesFBEaA",
+      "title": "7 Dishes Everyone Should Know How To Make - YouTube",
+      "description": "Made In is offering up to 30% off during their Summer Sale. Use mylink and get some of the best deals of the year -https://madein.cc/0526-andycooksIf you're",
+      "age": "May 14, 2026",
+      "page_age": "2026-05-14T07:00:37",
+      "video": {
+        "duration": "32:22",
+        "creator": "Andy Cooks",
+        "publisher": "YouTube",
+        "tags": [
+          "chicken"
+        ],
+        "author": {
+          "name": "Andy Cooks",
+          "url": "http://www.youtube.com/@andy_cooks"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/gxChUIAoa1V3S0Sv_7nLZ4p44tYCWQiQ8X2HmlGQdh4/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9B/N1hOZXNGQkVhQS9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/A7XNesFBEaA/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=zZR7KRyf_dE",
+      "title": "100 Chef Secrets In 10 Minutes - YouTube",
+      "description": "This is every shortcut, technique, and habit I've picked up from years in professional kitchens, in under 10 minutes. Did I miss any?MY PRODUCTS: https://bit...",
+      "age": "1 week ago",
+      "page_age": "2026-06-25T07:00:11",
+      "video": {
+        "duration": "10:00",
+        "creator": "Andy Cooks",
+        "publisher": "YouTube",
+        "tags": [
+          "recipe"
+        ],
+        "author": {
+          "name": "Andy Cooks",
+          "url": "http://www.youtube.com/@andy_cooks"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/3s6bXp7JZLP9ZSpKSTEZL5Ysg03A-ZbPQagGCEcgDTY/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS96/WlI3S1J5Zl9kRS9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/zZR7KRyf_dE/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=ZJy1ajvMU1k",
+      "title": "How To Master 5 Basic Cooking Skills - Gordon Ramsay - YouTube",
+      "description": "We've compiled five previous videos into one, helping you to master your basic skills in the kitchen. Cooking rice, chopping an onion, sharpening a knife, de...",
+      "age": "March 7, 2016",
+      "page_age": "2016-03-07T00:00:00",
+      "video": {
+        "duration": "07:40",
+        "views": 32523627,
+        "creator": "Gordon Ramsay",
+        "publisher": "YouTube",
+        "tags": [
+          "how to cook"
+        ],
+        "author": {
+          "name": "Gordon Ramsay",
+          "url": "http://www.youtube.com/user/gordonramsay"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/GkkKNRJaPUbGze-R74r_JSOdrNM4GxgCZLYwyNOrnWk/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9a/SnkxYWp2TVUxay9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/ZJy1ajvMU1k/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=YzWNJBr6th4",
+      "title": "12 simple ideas that ACTUALLY improved how I cook. - YouTube",
+      "description": "Thank you Wildgrain for sponsoring this video. Head to http://wildgrain.com/ETHAN and use code \"ETHAN\" at checkout to receive $30 off your first box PLUS fre...",
+      "age": "January 16, 2026",
+      "page_age": "2026-01-16T16:45:02",
+      "video": {
+        "duration": "20:37",
+        "creator": "Ethan Chlebowski",
+        "publisher": "YouTube",
+        "tags": [
+          "Ethan Chlebowski"
+        ],
+        "author": {
+          "name": "Ethan Chlebowski",
+          "url": "http://www.youtube.com/@EthanChlebowski"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/To_RpN8okD--w_eJ4BftGjW74jLWDHG3hVCgEihmdsE/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9Z/eldOSkJyNnRoNC9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/YzWNJBr6th4/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=trI0D-Lzn_U",
+      "title": "20 Super Easy, Simple & Fast Recipes To Cook At Home By Jamie Oliver - YouTube",
+      "description": "20 Super Easy, Simple & Fast Recipes To Cook At Home By Jamie Oliver.These 20 recipes all featured on the Quick & Easy series by Jamie Oliver. Thanks for sub...",
+      "age": "April 22, 2025",
+      "page_age": "2025-04-22T15:01:32",
+      "video": {
+        "duration": "01:53:39",
+        "creator": "Jamie Oliver",
+        "publisher": "YouTube",
+        "requires_subscription": false,
+        "tags": [
+          "jamie oliver"
+        ],
+        "author": {
+          "name": "Jamie Oliver",
+          "url": "http://www.youtube.com/@JamieOliver"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/-fNcG35_DrVKhGhsyPZYL_5urwMv6ioUFv6QK9E9M-w/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS90/ckkwRC1Mem5fVS9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/trI0D-Lzn_U/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=mDeobFEKU78",
+      "title": "Beginner’s Guide to SIMPLE INDIAN HOME COOKING - YouTube",
+      "description": "Everyday Indian Meal - Indian Cooking For Beginners - Simple Masoor Dal Recipe - Cabbage Curry Recipe🔔Please click on the link below and subscribe to Currie...",
+      "age": "1 week ago",
+      "page_age": "2026-06-26T10:02:52",
+      "video": {
+        "duration": "07:51",
+        "creator": "Curries With Bumbi",
+        "publisher": "YouTube",
+        "tags": [
+          "curries with bumbi"
+        ],
+        "author": {
+          "name": "Curries With Bumbi",
+          "url": "http://www.youtube.com/@CurriesWithBumbi"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/pij-Bw8UpXvVfyBAg0WXNuOgdxEy1104a7bOTczHsLs/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9t/RGVvYkZFS1U3OC9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/mDeobFEKU78/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=FTociictyyE",
+      "title": "Gordon Ramsay's Top Basic Cooking Skills | Ultimate Cookery Course FULL EPISODE - YouTube",
+      "description": "Gordon Ramsay demonstrates some basic cooking skills as well as some easy to do recipes. Including pork chops with sweet and sour peppers, pan-fried scallops...",
+      "age": "November 7, 2019",
+      "page_age": "2019-11-07T17:00:05",
+      "video": {
+        "duration": "23:03",
+        "creator": "Gordon Ramsay",
+        "publisher": "YouTube",
+        "tags": [
+          "gordon ramsay ultimate cookery course chicken"
+        ],
+        "author": {
+          "name": "Gordon Ramsay",
+          "url": "http://www.youtube.com/@gordonramsay"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/TWvMyQFQQ4FwlUOMPVR2ObuAo6Nkk1QVV6rEF7u-ZTQ/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9G/VG9jaWljdHl5RS9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/FTociictyyE/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=z1DiIqfO5Qo",
+      "title": "Simple Recipes To Get Into Cooking | Gordon Ramsay - YouTube",
+      "description": "Everyone has to start somewhere with cooking, so here are some recipes to push you to become a better cook.#GordonRamsay #Cooking Pre-order your copy of Rams...",
+      "age": "August 18, 2022",
+      "page_age": "2022-08-18T16:06:52",
+      "video": {
+        "duration": "14:26",
+        "creator": "Gordon Ramsay",
+        "publisher": "YouTube",
+        "requires_subscription": false,
+        "tags": [
+          "gorodn ramsay easy recipes"
+        ],
+        "author": {
+          "name": "Gordon Ramsay",
+          "url": "http://www.youtube.com/@gordonramsay"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/nkKoY4kbUX0TNoOMi8q7tuU6d1uA7a3MJkBy_jBe6oM/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS96/MURpSXFmTzVRby9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/z1DiIqfO5Qo/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=W_8YliFlYmw",
+      "title": "5 Easy Dinners You Can Make Without a Recipe (One-Pot, Sheet Pan & More) | Allrecipes - YouTube",
+      "description": "Want to make dinner without measuring, memorizing recipes, or running back to the store? In this video, we break down five flexible cooking methods that help...",
+      "age": "January 6, 2026",
+      "page_age": "2026-01-06T17:01:03",
+      "video": {
+        "duration": "23:36",
+        "creator": "Allrecipes",
+        "publisher": "YouTube",
+        "tags": [
+          "home cooking tips"
+        ],
+        "author": {
+          "name": "Allrecipes",
+          "url": "http://www.youtube.com/@allrecipes"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/mcy_7G1ffCf4eJ4Jf0l0zGQO89Kq3raaBd_wemty7BM/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9X/XzhZbGlGbFltdy9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/W_8YliFlYmw/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=oCTZJ4YoAb0",
+      "title": "5 Incredibly Tasty & Easy Recipes To Cook At Home - YouTube",
+      "description": "5 Incredibly Tasty & easy Recipes To Cook At HomeJamie Oliver shows you how to cook 5 of these incredible recipes at home! Learn how to prepare and cook: 0:0...",
+      "age": "July 25, 2025",
+      "page_age": "2025-07-25T15:01:28",
+      "video": {
+        "duration": "23:57",
+        "creator": "Jamie Oliver",
+        "publisher": "YouTube",
+        "requires_subscription": false,
+        "tags": [
+          "jamie oliver easy recipes"
+        ],
+        "author": {
+          "name": "Jamie Oliver",
+          "url": "http://www.youtube.com/@JamieOliver"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/SkN6oJkYXpiKjDDM6xnnFlihhouXTGiSllCd2uFAltY/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9v/Q1RaSjRZb0FiMC9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/oCTZJ4YoAb0/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=kgU31uZsatU",
+      "title": "How To Cook 10 Delicious Food Recipes & Ideas By Jamie Oliver - YouTube",
+      "description": "Learn How To Cook 10 Delicious Food Recipes & Ideas By Jamie Oliver0:00 - Meatball Bake5:17 - Beef Stroganoff8:04 - Honeymoon Pasta 10:33 - Chocolate Tart13:...",
+      "age": "May 7, 2025",
+      "page_age": "2025-05-07T15:01:16",
+      "video": {
+        "duration": "54:12",
+        "creator": "Jamie Oliver",
+        "publisher": "YouTube",
+        "requires_subscription": false,
+        "tags": [
+          "how to cook jamie oliver recipes"
+        ],
+        "author": {
+          "name": "Jamie Oliver",
+          "url": "http://www.youtube.com/@JamieOliver"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/-2CBOVT4u8k-6cV_9kDWhXTQ1uqKqaiXX6tyKqpYJ_U/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9r/Z1UzMXVac2F0VS9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/kgU31uZsatU/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=HNetGguh_pw",
+      "title": "How to make cooking videos - tutorial - YouTube",
+      "description": "SUBSCRIBE for more baby food and kid friendly recipes : http://bit.ly/2gth1lK New video every Thursday!! How to create a cooking recipe video Full article on...",
+      "age": "June 14, 2017",
+      "page_age": "2017-06-14T00:00:00",
+      "video": {
+        "duration": "12:34",
+        "views": 546255,
+        "creator": "BuonaPappa",
+        "publisher": "YouTube",
+        "tags": [
+          "cook video"
+        ],
+        "author": {
+          "name": "BuonaPappa",
+          "url": "http://www.youtube.com/user/BuonaPappa"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/4Y8OzeTog0HzOgHNF6PlZckCywd6nx44hBElfpET4fI/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9I/TmV0R2d1aF9wdy9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/HNetGguh_pw/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=FjV-3VQvBEg",
+      "title": "9 Easy Techniques to Instantly Make You a Better Cook - YouTube",
+      "description": "Simple techniques can make a BIG difference in the way you cook. These 9 cooking techniques are no exception. Each one is guaranteed to instantly upgrade you...",
+      "age": "February 29, 2024",
+      "page_age": "2024-02-29T17:00:11",
+      "video": {
+        "duration": "15:38",
+        "creator": "Brian Lagerstrom",
+        "publisher": "YouTube",
+        "requires_subscription": false,
+        "tags": [
+          "be a better cook"
+        ],
+        "author": {
+          "name": "Brian Lagerstrom",
+          "url": "http://www.youtube.com/@BrianLagerstrom"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/caVmeXRQiBexiYL2Ig_3lDxjeIgB6B4HyqtFNmbjHEA/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9G/alYtM1ZRdkJFZy9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/FjV-3VQvBEg/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=zZx4DqEg78w",
+      "title": "The 10 Food Tricks Every Cook Needs to Learn - YouTube",
+      "description": "Here are my 10 mistakes every beginner cooks make when they start their journey in the kitchen. While they may seem simple, these little details will help tr...",
+      "age": "April 18, 2025",
+      "page_age": "2025-04-18T15:01:42",
+      "video": {
+        "duration": "08:35",
+        "creator": "Chef Billy Parisi",
+        "publisher": "YouTube",
+        "tags": [
+          "cooking techniques"
+        ],
+        "author": {
+          "name": "Chef Billy Parisi",
+          "url": "http://www.youtube.com/@ChefBillyParisi"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/0n3PdgWj50QBGucsykOElnj47guWfgI4_s44VfN6Qzg/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS96/Wng0RHFFZzc4dy9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/zZx4DqEg78w/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=RAY22jLhHTs",
+      "title": "Cook Without A Recipe With These 9 Tips - YouTube",
+      "description": "Learning to cook without a recipe is going to push your cooking to the next level. Being able to improvise and work with whatever ingredients you have, under...",
+      "age": "February 26, 2026",
+      "page_age": "2026-02-26T22:00:00",
+      "video": {
+        "duration": "18:18",
+        "creator": "Andy Cooks",
+        "publisher": "YouTube",
+        "tags": [
+          "improve cooking"
+        ],
+        "author": {
+          "name": "Andy Cooks",
+          "url": "http://www.youtube.com/@andy_cooks"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/HFy9s5GUGfhhkb-qlLFjR6cZOHirEtCWhGzyFwklZ0g/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9S/QVkyMmpMaEhUcy9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/RAY22jLhHTs/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=x88IKXLPllU",
+      "title": "12 Recipes & Ideas to Cook This May | Jamie Oliver - YouTube",
+      "description": "If you're stuck for ideas on new recipes to cook for your family and loved one this month why not try one of these! 12 recipes and ideas to cook this May! Ja...",
+      "age": "May 1, 2026",
+      "page_age": "2026-05-01T15:01:38",
+      "video": {
+        "duration": "01:04:36",
+        "creator": "Jamie Oliver",
+        "publisher": "YouTube",
+        "tags": [
+          "jamie oliver ideas"
+        ],
+        "author": {
+          "name": "Jamie Oliver",
+          "url": "http://www.youtube.com/@JamieOliver"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/rUWQadcW80fCgEmUYpTrm3FZQzh0BCHSK9uvBeCiDtY/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS94/ODhJS1hMUGxsVS9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/x88IKXLPllU/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=TTXSSE1CzYs",
+      "title": "How To Prepare For a Stir Fry | Mastering The Wok Lesson 1 - YouTube",
+      "description": "Great wok cooking starts long before the heat is on. In this lesson, Jeremy Pang covers the essential preparation skills that will set you up for success, fr...",
+      "age": "2 days ago",
+      "page_age": "2026-07-01T17:00:06",
+      "video": {
+        "duration": "15:43",
+        "creator": "School of Wok",
+        "publisher": "YouTube",
+        "tags": [
+          "cooking education"
+        ],
+        "author": {
+          "name": "School of Wok",
+          "url": "http://www.youtube.com/@SchoolofWok"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/5gQfuXg_hFNv2e1biTRrSaumNj-s-lVdcyvxK9oTyI8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9U/VFhTU0UxQ3pZcy9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/TTXSSE1CzYs/maxresdefault.jpg"
+      }
+    },
+    {
+      "type": "video_result",
+      "url": "https://www.youtube.com/watch?v=T8CK9aIqy20",
+      "title": "How I would learn to cook if I could start over. - YouTube",
+      "description": "Want to become a more confident and creative home cook? The Cook Well app is now available: https://apps.apple.com/us/app/cook-well-for-home-cooks/id67480924...",
+      "age": "June 25, 2025",
+      "page_age": "2025-06-25T16:58:00",
+      "video": {
+        "duration": "17:23",
+        "creator": "Ethan Chlebowski",
+        "publisher": "YouTube",
+        "tags": [
+          "how to make myo"
+        ],
+        "author": {
+          "name": "Ethan Chlebowski",
+          "url": "http://www.youtube.com/@EthanChlebowski"
+        }
+      },
+      "meta_url": {
+        "scheme": "https",
+        "netloc": "youtube.com",
+        "hostname": "www.youtube.com",
+        "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+        "path": "› watch"
+      },
+      "thumbnail": {
+        "src": "https://imgs.search.brave.com/GEOPrwWtckncPBYhfUjrEF35aI_IgHIcVDb0Jtl2qLY/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9U/OENLOWFJcXkyMC9t/YXhyZXNkZWZhdWx0/LmpwZw",
+        "original": "https://i.ytimg.com/vi/T8CK9aIqy20/maxresdefault.jpg"
+      }
+    }
+  ],
+  "extra": {
+    "might_be_offensive": false
+  }
+}

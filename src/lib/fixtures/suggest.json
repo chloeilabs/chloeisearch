@@ -1,0 +1,12 @@
+{
+  "results": [
+    { "query": "weather today" },
+    { "query": "weather tomorrow" },
+    { "query": "weather radar" },
+    { "query": "weather forecast 10 day" },
+    { "query": "weather san francisco" },
+    { "query": "weather alerts near me" },
+    { "query": "weather satellite live" },
+    { "query": "weather history by date" }
+  ]
+}

@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Google-style palette, light + dark (prefers-color-scheme). */
+:root {
+  color-scheme: light dark;
+  --page: #ffffff; /* page background */
+  --ink: #202124; /* primary text */
+  --rtitle: #1a0dab; /* result title blue */
+  --rvisited: #681da8; /* visited title purple */
+  --rurl: #4d5156; /* snippet / breadcrumb gray */
+  --accent: #1a73e8; /* active tab / interactive blue */
+  --line: #dadce0; /* hairline borders */
+  --muted: #70757a; /* secondary text */
+  --chip: #f1f3f4; /* chips, placeholders, skeletons */
+  --chiphover: #e8eaed;
+  --card: #f8f9fa; /* answer box, buttons, hovers */
+  --footerbg: #f2f2f2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #202124;
+    --ink: #e8eaed;
+    --rtitle: #8ab4f8;
+    --rvisited: #c58af9;
+    --rurl: #bdc1c6;
+    --accent: #8ab4f8;
+    --line: #3c4043;
+    --muted: #9aa0a6;
+    --chip: #303134;
+    --chiphover: #3c4043;
+    --card: #303134;
+    --footerbg: #171717;
+  }
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-ink: var(--ink);
+  --color-rtitle: var(--rtitle);
+  --color-rvisited: var(--rvisited);
+  --color-rurl: var(--rurl);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-chip: var(--chip);
+  --color-chiphover: var(--chiphover);
+  --color-card: var(--card);
+  --color-footerbg: var(--footerbg);
+}
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Keyboard-visible focus like Google's: accent ring, none on the search input
+   (its container already shows a focus-within shadow). */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+input[type="text"]:focus-visible {
+  outline: none;
+}
