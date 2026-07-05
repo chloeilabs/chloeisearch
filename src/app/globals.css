@@ -15,6 +15,9 @@
   --chiphover: #e8eaed;
   --card: #f8f9fa; /* answer box, buttons, hovers */
   --footerbg: #f2f2f2;
+  --alert: #d93025; /* calculator AC, timer done */
+  --up: #137333; /* stock gain */
+  --down: #a50e0e; /* stock loss */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +34,9 @@
     --chiphover: #3c4043;
     --card: #303134;
     --footerbg: #171717;
+    --alert: #f28b82;
+    --up: #81c995;
+    --down: #f28b82;
   }
 }
 
@@ -47,6 +53,9 @@
   --color-chiphover: var(--chiphover);
   --color-card: var(--card);
   --color-footerbg: var(--footerbg);
+  --color-alert: var(--alert);
+  --color-up: var(--up);
+  --color-down: var(--down);
 }
 
 body {

@@ -26,11 +26,13 @@ export default function Filters({ query }: { query: SearchQuery }) {
 
   return (
     <div className="flex flex-wrap items-center gap-2">
+      {/* Transparent bottom border mirrors the tabs' 3px underline so the
+          "Tools" label sits on the same baseline as the tab labels. */}
       <button
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className={`px-3 pb-2.5 pt-1 text-[13px] ${
+        className={`border-b-[3px] border-transparent px-3 pb-2.5 pt-1 text-[13px] ${
           open || hasActive ? 'text-accent' : 'text-muted hover:text-ink'
         }`}
       >

@@ -153,16 +153,20 @@ export default function SearchBox({
     }
   }
 
+  // border-b-transparent: while the dropdown is attached, the box's own
+  // bottom border would double up with the dropdown's inset divider.
   const boxShape = showDropdown
-    ? 'rounded-t-[24px] shadow-lg'
+    ? 'rounded-t-[24px] border-b-transparent shadow-lg'
     : 'rounded-full hover:shadow-md focus-within:shadow-md';
 
   return (
+    // min-w-0 lets the box shrink inside the header row on narrow screens
+    // (the input's intrinsic size would otherwise push the page wider).
     <form
       action="/search"
       method="GET"
       role="search"
-      className={`w-full ${variant === 'home' ? 'max-w-[584px]' : 'max-w-[692px]'}`}
+      className={`w-full min-w-0 ${variant === 'home' ? 'max-w-[584px]' : 'max-w-[692px]'}`}
       onSubmit={(e) => {
         e.preventDefault();
         navigate(value);
@@ -225,8 +229,7 @@ export default function SearchBox({
             </svg>
           </button>
         )}
-        {value && <span aria-hidden className="mx-2 h-6 w-px shrink-0 bg-line" />}
-        <VoiceSearch onResult={navigate} />
+        <VoiceSearch onResult={navigate} withDivider={Boolean(value)} />
       </div>
 
       {showDropdown && (
