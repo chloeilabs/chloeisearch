@@ -151,6 +151,14 @@ function normalizeInfobox(raw: BraveWebResponse): KnowledgePanel | undefined {
                 // Wikipedia duplicates dates as "(1879-03-14)14 March 1879"
                 .replace(/\(\d{4}-\d{2}-\d{2}\)/g, ''),
             )
+              // Brave sometimes leaks truncated wiki-template markup like
+              // `married"}]]}'>` into attribute values; scrub the junk and
+              // the dangling template word stuck to it ("married m. 1903"
+              // → "m. 1903", matching Wikipedia's rendering).
+              .replace(/[a-z]*["'][}\]]{2,}["']?>/gi, ' ')
+              .replace(/\s{2,}/g, ' ')
+              .replace(/\(\s+/g, '(')
+              .trim()
           : '',
     }))
     .filter((a) => a.label && a.value)

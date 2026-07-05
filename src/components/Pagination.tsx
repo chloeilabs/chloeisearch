@@ -73,16 +73,18 @@ export default function Pagination({
   const pages = Array.from({ length: maxPage }, (_, i) => i + 1);
 
   return (
+    // overflow-x-auto: ten letter-columns don't fit narrow screens — the
+    // pager scrolls within itself instead of widening the whole page.
     <nav
       aria-label="Pagination"
-      className="mt-10 flex flex-wrap items-start pb-10 text-sm"
+      className="mt-10 overflow-x-auto pb-10 text-sm"
     >
-      <div className="flex items-start">
-        <span className="flex w-16 justify-end pr-2 pt-6">
+      <div className="flex w-max items-start">
+        <span className="flex w-24 justify-end pr-2 pt-6">
           {current > 1 && (
             <Link
               href={buildSearchUrl(query, { page: current - 1 })}
-              className="text-rtitle hover:underline"
+              className="whitespace-nowrap text-rtitle hover:underline"
             >
               ‹ Previous
             </Link>
@@ -106,11 +108,11 @@ export default function Pagination({
             { char: 'h', color: RED },
           ]}
         />
-        <span className="flex w-16 pl-2 pt-6">
+        <span className="flex w-24 pl-2 pt-6">
           {hasMore && current < MAX_PAGE && (
             <Link
               href={buildSearchUrl(query, { page: current + 1 })}
-              className="text-rtitle hover:underline"
+              className="whitespace-nowrap text-rtitle hover:underline"
             >
               Next ›
             </Link>

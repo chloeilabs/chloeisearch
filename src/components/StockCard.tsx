@@ -1,11 +1,6 @@
 import { braveStock } from '../lib/brave';
 import type { StockData } from '../lib/types';
 
-const UP = '#137333';
-const DOWN = '#a50e0e';
-const UP_DARK = '#81c995';
-const DOWN_DARK = '#f28b82';
-
 function formatMoney(n: number): string {
   return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
@@ -30,15 +25,15 @@ function Sparkline({ points, up }: { points: number[]; up: boolean }) {
   );
   const path = coords.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
   const fill = `${path} L${W},${H} L0,${H} Z`;
+  // Theme classes (not attributes) so the colors flip in dark mode.
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 h-[90px] w-full" aria-hidden>
-      <path d={fill} fill={up ? UP : DOWN} opacity="0.08" />
+      <path d={fill} className={up ? 'fill-up' : 'fill-down'} opacity="0.08" />
       <path
         d={path}
         fill="none"
-        stroke={up ? UP : DOWN}
         strokeWidth="1.75"
-        className={up ? 'dark-stroke-up' : 'dark-stroke-down'}
+        className={up ? 'stroke-up' : 'stroke-down'}
       />
     </svg>
   );
@@ -68,11 +63,7 @@ export default async function StockCard({ callbackKey }: { callbackKey: string }
       <div className="mt-1 flex flex-wrap items-baseline gap-x-3">
         <span className="text-4xl text-ink">{formatMoney(s.price)}</span>
         <span className="text-sm text-muted">{s.currency}</span>
-        <span
-          className="text-sm font-medium"
-          style={{ color: up ? UP : DOWN }}
-          data-dark-color={up ? UP_DARK : DOWN_DARK}
-        >
+        <span className={`text-sm font-medium ${up ? 'text-up' : 'text-down'}`}>
           {sign}
           {formatMoney(s.change)} ({sign}
           {s.changePercent.toFixed(2)}%) today

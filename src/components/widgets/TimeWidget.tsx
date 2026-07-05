@@ -89,11 +89,11 @@ export default function TimeWidget({ mode, seconds }: { mode: 'timer' | 'stopwat
     <section className="mb-6 max-w-[652px] rounded-xl border border-line p-6 text-center">
       <h2 className="mb-4 text-sm font-medium text-muted">{title}</h2>
       <div
-        className={`font-mono text-6xl tabular-nums ${done ? 'text-[#d93025]' : 'text-ink'}`}
+        className={`font-mono text-6xl tabular-nums ${done ? 'text-alert' : 'text-ink'}`}
       >
         {fmt(value, mode === 'stopwatch')}
       </div>
-      {done && <div className="mt-2 text-sm text-[#d93025]">Time&apos;s up!</div>}
+      {done && <div className="mt-2 text-sm text-alert">Time&apos;s up!</div>}
       <div className="mt-5 flex justify-center gap-3">
         {!running ? (
           <button

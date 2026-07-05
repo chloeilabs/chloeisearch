@@ -151,7 +151,7 @@ export default function Calculator({ seed }: { seed: string }) {
       (key.cls === 'equals' ? ' col-span-4' : '');
     const tone =
       key.cls === 'equals' ? 'bg-accent text-page hover:opacity-90'
-      : key.cls === 'clear' ? 'bg-chip text-[#d93025] hover:bg-chiphover font-medium'
+      : key.cls === 'clear' ? 'bg-chip text-alert hover:bg-chiphover font-medium'
       : key.cls === 'op' || key.cls === 'mode' ? 'bg-chip text-ink hover:bg-chiphover'
       : /[0-9.]/.test(key.label) ? 'bg-page text-ink hover:bg-chip border border-line'
       : 'bg-chip text-ink hover:bg-chiphover';
