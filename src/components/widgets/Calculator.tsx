@@ -57,7 +57,9 @@ export default function Calculator({ seed }: { seed: string }) {
   const [expr, setExpr] = useState(seed);
   const [deg, setDeg] = useState(false);
   const [inv, setInv] = useState(false);
-  const [justEvaluated, setJustEvaluated] = useState(false);
+  // A query-seeded expression ("2+2") arrives already answered, like Google:
+  // typing a digit starts a fresh calculation; an operator continues it.
+  const [justEvaluated, setJustEvaluated] = useState(Boolean(seed));
   const ansRef = useRef<number | null>(null);
 
   const preview = useMemo(() => {
@@ -69,13 +71,19 @@ export default function Calculator({ seed }: { seed: string }) {
   const append = useCallback(
     (text: string) => {
       setExpr((prev) => {
-        // Typing a digit right after "=" starts fresh; an operator continues.
-        if (justEvaluated && /[0-9.]/.test(text)) return text;
+        if (justEvaluated) {
+          // Right after an answer: a digit starts fresh, an operator
+          // continues from the evaluated result (like Google), not from
+          // the raw expression text.
+          if (/[0-9.]/.test(text)) return text;
+          const v = evaluate(prev, { deg });
+          if (v !== null) return formatResult(v).replace(/,/g, '') + text;
+        }
         return prev + text;
       });
       setJustEvaluated(false);
     },
-    [justEvaluated],
+    [justEvaluated, deg],
   );
 
   const doEquals = useCallback(() => {
@@ -101,6 +109,7 @@ export default function Calculator({ seed }: { seed: string }) {
           return;
         case '⌫':
           setExpr((p) => p.slice(0, -1));
+          setJustEvaluated(false);
           return;
         case '=':
           doEquals();
